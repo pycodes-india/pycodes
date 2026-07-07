@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- === SEO META TAGS === -->
+    <title>PyCodes Tools Hub | Free Online Utility & Developer Tools</title>
+    <meta name="description" content="Explore PyCodes.in free online tools. Use our Age Calculator, Resume Maker, YT Thumbnail Downloader, Image Converter, Online Compilers, and more.">
+    <meta name="keywords" content="PyCodes tools, online calculator, resume maker, image converter, online compiler, utility tools, free developer tools, free online tools, pycodes tools, developer tools online, all in one utility tools, free web utilities, pycodes in, age calculator online, exact age calculator, months and days calculator, date of birth calculator, youtube thumbnail downloader, hd thumbnail downloader, download yt thumbnails, video thumbnail grabber, free resume maker, ats friendly resume builder, cv maker online, professional resume generator, passport photo maker, online passport photo cropper, passport photo dimensions, software GUI tools, free software download website, high resolution photo downloader, premium image downloader, royalty free images downloader, music downloader free, high quality mp3 downloader, online audio downloader, simple interest calculator, compound interest calculator online, financial calculator online, online python compiler, javascript compiler online, c++ online compiler, run code in browser, browser based ide, trending hashtag generator, social media tag generator, instagram hashtag creator, image converter online, merge signatures online, image extension converter, jpeg to png converter, ai image enhancer, upscale image resolution, photo noise cleaner online, image clearer, qr code generator, dynamic qr code creator, free qr scanner, online typing software, typing speed tracker, wpm calculator online, fast typing test, online mock test, mca entrance mock test, up police exam mock test, police exam preparation online, english to hindi translator, seamless language translator, online dictionary, tech news blog, latest tech trends, developer news, daily utilities online, student tools online, free online tools for developers, best online utility website 2026">
+    <meta name="author" content="PyCodes.in">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical Tag (Tells Google this is the original page) -->
+    <link rel="canonical" href="https://www.pycodes.in/tools.html">
+
+    <!-- Open Graph Tags (For Social Media Sharing - WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:title" content="PyCodes Tools Hub | Free Online Utility Tools">
+    <meta property="og:description" content="Access free online tools including Age Calculator, Resume Maker, and Image Converters at PyCodes.in.">
+    <meta property="og:url" content="https://www.pycodes.in/tools.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.pycodes.in/assets/tools-banner.jpg"> <!-- Add your banner image URL here -->
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PyCodes Tools Hub">
+    <meta name="twitter:description" content="Access free online utility and developer tools at PyCodes.in.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="icon" type="image/png" href="favicon.png">
+    <!-- === SCHEMA MARKUP (JSON-LD for Google Rich Results) === -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "PyCodes Tools Hub",
+      "url": "https://www.pycodes.in/tools.html",
+      "description": "Collection of free online utility and developer tools provided by PyCodes.in",
+      "publisher": {
+        "@type": "Organization",
+        "name": "PyCodes",
+        "url": "https://www.pycodes.in"
+      }
+    }
+    </script>
+
+    <style>
+        /* === CSS VARIABLES & RESET === */
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --gradient: linear-gradient(135deg, #2563eb, #3b82f6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* === HEADER === */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: var(--primary); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        /* === HERO SECTION (Important for SEO H1 tag) === */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: var(--gradient);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        /* === SEARCH BAR === */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px 15px 45px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* === TOOLS GRID === */
+        .tools-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 50px 5%;
+            max-width: 1300px;
+            margin: 0 auto;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* === TOOL CARDS === */
+        .card {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .card-icon {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-icon-bg {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            opacity: 0.05;
+            z-index: -1;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: transparent;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.15);
+        }
+
+        .card:hover .card-icon-bg {
+            transform: scale(3.5);
+            opacity: 0.1;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+     /* === FOOTER === */
+footer {
+    background: #111827;
+    color: #9ca3af;
+    padding: 20px 5%;
+    margin-top: auto;
+    font-size: 0.9rem;
+    border-top: 1px solid #1f2937;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Keeps copyright left, links right */
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Wraps items cleanly if screen is too small */
+    gap: 15px;
+}
+
+.footer-content p {
+    margin: 0;
+}
+
+/* Base Footer Link Style */
+footer a { 
+    color: #60a5fa; 
+    text-decoration: none; 
+    transition: color 0.3s ease;
+}
+
+footer a:hover { 
+    color: #93c5fd;
+    text-decoration: underline; 
+}
+
+/* Footer Navbar Links */
+.footer-nav {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.footer-nav a {
+    color: #d1d5db; /* Lighter text for nav links */
+    font-weight: 500;
+}
+
+.footer-nav a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* === RESPONSIVE FOOTER FOR MOBILE === */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stacks items vertically on mobile */
+        text-align: center;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .footer-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .hero { padding: 40px 15px; }
+            .hero h1 { font-size: 2rem; }
+            .tools-container { gap: 15px; padding: 30px 5%; }
+            header { padding: 15px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="https://www.pycodes.in" class="logo" aria-label="PyCodes Home">
+            <i class="fa-solid fa-code"></i> PyCodes
+        </a>
+    </header>
+
+    <!-- SEO Optimized Hero Section -->
+    <section class="hero">
+        <h1>Free Online Developer & Utility Tools</h1>
+        <p>Boost your productivity with our collection of fast, free, and secure online tools. Search below to get started.</p>
+        
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" aria-label="Search tools" placeholder="Search for tools">
+        </div>
+    </section>
+
+    <!-- Main Tools Grid -->
+    <main class="tools-container" id="toolsGrid">
+        <!-- Cards loaded dynamically via JavaScript -->
+    </main>
+
+    <!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2026 <a href="https://www.pycodes.in">PyCodes.in</a>. All Rights Reserved.</p>
+        <nav class="footer-nav">
+            <a href="https://www.pycodes.in">Home</a>
+            <a href="https://www.pycodes.in/tutorials">Tutorials</a>
+            <a href="https://www.pycodes.in/blogs">Blogs</a>
+            <a href="https://www.pycodes.in/#contact">Contact</a>
+        </nav>
+    </div>
+</footer>
+
+    <script>
+        const toolsData = [
+            { name: "Age Calculator", desc: "Calculate exact age, months, and days.", icon: "fa-solid fa-cake-candles", color: "#FF5722" },
+            { name: "YT Thumbnail", desc: "Download high-res video thumbnails.", icon: "fa-brands fa-youtube", color: "#FF0000" },
+            { name: "Resume CV Maker", desc: "Build standard & modern ATS-friendly CVs.", icon: "fa-solid fa-file-invoice", color: "#10b981" },
+            { name: "Passport Photo", desc: "Crop and adjust dimensions for official use.", icon: "fa-solid fa-id-badge", color: "#0ea5e9" },
+            { name: "Software Website", desc: "Explore custom GUI tools & setups.", icon: "fa-solid fa-laptop-code", color: "#8b5cf6" },
+            { name: "Photos Downloader", desc: "Download premium high-contrast images.", icon: "fa-solid fa-images", color: "#ec4899" },
+            { name: "Music Downloader", desc: "Search & grab high-quality MP3 audio.", icon: "fa-solid fa-music", color: "#d946ef" },
+            { name: "Interest Calculator", desc: "Instant simple & compound interest analysis.", icon: "fa-solid fa-percent", color: "#14b8a6" },
+            { name: "Online Compilers", desc: "Run Python, JS, C++ programs in-browser.", icon: "fa-solid fa-code", color: "#3b82f6" },
+            { name: "Hashtag Generator", desc: "Generate trending tags for social growth.", icon: "fa-solid fa-hashtag", color: "#06b6d4" },
+            { name: "Image Converter", desc: "Convert extensions & merge signatures.", icon: "fa-solid fa-object-group", color: "#f59e0b" },
+            { name: "Image Enhancer", desc: "Upscale resolution and clean noise.", icon: "fa-solid fa-wand-magic-sparkles", color: "#84cc16" },
+            { name: "QR Generator", desc: "Create and scan dynamic QR codes.", icon: "fa-solid fa-qrcode", color: "#64748b" },
+            { name: "Typing Software", desc: "Track and speed up typing WPM accurately.", icon: "fa-solid fa-keyboard", color: "#a8a29e" },
+            { name: "Mock Test Online", desc: "Simulated papers for MCA & Police exams.", icon: "fa-solid fa-clipboard-check", color: "#ef4444" },
+            { name: "Translator", desc: "Seamless Eng-Hindi language conversion.", icon: "fa-solid fa-language", color: "#0ea5e9" },
+            { name: "News Blog", desc: "Stay updated with tech and current trends.", icon: "fa-solid fa-newspaper", color: "#eab308" }
+        ];
+
+        const toolsGrid = document.getElementById('toolsGrid');
+
+        function initTools() {
+            toolsData.forEach(tool => {
+                // Generate SEO-friendly URLs (e.g., "Age Calculator" -> "age-calculator.html")
+                const toolSlug = tool.name.toLowerCase().replace(/ /g, '-');
+                const toolURL = `https://www.pycodes.in/${toolSlug}.html`; // Update this path as per your folder structure
+
+                const card = document.createElement('a');
+                card.href = toolURL;
+                card.className = 'card';
+                card.setAttribute('data-name', tool.name.toLowerCase());
+                card.setAttribute('title', `Go to ${tool.name}`); // Accessibility & SEO tooltip
+
+                // Hover Effects via JS
+                card.addEventListener('mouseenter', () => {
+                    card.style.boxShadow = `0 15px 30px ${tool.color}33`; 
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = '';
+                });
+
+                // NOTE: Using <h2> instead of <h3> for better SEO document structure
+                card.innerHTML = `
+                    <div class="card-icon-bg" style="background-color: ${tool.color};"></div>
+                    <i class="${tool.icon} card-icon" style="color: ${tool.color};"></i>
+                    <h2>${tool.name}</h2>
+                    <p>${tool.desc}</p>
+                `;
+                toolsGrid.appendChild(card);
+            });
+        }
+
+        initTools();
+
+        // Search Filter
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const query = searchInput.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-name');
+                if (title.includes(query)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- === SEO & Meta Tags Optimization === -->
-    <title>PyCodes.in - Best Online C, C++, Java & Python Compiler</title>
-    <meta name="description" content="PyCodes.in provides a lightning-fast online C compiler, online Java compiler, and Python compiler. Practice C programming, Java, and execute code instantly with our next-gen online C++ compiler.">
+    <title>PyCodes.in - Online C, C++, Java & Python Compiler</title>
+    <meta name="description" content="Fast online C compiler, online Java compiler, and Python compiler. Practice C programming, Java, and execute code instantly with our next-gen online C++ compiler.">
     <meta name="keywords" content="online c compiler, online java compiler, python compiler, c compiler, python, java, c programming, java compiler, c++ online compiler, online c++ compiler">
     <meta name="author" content="JeeSoft">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.pycodes.in/">
-    
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <!-- === Open Graph (For Social Media Sharing) === -->
     <meta property="og:title" content="PyCodes.in - Best Online C, C++, Java & Python Compiler">
     <meta property="og:description" content="Practice C programming, Java, and execute Python code instantly without server latency using our advanced online compilers.">
@@ -53,6 +54,15 @@
         html { scroll-behavior: smooth; overflow-x: hidden; }
         body { background-color: var(--bg-main); color: var(--text-dark); line-height: 1.6; }
 
+        a:link {
+  color: white;
+  text-decoration: none;
+}
+
+/* Styles the link after it has been clicked (previously purple) */
+a:visited {
+  color: white;
+}
         /* === Top Notification Bar === */
         .top-bar {
             background: linear-gradient(90deg, var(--primary), var(--secondary));
@@ -240,10 +250,6 @@
 </head>
 <body>
 
-    <!-- Top Notification Bar -->
-    <div class="top-bar">
-        <span>NEW</span> Juno Browser Beta is now available for download! Elevate your web experience.
-    </div>
 
     <!-- Modern Navbar -->
     <nav class="navbar">
@@ -260,7 +266,7 @@
             <li><a href="tools.html">Tools</a></li>
         </ul>
         <div class="nav-buttons">
-            <button class="btn btn-primary">Start Coding</button>
+            <button class="btn btn-primary"><a href="tutorials.html">Coding Tutorials</a></button>
         </div>
         <div class="hamburger">
             <i class="fa-solid fa-bars-staggered"></i>

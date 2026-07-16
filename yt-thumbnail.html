@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>YT Thumbnail Downloader | Download HD YouTube Thumbnails Free</title>
+    <meta name="description" content="Free online YouTube thumbnail downloader. Extract and download high-quality (HD, 4K, 1080p, Full HD) thumbnails from any YouTube video, Shorts, or Embed instantly with sidebar monetization areas.">
+    <meta name="keywords" content="youtube thumbnail downloader, grab yt thumbnail, download youtube thumbnail, youtube image extractor, hd thumbnail download, youtube shorts thumbnail">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="PyCodes">
+    <link rel="canonical" href="https://www.pycodes.in/yt-thumbnail.html">
+    <meta name="theme-color" content="#ff0000">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.pycodes.in/yt-thumbnail.html">
+    <meta property="og:title" content="YT Thumbnail Downloader | Download HD Free">
+    <meta property="og:description" content="Extract and download high-quality thumbnails from any YouTube video instantly for free.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1200&h=630&fit=crop">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.pycodes.in/yt-thumbnail.html">
+    <meta property="twitter:title" content="YT Thumbnail Downloader">
+    <meta property="twitter:description" content="Extract and download high-quality thumbnails from any YouTube video instantly for free.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1200&h=630&fit=crop">
+
+   <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22YT Thumbnail Downloader%22,%22short_name%22:%22YT Downloader%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#ffffff%22,%22theme_color%22:%22#ff0000%22}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #ff0000;
+            --primary-hover: #cc0000;
+            --bg-base: #f8f9fa;
+            --bg-surface: rgba(255, 255, 255, 0.75);
+            --bg-card: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #606060;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --blur-val: 16px;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            transition: background-color 0.5s ease, color 0.3s ease;
+            overflow-x: hidden;
+            line-height: 1.6;
+            /* Added Flexbox layout to push footer down naturally */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Ambient Visual Backdrops */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, rgba(255,0,0,0) 70%);
+            top: -200px;
+            left: -200px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            background: var(--bg-surface);
+            backdrop-filter: blur(var(--blur-val));
+            -webkit-backdrop-filter: blur(var(--blur-val));
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header UI & Responsive Mobile Toggles */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-surface);
+            backdrop-filter: blur(var(--blur-val));
+            -webkit-backdrop-filter: blur(var(--blur-val));
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .header-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+        .logo i { color: var(--primary); font-size: 28px; }
+        
+        nav { display: flex; align-items: center; gap: 32px; }
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+        nav a:hover, nav a.active { color: var(--primary); }
+        .nav-actions { display: flex; align-items: center; gap: 16px; }
+        
+        .icon-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        .icon-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .menu-trigger { display: none; }
+
+        /* Mobile Slide Nav Menu */
+        .mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 24px;
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 999;
+            box-shadow: var(--shadow-lg);
+        }
+        .mobile-nav a {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        /* Hero Typography Setup */
+        .hero { padding: 40px 0; text-align: center; }
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 640px;
+            margin: 0 auto 32px auto;
+        }
+
+        /* Unified Split Layout: Flexible Workspace Grid */
+        .layout-with-sidebar {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 32px;
+            align-items: start;
+            margin-top: 32px;
+            text-align: left;
+        }
+        .main-workspace-area { display: flex; flex-direction: column; gap: 24px; min-width: 0;  margin-top: 80px; }
+        .sidebar-ads-column { position: sticky; top: 104px; display: flex; flex-direction: column; gap: 24px; }
+
+        /* Workspace Control Layout */
+        .tool-container { padding: 32px; }
+        .input-group {
+            display: flex;
+            gap: 12px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            padding: 8px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            align-items: center;
+        }
+        .input-group i { color: var(--text-muted); margin-left: 12px; font-size: 18px; }
+        .input-group input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: var(--text-main);
+            font-size: 16px;
+            outline: none;
+        }
+        
+        /* Functional Button Layouts */
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .btn:hover { background: var(--primary-hover); }
+        .btn-secondary { background: var(--border-color); color: var(--text-main); }
+        .btn-secondary:hover { background: rgba(0,0,0,0.12); }
+
+        /* Output Workflow Display Panels */
+        .workspace-grid { display: flex; flex-direction: column; gap: 32px; }
+        .preview-main {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            background: #000;
+            aspect-ratio: 16/9;
+        }
+        .preview-main img { width: 100%; height: 100%; object-fit: cover; }
+        .actions-toolbar { position: absolute; bottom: 16px; right: 16px; display: flex; gap: 8px; }
+        
+        .quality-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .quality-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .quality-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius-sm); }
+        .card-meta { display: flex; justify-content: space-between; align-items: center; }
+        .card-meta h4 { font-weight: 700; font-size: 15px; }
+        .badge { background: rgba(255,0,0,0.1); color: var(--primary); padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+
+        /* History Queue Storage Display Scroller */
+        .history-section { margin-top: 16px; }
+        .history-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .history-scroll { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; }
+        .history-item { flex: 0 0 160px; cursor: pointer; transition: var(--transition); }
+        .history-item:hover { transform: scale(1.03); }
+        .history-item img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius-sm); }
+
+        /* Feature Matrix Layout elements */
+        .content-section { padding: 60px 0; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+        .section-title p { color: var(--text-muted); }
+
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; }
+        .step-card { text-align: center; padding: 32px; }
+        .step-icon {
+            width: 64px; height: 64px; background: var(--primary); color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 20px auto;
+            box-shadow: 0 8px 16px rgba(255,0,0,0.2);
+        }
+
+   
+        .tools-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .matrix-item {
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+            padding: 20px; text-decoration: none; color: var(--text-main); display: flex; align-items: center; gap: 16px; transition: var(--transition);
+        }
+        .matrix-item:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .matrix-item i { width: 40px; height: 40px; background: rgba(255,0,0,0.05); color: var(--primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+
+        /* Accordion FAQ UI */
+        .faq-wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; }
+        .faq-trigger {
+            width: 100%; padding: 20px 24px; background: transparent; border: none; text-align: left;
+            font-size: 16px; font-weight: 700; color: var(--text-main); cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .faq-trigger i { transition: var(--transition); color: var(--primary); }
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0,1,0,1); padding: 0 24px; color: var(--text-muted); }
+        .faq-item.open .faq-content { max-height: 1000px; padding-bottom: 20px; transition: max-height 0.5s ease-in-out; }
+
+        /* Editorial Insights Layout Grid */
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+        .blog-card { background: var(--bg-card); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+        .blog-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+        .blog-info { padding: 24px; }
+        .blog-meta { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; display: block; }
+        .blog-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+
+        /* Testimonials Hub Grid Layout Panels */
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .review-card { background: var(--bg-card); padding: 32px; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+        .stars { color: #ffb703; margin-bottom: 16px; }
+        .reviewer { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+        .reviewer img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+        .reviewer h4 { font-size: 15px; font-weight: 700; }
+
+        /* Context Subscriber Interface Layout */
+        .newsletter-panel { text-align: center; padding: 60px 40px; max-width: 840px; margin: 0 auto; }
+        .newsletter-panel h2 { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
+        .subscribe-form { display: flex; gap: 12px; max-width: 480px; margin: 24px auto 0 auto; }
+        .subscribe-form input { flex: 1; padding: 14px 20px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); outline: none; }
+
+        /* === FOOTER === */
+        footer {
+            /* REMOVED: position: absolute; and bottom: 0; */
+            width: 100%;
+            background: white;
+            color: #222;
+            padding: 20px 5%;
+            margin-top: auto; /* This works because body is flex col */
+            font-size: 0.9rem;
+            border-top: 1px solid #999;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-content p {
+            margin: 0;
+        }
+
+        /* Base Footer Link Style */
+        footer a { 
+            color: red; 
+            text-decoration: none; 
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover { 
+            color: darkred;
+            text-decoration: underline; 
+        }
+
+        /* Footer Navbar Links */
+        .footer-nav {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .footer-nav a {
+            color: #222;
+            font-weight: 500;
+        }
+
+        .footer-nav a:hover {
+            color: red;
+            text-decoration: none;
+        }
+
+        .btt-btn {
+            position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; border-radius: 50%;
+            background: var(--primary); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-md); opacity: 0; transform: translateY(20px); transition: var(--transition); z-index: 999;
+        }
+        .btt-btn.visible { opacity: 1; transform: translateY(0); }
+
+        .toast-container { position: fixed; bottom: 32px; left: 32px; z-index: 2000; display: flex; flex-direction: column; gap: 12px; }
+        .toast { background: #111827; color: white; padding: 14px 24px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 14px; }
+
+        .spinner { width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 0.8s linear infinite; display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ==========================================
+           CRITICAL ADVANCED RESPONSIVE MEDIA QUERIES
+           ========================================== */
+        @media (max-width: 1200px) {
+            .hero h1 { font-size: 48px; }
+            .ad-728 { max-width: 100%; height: auto; min-height: 90px; }
+        }
+
+        @media (max-width: 1024px) {
+            .layout-with-sidebar { grid-template-columns: 1fr; gap: 40px; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+        }
+
+        @media (max-width: 768px) {
+            nav, .nav-actions .icon-btn:not(.menu-trigger) { display: none; }
+            .menu-trigger { display: flex; }
+            
+            .hero { padding: 24px 0; }
+            .hero h1 { font-size: 34px; letter-spacing: -0.5px; }
+            .hero p { font-size: 16px; margin-bottom: 24px; }
+            .tool-container { padding: 20px; border-radius: var(--radius-md); }
+            
+            .input-group { flex-direction: column; padding: 12px; gap: 12px; align-items: stretch; }
+            .input-group i { display: none; }
+            .input-group input { padding: 12px 4px; text-align: center; border-bottom: 1px solid var(--border-color); }
+            .btn { width: 100%; padding: 16px; }
+
+            .quality-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; gap: 16px; }
+            .features-grid { grid-template-columns: 1fr; gap: 16px; }
+            .blog-grid { grid-template-columns: 1fr; gap: 20px; }
+            .review-grid { grid-template-columns: 1fr; gap: 16px; }
+            
+            .subscribe-form { flex-direction: column; width: 100%; }
+
+            /* Added Responsive rules for the footer on Mobile */
+            .footer-content {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                gap: 20px;
+            }
+            .footer-nav {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .hero h1 { font-size: 28px; }
+            .actions-toolbar { bottom: 8px; right: 8px; gap: 4px; }
+            .actions-toolbar .icon-btn { width: 38px; height: 38px; font-size: 14px; }
+            .toast-container { left: 16px; right: 16px; bottom: 16px; }
+            .toast { width: 100%; justify-content: center; }
+            
+            .logo span { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <header>
+        <div class="container header-wrap">
+            <a href="https://www.pycodes.in" class="logo" aria-label="YT Thumbnail Downloader Access Point">
+                <i class="fa-brands fa-youtube"></i>
+                <span>YT Thumbnail Downloader</span>
+            </a>
+           
+            <div class="nav-actions">
+                <button class="icon-btn menu-trigger" id="menu-toggle" aria-label="Toggle Mobile Dynamic Canvas Modal View Drawer Options">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobile-menu" aria-label="Mobile Navigation Drawer Links Menu Stack">
+        <a href="https://www.pycodes.in">Home</a>
+        <a href="https://www.pycodes.in/tutorials">Tutorials</a>
+        <a href="https://www.pycodes.in/blogs">Blogs</a>
+        
+    </div>
+
+    <section class="hero container">
+        <h1>Download YouTube Thumbnails<br>In Highest HD Quality</h1>
+    
+            <div class="main-workspace-area">
+                <main class="glass-panel tool-container">
+                    <div class="input-group">
+                        <i class="fa-solid fa-link"></i>
+                        <input type="text" id="video-url" placeholder="Paste YouTube link here" aria-label="YouTube Destination Connection Parameter Path Data String Input Field">
+                        <button class="btn btn-secondary" id="paste-btn" type="button" aria-label="Read session clipboard content logs directly down to dynamic processing input elements"><i class="fa-solid fa-paste"></i> Paste</button>
+                        <button class="btn" id="grab-btn" type="button" aria-label="Execute background client matrix parser algorithms structure extraction routines">
+                            <span class="spinner" id="btn-spinner"></span>
+                            <span id="btn-text">Extract</span>
+                        </button>
+                    </div>
+
+                    <div class="workspace-grid" id="workspace" style="display: none; margin-top: 32px;">
+                        <div class="preview-main">
+                            <img id="main-preview-img" src="" alt="Peak Resolution Digital Graphic Vector Master Template Display Stream Canvas Preview Matrix Image Asset Component Container Node">
+                            <div class="actions-toolbar">
+                                <button class="icon-btn" id="favorite-btn" aria-label="Toggle Current Active Content Unique Tracking Variables Storage Configuration Arrays Cache Hook Settings State Pointer Instance"><i class="fa-regular fa-heart"></i></button>
+                                <button class="icon-btn" id="share-btn" aria-label="Copy Base Shared Link Address Variables Matrix Path Node Location Vector Direct Route Information Details Form Strings Clipboard System Link"><i class="fa-solid fa-share-nodes"></i></button>
+                                <button class="icon-btn" id="copy-id-btn" aria-label="Copy Current Target Parsed Video Identifier Token Key Stream Value Direct Core Parameter String Target Fields Data"><i class="fa-solid fa-fingerprint"></i></button>
+                            </div>
+                        </div>
+
+                
+                        <div class="quality-grid" id="quality-cards-container">
+                            </div>
+
+                        <div class="history-section">
+                            <div class="history-title">
+                                <h4 style="font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Recent Extractions Cache History</h4>
+                                <button class="btn btn-secondary" id="clear-cache-btn" style="padding: 8px 14px; font-size: 12px; font-weight: 700; border-radius: var(--radius-sm);"><i class="fa-solid fa-trash-can"></i> Clear History</button>
+                            </div>
+                            <div class="history-scroll" id="history-container">
+                                </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+    </section>
+
+    <!-- SEO Optimized FAQ Section -->
+    <section id="faq" class="container content-section">
+        <div class="section-title">
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <p>Everything you need to know about downloading high-quality YouTube thumbnails.</p>
+        </div>
+        
+        <div class="faq-wrap">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    What is YT Thumbnail Downloader? 
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-content">
+                    <p>YT Thumbnail Downloader is a free online tool that allows you to easily extract and download high-quality (HD, 1080p, 4K) thumbnails from any YouTube video, Shorts, or Embed link instantly without any software installation.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    How do I download a thumbnail from a YouTube Short?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-content">
+                    <p>It is incredibly simple! Just copy the share link of the YouTube Short, paste it into the URL box at the top of this page, and click "Extract." Our system will instantly grab the highest resolution image available for you to save directly to your device.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    Is it legal to download and use YouTube thumbnails?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-content">
+                    <p>Downloading thumbnails for personal inspiration, design reference, fair use, or educational purposes is generally fine. However, video thumbnails are copyrighted by their respective creators. If you plan to use them for commercial purposes on your own channel or website, you should seek permission from the original video owner.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    Do I need to pay to download thumbnails in 4K/HD?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-content">
+                    <p>No, our YT Thumbnail Grabber is 100% free to use. There are no hidden charges, no premium subscriptions, and no daily limits on how many thumbnails you can extract and download in their maximum resolution.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 5 -->
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    Will this tool reduce the image quality?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-content">
+                    <p>Not at all. We fetch the image files directly from YouTube's official servers. You will get the exact same Ultra High Definition (UHD) or Standard Definition image that the creator originally uploaded.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+   <footer>
+    <div class="footer-content">
+        <p>&copy; 2026 <a href="https://www.pycodes.in">PyCodes.in</a>. All Rights Reserved.</p>
+        <nav class="footer-nav">
+            <a href="https://www.pycodes.in">Home</a>
+            <a href="https://www.pycodes.in/tutorials">Tutorials</a>
+            <a href="https://www.pycodes.in/blogs">Blogs</a>
+        </nav>
+    </div>
+</footer>
+
+    <button class="btt-btn" id="btt-action" aria-label="Reset window scrolling axis position layout coordinate indexes back to zero baseline origin parameters fields layout structures framework top code context layer"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <div class="toast-container" id="toast-reservoir"></div>
+
+    <script>
+        const AppState = {
+            history: JSON.parse(localStorage.getItem('history_cache')) || [],
+            favorites: JSON.parse(localStorage.getItem('fav_cache')) || []
+        };
+
+        const dom = {
+            menuToggle: document.getElementById('menu-toggle'),
+            mobileMenu: document.getElementById('mobile-menu'),
+            videoUrl: document.getElementById('video-url'),
+            pasteBtn: document.getElementById('paste-btn'),
+            grabBtn: document.getElementById('grab-btn'),
+            btnSpinner: document.getElementById('btn-spinner'),
+            btnText: document.getElementById('btn-text'),
+            workspace: document.getElementById('workspace'),
+            mainPreviewImg: document.getElementById('main-preview-img'),
+            cardsContainer: document.getElementById('quality-cards-container'),
+            historyContainer: document.getElementById('history-container'),
+            clearCacheBtn: document.getElementById('clear-cache-btn'),
+            favoriteBtn: document.getElementById('favorite-btn'),
+            shareBtn: document.getElementById('share-btn'),
+            copyIdBtn: document.getElementById('copy-id-btn'),
+            bttAction: document.getElementById('btt-action'),
+            toastReservoir: document.getElementById('toast-reservoir'),
+            faqItems: document.querySelectorAll('.faq-item')
+        };
+
+        dom.menuToggle.addEventListener('click', () => {
+            const isOpen = dom.mobileMenu.style.display === 'flex';
+            dom.mobileMenu.style.display = isOpen ? 'none' : 'flex';
+        });
+
+        // Close mobile dropdown menu when clicking an item link inside it
+        dom.mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => { dom.mobileMenu.style.display = 'none'; });
+        });
+
+        function pushToast(msg, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'}" style="color:${type==='success'?'#10b981':'#ef4444'}"></i> <span>${msg}</span>`;
+            dom.toastReservoir.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3500);
+        }
+
+        function extractIdFromUrl(rawUrl) {
+            const cleanUrl = rawUrl.trim();
+            if(!cleanUrl) return null;
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})/,
+                /^[A-Za-z0-9_-]{11}$/
+            ];
+            for (let rx of patterns) {
+                const match = cleanUrl.match(rx);
+                if (match) return match[1] ? match[1] : match[0];
+            }
+            return null;
+        }
+
+        dom.pasteBtn.addEventListener('click', async () => {
+            try {
+                const txt = await navigator.clipboard.readText();
+                dom.videoUrl.value = txt;
+                pushToast("Clipboard data inserted successfully.");
+                processExtractionPipeline();
+            } catch (err) {
+                pushToast("Unable to read clipboard data automatically.", "error");
+            }
+        });
+
+        async function processExtractionPipeline() {
+            const targetId = extractIdFromUrl(dom.videoUrl.value);
+            if(!targetId) {
+                pushToast("Invalid YouTube URL configuration format detected.", "error");
+                return;
+            }
+
+            dom.btnSpinner.style.display = 'inline-block';
+            dom.btnText.textContent = 'Processing...';
+            dom.grabBtn.disabled = true;
+
+            setTimeout(() => {
+                renderWorkspaceOutputs(targetId);
+                updateHistoryStack(targetId);
+                
+                dom.btnSpinner.style.display = 'none';
+                dom.btnText.textContent = 'Extract';
+                dom.grabBtn.disabled = false;
+                dom.workspace.style.display = 'flex';
+                dom.workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                pushToast("Graphics extracted across available resolution tiers.");
+            }, 600);
+        }
+
+        dom.grabBtn.addEventListener('click', processExtractionPipeline);
+        dom.videoUrl.addEventListener('keydown', (e) => { if(e.key === 'Enter') processExtractionPipeline(); });
+
+        const qualityProfiles = [
+            { key: 'maxresdefault', title: 'Ultra High Definition (UHD)', resolution: '1920 x 1080', badge: '4K/1080p Max' },
+            { key: 'sddefault', title: 'Standard Definition (SD Quality)', resolution: '640 x 480', badge: 'Standard High' },
+            { key: 'hqdefault', title: 'High Quality Definition (HQ Variant)', resolution: '480 x 360', badge: 'Medium Tier' }
+        ];
+
+        function renderWorkspaceOutputs(videoId) {
+            dom.mainPreviewImg.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+            dom.copyIdBtn.onclick = () => copyTextToClipboard(videoId, "Video ID token copied to session clip framework.");
+            dom.shareBtn.onclick = () => copyTextToClipboard(window.location.href, "Platform application link copied to clipboard.");
+            dom.favoriteBtn.onclick = () => toggleFavoriteNode(videoId);
+            evalFavoriteUiState(videoId);
+
+            dom.cardsContainer.innerHTML = '';
+            qualityProfiles.forEach(prof => {
+                const currentAssetUrl = `https://img.youtube.com/vi/${videoId}/${prof.key}.jpg`;
+                const card = document.createElement('div');
+                card.className = 'quality-card';
+                card.innerHTML = `
+                    <img src="${currentAssetUrl}" alt="${prof.title} resolution graphic asset" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg';">
+                    <div class="card-meta">
+                        <div>
+                            <h4>${prof.title}</h4>
+                            <p style="font-size:12px; color:var(--text-muted);">${prof.resolution}</p>
+                        </div>
+                        <span class="badge">${prof.badge}</span>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:auto;">
+                        <button class="btn btn-secondary" style="padding:10px; font-size:13px;" onclick="window.open('${currentAssetUrl}', '_blank')"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open</button>
+                        <a href="${currentAssetUrl}" download="youtube_thumbnail_${prof.key}.jpg" target="_blank" class="btn" style="padding:10px; font-size:13px; text-align:center; justify-content:center; text-decoration:none;"><i class="fa-solid fa-download"></i> Save</a>
+                    </div>
+                `;
+                dom.cardsContainer.appendChild(card);
+            });
+        }
+
+        function copyTextToClipboard(text, successMessage) {
+            navigator.clipboard.writeText(text).then(() => { pushToast(successMessage); }).catch(() => { pushToast("Failed to copy system target text data structures.", "error"); });
+        }
+
+        function toggleFavoriteNode(id) {
+            const idx = AppState.favorites.indexOf(id);
+            if(idx > -1) {
+                AppState.favorites.splice(idx, 1);
+                pushToast("Asset node reference detached from favorites.");
+            } else {
+                AppState.favorites.push(id);
+                pushToast("Asset securely tracked inside favorite cluster.");
+            }
+            localStorage.setItem('fav_cache', JSON.stringify(AppState.favorites));
+            evalFavoriteUiState(id);
+        }
+
+        function evalFavoriteUiState(id) {
+            const heartIcon = dom.favoriteBtn.querySelector('i');
+            if(AppState.favorites.includes(id)) {
+                heartIcon.className = 'fa-solid fa-heart';
+                dom.favoriteBtn.style.color = 'var(--primary)';
+            } else {
+                heartIcon.className = 'fa-regular fa-heart';
+                dom.favoriteBtn.style.color = 'var(--text-main)';
+            }
+        }
+
+        function updateHistoryStack(id) {
+            const currentStack = AppState.history.filter(item => item !== id);
+            currentStack.unshift(id);
+            if(currentStack.length > 12) currentStack.pop();
+            AppState.history = currentStack;
+            localStorage.setItem('history_cache', JSON.stringify(AppState.history));
+            renderHistoryTrackPreviews();
+        }
+
+        function renderHistoryTrackPreviews() {
+            dom.historyContainer.innerHTML = '';
+            if(AppState.history.length === 0) {
+                dom.historyContainer.innerHTML = '<p style="font-size:13px; color:var(--text-muted); padding:12px 0;">No historic trace nodes instances matching query logs cached inside storage models.</p>';
+                return;
+            }
+            AppState.history.forEach(histId => {
+                const wrap = document.createElement('div');
+                wrap.className = 'history-item';
+                wrap.innerHTML = `<img src="https://img.youtube.com/vi/${histId}/mqdefault.jpg" alt="Historical thumbnail asset" loading="lazy">`;
+                wrap.onclick = () => {
+                    dom.videoUrl.value = `https://www.youtube.com/watch?v=${histId}`;
+                    processExtractionPipeline();
+                };
+                dom.historyContainer.appendChild(wrap);
+            });
+        }
+        renderHistoryTrackPreviews();
+
+        dom.clearCacheBtn.addEventListener('click', () => {
+            AppState.history = [];
+            localStorage.removeItem('history_cache');
+            renderHistoryTrackPreviews();
+            pushToast("History cache drop sequence finalized.");
+        });
+
+        dom.faqItems.forEach(item => {
+            const trigger = item.querySelector('.faq-trigger');
+            trigger.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                dom.faqItems.forEach(el => el.classList.remove('open'));
+                if(!isOpen) item.classList.add('open');
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 400) { dom.bttAction.classList.add('visible'); } else { dom.bttAction.classList.remove('visible'); }
+        });
+        dom.bttAction.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============ PRIMARY SEO ============ -->
+    <title>Online HTML, CSS & JS Compiler - Live Code Editor & Preview | PyCodes.in</title>
+    <meta name="description" content="Write HTML, CSS and JavaScript on PyCodes.in and see the live preview update instantly in your browser. A free online HTML compiler and code editor - no installation, no signup required.">
+    <meta name="keywords" content="online html compiler, html css js editor, live html preview, online code playground, html editor online, css tester online, javascript playground, frontend code editor, run html online, free online compiler, pycodes html compiler">
+    <meta name="author" content="PyCodes.in">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#0a0e14">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://www.pycodes.in/html.html">
+
+    <!-- ============ FAVICONS ============ -->
+     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- ============ OPEN GRAPH / FACEBOOK ============ -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.pycodes.in/html.html">
+    <meta property="og:site_name" content="PyCodes.in">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="Online HTML, CSS & JS Compiler - Live Code Editor & Preview | PyCodes.in">
+    <meta property="og:description" content="Write HTML, CSS and JavaScript on PyCodes.in and see the live preview update instantly. Free online HTML compiler and code editor - no installation, no signup required.">
+    <meta property="og:image" content="https://www.pycodes.in/assets/og-image-html.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="PyCodes.in — live HTML, CSS and JS compiler with an IDE-style interface">
+
+    <!-- ============ TWITTER CARD ============ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.pycodes.in/html.html">
+    <meta name="twitter:title" content="Online HTML, CSS & JS Compiler - Live Code Editor & Preview | PyCodes.in">
+    <meta name="twitter:description" content="Write HTML, CSS and JavaScript on PyCodes.in and see the live preview update instantly. Free online HTML compiler and code editor - no installation, no signup required.">
+    <meta name="twitter:image" content="https://www.pycodes.in/assets/og-image-html.jpg">
+    <meta name="twitter:image:alt" content="PyCodes.in — live HTML, CSS and JS compiler with an IDE-style interface">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- ============ STRUCTURED DATA (JSON-LD) ============ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PyCodes.in — HTML Compiler",
+      "url": "https://www.pycodes.in/html.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (runs in browser)",
+      "description": "A free online HTML, CSS, and JavaScript compiler with a live preview, styled as a full developer IDE with tabs, a console, and instant execution.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "featureList": [
+        "Online HTML, CSS, and JavaScript editor",
+        "Live in-browser preview",
+        "Built-in console output panel",
+        "IDE-style tabbed editor",
+        "No installation or signup required"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.pycodes.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "HTML Compiler",
+          "item": "https://www.pycodes.in/html.html"
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root{
+            /* ---- Color tokens (matches PyCode Online's Python compiler theme) ---- */
+            --bg:            #0a0e14;
+            --bg-panel:      #10151c;
+            --bg-elevated:   #161c25;
+            --bg-input:      #0d1117;
+            --border:        #232b36;
+            --border-soft:   #1b212b;
+            --text:          #e6edf3;
+            --text-dim:      #8b98a5;
+            --text-faint:    #5b6774;
+            --accent:        tomato;   /* terminal green — signature */
+            --accent-dim:    rgb(212, 76, 52);
+            --accent2:       tomato;   /* electric green */
+            --danger:        #f85149;
+            --warn:          #d29922;
+
+            --mono: 'JetBrains Mono', 'Consolas', monospace;
+            --sans: 'Inter', system-ui, sans-serif;
+
+            --radius: 8px;
+        }
+
+        *{ margin:0; padding:0; box-sizing:border-box; }
+
+        html{ scroll-behavior:smooth; }
+
+        body{
+            background:
+                radial-gradient(ellipse 900px 500px at 15% -10%, rgba(126,231,135,0.06), transparent),
+                radial-gradient(ellipse 700px 500px at 100% 0%, rgba(88,166,255,0.05), transparent),
+                var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            min-height: 100vh;
+            display:flex;
+            flex-direction:column;
+        }
+
+        a{ color: inherit; }
+
+        ::selection{ background: var(--accent-dim); color:#fff; }
+
+        ::-webkit-scrollbar{ width:10px; height:10px; }
+        ::-webkit-scrollbar-track{ background: var(--bg-panel); }
+        ::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover{ background: var(--text-faint); }
+
+        /* ============ HEADER (slim, matches Python compiler) ============ */
+        header{
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 1%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            flex: 0 0 auto;
+            z-index: 50;
+        }
+
+        .logo{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+
+        .logo .prompt-symbol{
+            font-family: var(--mono);
+            color: var(--accent);
+            font-weight:700;
+            font-size:1.5rem;
+        }
+
+        .logo .brand{
+            font-family: var(--mono);
+            font-size: 1.25rem;
+            font-weight:700;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .logo .brand span{ color: var(--text-dim); font-weight:500; }
+
+        .logo .cursor-blink{
+            display:inline-block;
+            width:9px; height:1.1em;
+            background: var(--accent);
+            margin-left: 3px;
+            vertical-align: -2px;
+            animation: blink 1.1s steps(2) infinite;
+        }
+
+        @keyframes blink{ 50%{ opacity:0; } }
+
+        .header-right{ display:flex; align-items:center; gap:22px; }
+
+        nav{ display:flex; align-items:center; gap:22px; }
+
+        nav a{
+            text-decoration:none;
+            color: var(--text-dim);
+            font-size:0.9rem;
+            font-weight:500;
+            transition: color .15s ease;
+            position:relative;
+            white-space:nowrap;
+        }
+        nav a::before{
+            content:"#";
+            color: var(--accent);
+            margin-right:5px;
+            font-family: var(--mono);
+            opacity:0;
+            transition: opacity .15s ease;
+        }
+        nav a:hover{ color: var(--text); }
+        nav a:hover::before{ opacity:1; }
+        nav a[aria-current="page"]{ color: var(--accent); }
+
+        header .header-tag{
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            border: 1px solid var(--border);
+            border-radius: 0px;
+            padding: 5px 12px;
+            display:flex;
+            align-items:center;
+            gap:7px;
+            white-space:nowrap;
+        }
+        header .header-tag .status-dot{
+            width:6px; height:6px; border-radius:50%;
+            background: var(--accent);
+        }
+
+ 
+        /* ============ MAIN LAYOUT ============ */
+        .ide-wrap{
+            padding:px 0%;
+            flex:1;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .workspace-outer{
+            display:flex;
+            gap: 0px;
+            flex:1;
+            align-items: stretch;
+        }
+
+        /* ============ LANGUAGE SIDEBAR ============ */
+        .lang-sidebar{
+            width: 40px;
+            flex: 0 0 50px;
+            background: var(--bg-panel);
+            border-radius: 0px;
+            padding: 14px 0px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap: 10px;
+        }
+
+        .lang-sidebar .sidebar-label{
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 4px;
+            text-align:center;
+        }
+
+        .lang-icon{
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 0px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-family: var(--mono);
+            font-weight: 700;
+            font-size: 0.72rem;
+            text-decoration:none;
+            cursor:pointer;
+            transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+            flex-shrink:0;
+        }
+        .lang-icon:hover{ transform: translateY(-2px); border-color: var(--text-faint); }
+        .lang-icon.active{
+            border:1px solid #333;
+        }
+       .lang-icon img{
+    height:25px;
+    width:25px;
+}
+        /* ============ IDE WINDOW (flat, matches Python compiler) ============ */
+        .ide-window{
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            overflow:hidden;
+            display:flex;
+            flex-direction:column;
+            flex:1;
+            min-width:0;
+        }
+
+        .titlebar{
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+            padding: 5px 16px;
+            display:flex;
+            align-items:center;
+            gap: 14px;
+        }
+
+        .traffic-lights{ display:flex; gap:7px; }
+        .dot{ width:11px; height:11px; border-radius:50%; }
+        .dot.red{ background:#f85149; }
+        .dot.yellow{ background:#d29922; }
+        .dot.green{ background:#3fb950; }
+
+        .file-tab{
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            background: var(--bg-panel);
+            border: 1px solid var(--border-soft);
+            padding: 5px 12px;
+            border-radius: 6px;
+            display:flex;
+            align-items:center;
+            gap:7px;
+        }
+
+        .file-tab .dot-mini{
+            width:6px; height:6px; border-radius:50%;
+            background: var(--accent);
+        }
+
+        .titlebar .run-hint{
+            margin-left:auto;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            display:flex;
+            gap:6px;
+        }
+
+        kbd{
+            font-family: var(--mono);
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-bottom-width:2px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+        }
+
+        .btn{
+            font-family: var(--sans);
+            font-weight:600;
+            font-size: 0.88rem;
+            border:none;
+            border-radius: 6px;
+            padding: 9px 20px;
+            cursor:pointer;
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            transition: transform .12s ease, box-shadow .12s ease, background .15s ease, opacity .12s ease;
+            text-transform:none;
+            letter-spacing:normal;
+        }
+
+        .pane-actions .btn{
+            padding: 6px 13px;
+            font-size: 0.74rem;
+            border-radius: 5px;
+            gap:6px;
+        }
+
+        .btn-run{
+            background: var(--accent);
+            color: #05170c;
+            box-shadow: 0 0 0 1px var(--accent-dim);
+        }
+        .btn-run:hover{ transform: translateY(-1px); box-shadow: 0 0 0 1px var(--accent-dim), 0 6px 16px -6px tomato; }
+        .btn-run:active{ transform: translateY(0); }
+
+        .btn-clear{
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+        }
+        .btn-clear:hover{ color: var(--text); border-color: var(--text-faint); }
+
+        .toggle-switch{
+            display:flex;
+            align-items:center;
+            gap:7px;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            cursor:pointer;
+            user-select:none;
+            white-space:nowrap;
+        }
+        .toggle-switch input{ accent-color: var(--accent); width:14px; height:14px; cursor:pointer; }
+
+        /* ============ WORKSPACE (editor / preview panes) ============ */
+        .workspace{
+            display:flex;
+            flex:1;
+            min-height: 460px;
+        }
+
+        .pane{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            min-width:0;
+        }
+
+        .pane.left{ border-right: 1px solid var(--border-soft); }
+
+        /* ---- editor file tabs (HTML / CSS / JS) ---- */
+        .file-tabs{
+            display:flex;
+            gap:6px;
+            padding: 8px 10px 0;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-soft);
+            overflow-x:auto;
+        }
+
+        .file-tab-btn{
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-soft);
+            border-bottom: none;
+            padding: 7px 14px;
+            border-radius: 6px 6px 0 0;
+            cursor:pointer;
+            display:flex;
+            align-items:center;
+            gap:7px;
+            white-space:nowrap;
+            transition: color .15s ease, background .15s ease;
+        }
+        .file-tab-btn .dot-mini{ width:6px; height:6px; border-radius:50%; background: var(--text-faint); }
+        .file-tab-btn:hover{ color: var(--text); }
+        .file-tab-btn.active{ color: var(--text); background: var(--bg-input); }
+        .file-tab-btn.active .dot-mini{ background: var(--accent); }
+
+        .editor-body{
+            flex:1;
+            position:relative;
+            display:flex;
+            min-height:0;
+        }
+
+        .gutter{
+            display:none;
+            width: 46px;
+            background: var(--bg-input);
+            color: var(--text-faint);
+            font-family: var(--mono);
+            font-size: 14px;
+            line-height: 1.65;
+            text-align:right;
+            padding: 16px 10px 16px 0;
+            user-select:none;
+            border-right: 1px solid var(--border-soft);
+            overflow:hidden;
+            flex-shrink:0;
+        }
+
+        .editor-stack{ flex:1; position:relative; min-width:0; }
+
+        textarea{
+            background: var(--bg-input);
+            color: var(--text);
+            font-family: var(--mono);
+            font-size: 14px;
+            line-height: 1.65;
+            padding: 16px;
+            border:none;
+            outline:none;
+            resize:none;
+            caret-color: var(--accent);
+            tab-size: 2;
+        }
+
+        textarea.code-pane{
+            position:absolute;
+            inset:0;
+            width:100%;
+            height:100%;
+        }
+        textarea.code-pane[hidden]{ display:none; }
+
+        /* ---- console-style pane head for the preview side ---- */
+        .pane-head{
+            padding: 6px 8px 3px 16px;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            flex-wrap:wrap;
+            row-gap:6px;
+            border-bottom: 1px solid var(--border-soft);
+            background: var(--bg-elevated);
+        }
+
+        .pane-head .status-text{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            white-space:nowrap;
+        }
+
+        .pane-head .indicator{
+            width:6px; height:6px; border-radius:50%;
+            background: var(--text-faint);
+            flex-shrink:0;
+        }
+        .pane-head.running .indicator{ background: var(--warn); animation: pulse 0.8s infinite; }
+        .pane-head.ok .indicator{ background: var(--accent); }
+        .pane-head.err .indicator{ background: var(--danger); }
+
+        @keyframes pulse{ 50%{ opacity:0.35; } }
+
+        .pane-actions{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            flex-shrink:0;
+        }
+
+        /* ---- live preview ---- */
+        .preview-frame{
+            flex:1;
+            width:100%;
+            border:none;
+            background:#ffffff;
+        }
+
+        /* status bar — bottom of IDE window, signature detail */
+        .statusbar{
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border-soft);
+            color: var(--text-dim);
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight:600;
+            padding: 6px 16px;
+            display:flex;
+            align-items:center;
+            gap: 18px;
+        }
+        .statusbar span{ display:flex; align-items:center; gap:6px; opacity:0.9; }
+        .statusbar .status-dot{ width:6px; height:6px; border-radius:50%; background: var(--accent); }
+        .statusbar .push-right{ margin-left:auto; display:flex; gap:18px; }
+
+        /* ============ FRAME TABS (mobile Code / Preview switcher) ============ */
+        .frame-tabs{ display:none; }
+
+        /* ============ FEATURES ============ */
+        .info-section{
+            padding: 70px 5% 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width:100%;
+        }
+
+        .section-eyebrow{
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        .section-eyebrow::before{ content:"//"; color: var(--text-faint); }
+
+        .info-section h2{
+            font-size: 1.7rem;
+            font-weight:800;
+            margin-bottom: 34px;
+            letter-spacing: -0.01em;
+        }
+
+        .grid{
+            display:grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .card{
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            transition: border-color .15s ease, transform .15s ease;
+        }
+        .card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
+
+        .card h3{
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text);
+            display:flex; align-items:center; gap:8px;
+        }
+        .card p{ color: var(--text-dim); font-size: 0.88rem; line-height:1.6; }
+
+       
+        /* ============ FOOTER (slim) ============ */
+        footer{
+            background: var(--bg-panel);
+            flex: 0 0 auto;
+        }
+
+        .footer-slim{
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px 1%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            flex-wrap:wrap;
+            gap: 14px;
+        }
+
+        .footer-brand{
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            font-weight:700;
+            color: var(--text-dim);
+            display:flex;
+            align-items:center;
+            gap:7px;
+            white-space:nowrap;
+        }
+        .footer-brand .prompt-symbol{ color: var(--accent); }
+        .footer-brand span{ color: var(--text-faint); font-weight:500; }
+
+        .footer-links{
+            display:flex;
+            align-items:center;
+            gap: 20px;
+            flex-wrap:wrap;
+            list-style:none;
+        }
+
+        .footer-links a{
+            font-family: var(--sans);
+            font-size: 0.83rem;
+            font-weight:500;
+            color: var(--text-dim);
+            text-decoration:none;
+            transition: color .15s ease;
+        }
+        .footer-links a:hover{ color: var(--accent); }
+
+        .footer-copy{
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text-faint);
+            white-space:nowrap;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 900px){
+            .ide-wrap{ padding: 0; }
+            .workspace-outer{ flex-direction:column; }
+            .lang-sidebar{
+                width:100%;
+                flex-direction:row;
+                justify-content:flex-start;
+                overflow-x:auto;
+                padding: 10px;
+                gap: 10px;
+            }
+            .lang-sidebar .sidebar-label{ display:none; }
+            .lang-icon .lang-tip{
+                left:50%;
+                top: calc(100% + 8px);
+                transform: translateX(-50%);
+            }
+
+            /* two full-width frames the user swipes between, instead of a vertical stack */
+            .frame-tabs{
+                display:flex;
+                flex: 0 0 auto;
+                background: var(--bg-elevated);
+                border-bottom: 1px solid var(--border-soft);
+            }
+            .frame-tab{
+                flex:1;
+                background:transparent;
+                border:none;
+                color: var(--text-faint);
+                font-family: var(--mono);
+                font-size: 0.72rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                padding: 10px 0;
+                cursor:pointer;
+                position:relative;
+                transition: color .15s ease;
+            }
+            .frame-tab.active{ color: var(--text); }
+            .frame-tab.active::after{
+                content:"";
+                position:absolute;
+                left:0; right:0; bottom:0;
+                height:2px;
+                background: var(--accent);
+            }
+
+            .workspace{
+                flex-direction:row;
+                flex-wrap:nowrap;
+                overflow-x:auto;
+                scroll-snap-type:x mandatory;
+                -webkit-overflow-scrolling:touch;
+                min-height: 62vh;
+                scrollbar-width:none;
+            }
+            .workspace::-webkit-scrollbar{ display:none; }
+
+            .pane{
+                flex:0 0 100%;
+                width:100%;
+                min-width:100%;
+                scroll-snap-align:start;
+            }
+            .pane.left{ border-right:none; }
+            .titlebar .run-hint{ display:none; }
+
+            .pane-head{ padding: 8px 10px 8px 14px; }
+            .pane-head .status-text{ font-size:0.66rem; }
+            .pane-actions .btn{ padding:6px 10px; font-size:0.7rem; }
+
+            nav{ display:none; }
+        }
+
+        @media (max-width: 640px){
+            header{ padding: 12px 5%; }
+            .header-tag{ display:none; }
+            .statusbar{ flex-wrap:wrap; gap:10px; }
+            .statusbar .push-right{ margin-left:0; gap:12px; }
+            .lang-icon{ width:38px; height:38px; }
+            .info-section h2{ font-size: 1.4rem; }
+            .pane-actions .btn span.btn-label{ display:none; }
+            .pane-actions .btn{ padding:6px 9px; }
+            .toggle-switch span{ display:none; }
+            .footer-top{ flex-direction:column; align-items:flex-start; }
+            .footer-bottom{ flex-direction:column; align-items:flex-start; }
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .cursor-blink, .pane-head.running .indicator{ animation:none; }
+        }
+    </style>
+</head>
+<body>
+    <noscript>
+        <div style="background:#0a0e14;color:#e6edf3;padding:16px;text-align:center;font-family:sans-serif;">
+            PyCodes.in needs JavaScript enabled to run the live HTML, CSS, and JS preview. Please enable JavaScript to use the compiler.
+        </div>
+    </noscript>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <a class="logo" href="index.html">
+            <span class="prompt-symbol">&gt;_</span>
+            <p class="brand">PyCodes<span>.in</span></p>
+        </a>
+        <div class="header-right">
+         
+            <div class="header-tag"><span class="status-dot"></span> HTML / CSS / JS · Ready</div>
+        </div>
+    </header>
+
+
+    <!-- ============ IDE ============ -->
+    <main class="ide-wrap" id="compiler">
+        <div class="workspace-outer">
+
+
+                 <!-- ===== Other Compilers — slim icon sidebar ===== -->
+            <aside class="lang-sidebar" aria-label="Other language compilers">
+                <span class="sidebar-label"></span>
+
+                <a class="lang-icon" href="python.html" title="Online Python Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/3840px-Python-logo-notext.svg.png">
+                 
+                </a>
+                <a class="lang-icon active" href="html.html" title="Online HTML, CSS & JS Compiler">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/066/386/005/small/the-html5-logo-with-the-number-5-in-the-center-free-png.png">
+            
+                </a>
+                <a class="lang-icon" href="C.html" title="Online C Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1920px-C_Programming_Language.svg.png">
+               
+                </a>
+                <a class="lang-icon" href="C++.html" title="Online C++ Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1280px-ISO_C%2B%2B_Logo.svg.png">
+                
+                </a>
+                <a class="lang-icon" href="java.html" title="Online Java Compiler">
+                    <img src="https://cdn-icons-png.flaticon.com/512/226/226777.png">
+                </a>
+                <a class="lang-icon" href="sql.html" style="filter:hue-rotate(30deg);" title="Online SQL Compiler">
+                    <img src="https://www.svgrepo.com/show/331760/sql-database-generic.svg">
+                </a>
+            </aside>
+
+
+            <!-- ===== Compiler IDE ===== -->
+            <div class="ide-window">
+
+                <div class="frame-tabs" role="tablist" aria-label="Switch between code and preview">
+                    <button class="frame-tab active" data-frame="0" onclick="switchFrame(0)" role="tab" aria-selected="true">◧ Code</button>
+                    <button class="frame-tab" data-frame="1" onclick="switchFrame(1)" role="tab" aria-selected="false">◨ Preview</button>
+                </div>
+
+                <div class="workspace">
+                    <div class="pane left">
+
+                        <div class="titlebar">
+                            <div class="traffic-lights">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="file-tab"><span class="dot-mini"></span> <span id="titlebarFile">index.html</span></div>
+                            <div class="run-hint"><kbd>Ctrl</kbd><span>+</span><kbd>Enter</kbd> to run</div>
+                        </div>
+
+                        <div class="file-tabs" role="tablist" aria-label="Source files">
+                            <button class="file-tab-btn active" data-tab="html" role="tab" aria-selected="true" onclick="switchTab('html')"><span class="dot-mini"></span> index.html</button>
+                            <button class="file-tab-btn" data-tab="css" role="tab" aria-selected="false" onclick="switchTab('css')"><span class="dot-mini"></span> style.css</button>
+                            <button class="file-tab-btn" data-tab="js" role="tab" aria-selected="false" onclick="switchTab('js')"><span class="dot-mini"></span> script.js</button>
+                        </div>
+
+                        <div class="editor-body">
+                            <div class="gutter" id="gutter">1</div>
+                            <div class="editor-stack">
+                                <textarea autofocus id="htmlCode" class="code-pane" spellcheck="false" aria-label="HTML code editor" onkeydown="handleTab(event)" oninput="onEdit()" onscroll="syncGutter(this)">Hello World
+
+                                </textarea>
+                                <textarea id="cssCode" class="code-pane" spellcheck="false" aria-label="CSS code editor" hidden onkeydown="handleTab(event)" oninput="onEdit()" onscroll="syncGutter(this)"></textarea>
+                                <textarea id="jsCode" class="code-pane" spellcheck="false" aria-label="JavaScript code editor" hidden onkeydown="handleTab(event)" oninput="onEdit()" onscroll="syncGutter(this)">
+
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pane right">
+                        <div class="pane-head" id="previewHead">
+                            <span class="status-text"><span class="indicator"></span> Live Preview</span>
+                            <div class="pane-actions">
+                              
+                                <button class="btn btn-run" onclick="runCode()" aria-label="Run HTML, CSS, and JS code">▶ <span class="btn-label">Run</span></button>
+                                
+                            </div>
+                        </div>
+                        <iframe id="previewFrame" class="preview-frame" title="Live HTML, CSS, and JS preview" sandbox="allow-scripts allow-same-origin allow-modals allow-popups allow-forms"></iframe>
+                    </div>
+                </div>
+
+                <div class="statusbar">
+                    <span><span class="status-dot"></span> Ready</span>
+                    <span>HTML / CSS / JS</span>
+                    <div class="push-right">
+                        <span>UTF-8</span>
+                        <span id="lineCount">Ln 1</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+
+    <!-- ============ FOOTER (slim) ============ -->
+    <footer>
+        <div class="footer-slim">
+            <div class="footer-brand"><span class="prompt-symbol">&gt;_</span> PyCodes<span>.in</span></div>
+            <nav class="footer-links" aria-label="Footer">
+               <a href="https://pycodes.in/online-compilers">Home</a>
+                <a href="https://pycodes.in/blogs">Blogs</a>
+                <a href="https://pycodes.in/tutorials">Tutorials</a>
+            </nav>
+
+        </div>
+    </footer>
+
+
+
+
+    <!-- ============ SCRIPT (unchanged logic — only DOM targets adjusted for the new markup) ============ -->
+    <script>
+        const htmlCode = document.getElementById("htmlCode");
+        const cssCode  = document.getElementById("cssCode");
+        const jsCode   = document.getElementById("jsCode");
+        const panes    = { html: htmlCode, css: cssCode, js: jsCode };
+
+        const gutter        = document.getElementById("gutter");
+        const lineCountEl   = document.getElementById("lineCount");
+        const previewHead   = document.getElementById("previewHead");
+        const previewStatusText = previewHead.querySelector(".status-text");
+        const previewFrame  = document.getElementById("previewFrame");
+        const titlebarFile  = document.getElementById("titlebarFile");
+        const autoRunToggle = document.getElementById("autoRunToggle");
+
+        const fileNames = { html: "index.html", css: "style.css", js: "script.js" };
+        let activeTab = "html";
+        let autoRunTimer = null;
+
+        /* ---------- tabs ---------- */
+        function switchTab(tab){
+            activeTab = tab;
+            Object.keys(panes).forEach(key => {
+                panes[key].hidden = key !== tab;
+            });
+            document.querySelectorAll(".file-tab-btn").forEach(btn => {
+                const isActive = btn.dataset.tab === tab;
+                btn.classList.toggle("active", isActive);
+                btn.setAttribute("aria-selected", isActive ? "true" : "false");
+            });
+            titlebarFile.textContent = fileNames[tab];
+            updateGutter();
+        }
+
+        /* ---------- gutter / line numbers ---------- */
+        function updateGutter(){
+            const active = panes[activeTab];
+            const lines = active.value.split("\n").length;
+            let out = "";
+            for(let i = 1; i <= lines; i++) out += i + "\n";
+            gutter.textContent = out;
+            lineCountEl.textContent = "Ln " + lines;
+        }
+
+        function syncGutter(el){
+            if(el === panes[activeTab]) gutter.scrollTop = el.scrollTop;
+        }
+
+        /* ---------- tab-key indentation (2 spaces, matches web conventions) ---------- */
+        function handleTab(event){
+            if(event.key === "Tab"){
+                event.preventDefault();
+                const el = event.target;
+                const start = el.selectionStart;
+                const end = el.selectionEnd;
+                const value = el.value;
+                el.value = value.substring(0, start) + "  " + value.substring(end);
+                el.selectionStart = el.selectionEnd = start + 2;
+                onEdit();
+            }
+            if((event.ctrlKey || event.metaKey) && event.key === "Enter"){
+                event.preventDefault();
+                runCode();
+            }
+        }
+
+  
+
+        /* ---------- run / clear ---------- */
+        function runCode(){
+            previewHead.classList.remove("ok", "err");
+            previewHead.classList.add("running");
+            previewStatusText.innerHTML = '<span class="indicator"></span> Running…';
+            if(window.innerWidth <= 900){ switchFrame(1); }
+
+           const doc = "<!DOCTYPE html><html><head><base target='_blank'><style>" + cssCode.value + "</style></head><body>"
+    + htmlCode.value + "</body></html>";
+
+            previewFrame.onload = function(){
+                try{
+                    const frameDoc = previewFrame.contentDocument;
+                    const script = frameDoc.createElement("script");
+                    script.textContent = jsCode.value;
+                    frameDoc.body.appendChild(script);
+                }catch(e){ /* ignore */ }
+
+                previewHead.classList.remove("running");
+                previewHead.classList.add("ok");
+                previewStatusText.innerHTML = '<span class="indicator"></span> Live Preview';
+            };
+
+            previewFrame.srcdoc = doc;
+        }
+
+        function clearCode(){
+            htmlCode.value = "";
+            cssCode.value = "";
+            jsCode.value = "";
+            updateGutter();
+            previewFrame.onload = null;
+            previewFrame.srcdoc = "";
+            previewHead.classList.remove("running", "err");
+            previewHead.classList.add("ok");
+            previewStatusText.innerHTML = '<span class="indicator"></span> Live Preview';
+        }
+
+        /* ---------- Swipeable Code / Preview frames (mobile & tablet) ---------- */
+        const workspaceEl = document.querySelector(".workspace");
+        const framePanes = document.querySelectorAll(".workspace > .pane");
+        const frameTabs = document.querySelectorAll(".frame-tab");
+
+        function switchFrame(index){
+            const target = framePanes[index];
+            if(!target || !workspaceEl) return;
+            workspaceEl.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+        }
+
+        function syncFrameTabs(){
+            if(!workspaceEl || workspaceEl.clientWidth === 0) return;
+            const idx = Math.round(workspaceEl.scrollLeft / workspaceEl.clientWidth);
+            frameTabs.forEach((tab, i) => {
+                const isActive = i === idx;
+                tab.classList.toggle("active", isActive);
+                tab.setAttribute("aria-selected", isActive ? "true" : "false");
+            });
+        }
+
+        if(workspaceEl){
+            let scrollTicking = false;
+            workspaceEl.addEventListener("scroll", () => {
+                if(!scrollTicking){
+                    window.requestAnimationFrame(() => { syncFrameTabs(); scrollTicking = false; });
+                    scrollTicking = true;
+                }
+            });
+            window.addEventListener("resize", syncFrameTabs);
+        }
+
+        updateGutter();
+        runCode();
+    </script>
+</body>
+</html>

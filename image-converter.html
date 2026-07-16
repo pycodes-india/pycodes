@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>PyCodes Image Converter - Free Local Image Converter (PNG, JPG, WEBP, PDF)</title>
+    <meta name="description" content="Convert images to PNG, JPG, WEBP, BMP, or PDF instantly inside your browser with PyCodes. 100% private, free, secure client-side image processing.">
+    <meta name="keywords" content="pycodes, image converter, convert png to jpg, webp converter, convert image to pdf, local image converter, secure image compression">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pycodes.in/img-converter">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pycodes.in/img-converter">
+    <meta property="og:title" content="PyCodes Image Converter - Secure Local Image Conversion">
+    <meta property="og:description" content="Convert images to PNG, JPG, WEBP, BMP, or PDF entirely client-side. Your files never leave your device.">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PyCodes Image Converter",
+      "url": "https://pycodes.in/img-converter",
+      "description": "A secure web utility by PyCodes to convert image extensions natively (PNG, JPG, WEBP, BMP, PDF) entirely inside the user web browser.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 Canvas support.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Client-side local conversion",
+        "Convert to PDF, JPG, PNG, WEBP, BMP",
+        "Zero tracking or file uploads"
+      ]
+    }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        /* --- CSS Custom Variables for Theming --- */
+        :root {
+            --primary: #2b6cb0;
+            --primary-hover: #2c5282;
+            --bg-main: #f7fafc;
+            --card-bg: #ffffff;
+            --text-dark: #2d3748;
+            --text-muted: #718096;
+            --border-color: #cbd5e0;
+        }
+
+        /* --- Global Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* --- Header & Single-Line Navigation --- */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- Responsive Viewport Architecture --- */
+        main {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .converter-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* --- Interactive Drop Zone --- */
+        .drop-zone {
+            border: 2px dashed var(--border-color);
+            padding: 3rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #fafbfc;
+            transition: all 0.2s ease-in-out;
+            margin-bottom: 1.5rem;
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--primary);
+            background-color: #ebf8ff;
+        }
+
+        .drop-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* --- Settings Panel (Dynamic Display) --- */
+        .settings-panel {
+            display: none;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem;
+            margin-top: 1rem;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .file-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #edf2f7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .config-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        select {
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-action {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* --- Semantic Content / AEO / GEO Copy Section --- */
+        .info-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .info-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-block {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .faq-item {
+            margin-bottom: 1.25rem;
+        }
+
+        .faq-item h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .faq-item p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #1a202c;
+            color: #a0aec0;
+            padding: 1.5rem 1rem;
+            margin-top: auto;
+            font-size: 0.85rem;
+        }
+
+        .footer-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .footer-nav a {
+            color: #a0aec0;
+            text-decoration: none;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
+        }
+
+        /* --- Responsive Query Engine --- */
+        @media (max-width: 640px) {
+            .nav-container, .footer-wrap {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 1.25rem;
+            }
+            main {
+                margin: 1rem auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header role="banner">
+        <nav class="nav-container" aria-label="Main Navigation">
+            <a href="https://pycodes.in/image-converter" class="logo" aria-label="PyCodes Homepage">Image Converter</a>
+            <ul class="nav-links">
+                <li><a href="#converter">Converter</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section class="converter-container" id="converter" aria-labelledby="main-heading">
+            <h1 id="main-heading">PyCodes Image Extension Converter</h1>
+            <p class="subtitle">Convert files seamlessly right inside your browser session for direct target output.</p>
+
+            <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="File Upload Dropper Area">
+                <span class="drop-icon" aria-hidden="true">📥</span>
+                <p><strong>Drag and drop image here</strong> or click to browse local files</p>
+                <input type="file" id="fileInput" accept="image/*" aria-hidden="true">
+            </div>
+
+            <div class="settings-panel" id="settingsPanel">
+                <div class="file-badge" id="fileBadge">
+                    <span id="nameLabel">file.png</span>
+                    <span id="sizeLabel" style="color:var(--text-muted); font-weight:normal;">(0 KB)</span>
+                </div>
+
+                <div class="config-row">
+                    <label for="formatSelect">Select Output Extension Type:</label>
+                    <select id="formatSelect">
+                        <option value="image/jpeg">JPG / JPEG (.jpg)</option>
+                        <option value="image/png">PNG (.png)</option>
+                        <option value="image/webp">WEBP (.webp)</option>
+                        <option value="image/bmp">BMP (.bmp)</option>
+                        <option value="pdf">PDF Document (.pdf)</option>
+                    </select>
+                </div>
+
+                <button class="btn-action" id="actionBtn">Process & Download</button>
+            </div>
+        </section>
+
+        <article class="info-section" id="how-it-works">
+            <h2>Why Convert Formats Directly in the Browser on PyCodes?</h2>
+            <p>Traditional web tool variations force uploads directly onto secondary servers. PyCodes handles file execution locally via computing structures embedded right inside the client engine framework. This provides zero external logging risk, instantaneous response feedback loops, and standalone operational efficiency on low bandwidth structures.</p>
+            
+            <div class="faq-block" id="faq">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <h3>What extensions can be generated at pycodes.in/img-converter?</h3>
+                    <p>The layout generates structural assets across key operational graphic targets including JPEG extensions, transparent alpha PNG arrays, modern WEBP packaging matrices, standard BMP architectures, and document-level multi-layer PDF configurations.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Are files safe from collection vectors?</h3>
+                    <p>Yes. Processing pipelines avoid third-party servers entirely. File arrays compile client-side locally through browser JavaScript engines, meaning zero trace vectors escape past local processing windows.</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-wrap">
+            <p>&copy; 2026 PyCodes Translator. All Rights Reserved.</p>
+            <ul class="footer-nav">
+                <li><a href="https://pycodes.in">Home</a></li>
+                <li><a href="https://pycodes.in/tutorials">Tutorials</a></li>
+                
+                <li><a href="https://pycodes.in/blogs">Blogs</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const nameLabel = document.getElementById('nameLabel');
+        const sizeLabel = document.getElementById('sizeLabel');
+        const actionBtn = document.getElementById('actionBtn');
+        const formatSelect = document.getElementById('formatSelect');
+
+        let runtimeImg = null;
+        let rootFileName = "source_file";
+
+        // Bind interactive event hooks
+        ['dragenter', 'dragover'].forEach(eName => {
+            dropZone.addEventListener(eName, (e) => { e.preventDefault(); dropZone.classList.add('dragover'); }, false);
+        });
+        ['dragleave', 'drop'].forEach(eName => {
+            dropZone.addEventListener(eName, (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); }, false);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const transfer = e.dataTransfer;
+            if (transfer.files.length > 0 && transfer.files[0].type.startsWith('image/')) {
+                evaluateFile(transfer.files[0]);
+            }
+        });
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') fileInput.click(); });
+        fileInput.addEventListener('change', (e) => { if (e.target.files.length > 0) evaluateFile(e.target.files[0]); });
+
+        // Parse file to staging memory
+        function evaluateFile(file) {
+            rootFileName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+            nameLabel.textContent = file.name.length > 25 ? file.name.substring(0, 22) + "..." : file.name;
+            sizeLabel.textContent = `(${(file.size / 1024).toFixed(1)} KB)`;
+
+            const stream = new FileReader();
+            stream.onload = function(evt) {
+                const imgNode = new Image();
+                imgNode.onload = function() {
+                    runtimeImg = imgNode;
+                    settingsPanel.style.display = 'block';
+                    settingsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                };
+                imgNode.src = evt.target.result;
+            };
+            stream.readAsDataURL(file);
+        }
+
+        // Execute processing logic
+        actionBtn.addEventListener('click', () => {
+            if (!runtimeImg) return;
+            const chosenFormat = formatSelect.value;
+
+            // Execution path: PDF Target Document
+            if (chosenFormat === 'pdf') {
+                const { jsPDF } = window.jspdf;
+                const alignment = runtimeImg.width > runtimeImg.height ? 'l' : 'p';
+                const doc = new jsPDF({
+                    orientation: alignment,
+                    unit: 'px',
+                    format: [runtimeImg.width, runtimeImg.height]
+                });
+
+                const cvs = document.createElement('canvas');
+                cvs.width = runtimeImg.width;
+                cvs.height = runtimeImg.height;
+                cvs.getContext('2d').drawImage(runtimeImg, 0, 0);
+                
+                const frameData = cvs.toDataURL('image/jpeg', 0.95);
+                doc.addImage(frameData, 'JPEG', 0, 0, runtimeImg.width, runtimeImg.height);
+                doc.save(`${rootFileName}.pdf`);
+                return;
+            }
+
+            // Execution path: Native Graphic Stream Output
+            const canvasObj = document.createElement('canvas');
+            canvasObj.width = runtimeImg.width;
+            canvasObj.height = runtimeImg.height;
+            const context = canvasObj.getContext('2d');
+
+            if (chosenFormat === 'image/jpeg') {
+                context.fillStyle = '#ffffff';
+                context.fillRect(0, 0, canvasObj.width, canvasObj.height);
+            }
+            context.drawImage(runtimeImg, 0, 0);
+
+            const namingMap = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/bmp': 'bmp' };
+            const extTarget = namingMap[chosenFormat] || 'png';
+            
+            const hook = document.createElement('a');
+            hook.download = `${rootFileName}.${extTarget}`;
+            hook.href = canvasObj.toDataURL(chosenFormat, 0.92);
+            hook.click();
+        });
+    </script>
+</body>
+</html>

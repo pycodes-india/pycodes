@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============ PRIMARY SEO ============ -->
+    <title>Online C Compiler - Run C Code in Browser | PyCodes.in</title>
+    <meta name="description" content="Write and run C code online on PyCodes.in. A free online C compiler with an IDE-style editor, instant compile & run, and a console for stdin/stdout - no installation, no signup required.">
+    <meta name="keywords" content="online c compiler, c compiler online, run c code online, c language editor, gcc online, online ide c, c playground, compile c online, free c compiler, online code editor c, c programming, pycodes c compiler">
+    <meta name="author" content="PyCodes.in">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#0a0e14">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://www.pycodes.in/C.html">
+
+     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- ============ OPEN GRAPH / FACEBOOK ============ -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.pycodes.in/C.html">
+    <meta property="og:site_name" content="PyCodes.in">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="Online C Compiler - Run C Code in Browser | PyCodes.in">
+    <meta property="og:description" content="Write and run C code online on PyCodes.in. A free online C compiler with an IDE-style editor, instant compile & run, and a console for stdin/stdout - no installation, no signup required.">
+    <meta property="og:image" content="https://www.pycodes.in/assets/og-image-c.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="PyCodes.in — online C compiler with an IDE-style interface">
+
+    <!-- ============ TWITTER CARD ============ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.pycodes.in/C.html">
+    <meta name="twitter:title" content="Online C Compiler - Run C Code in Browser | PyCodes.in">
+    <meta name="twitter:description" content="Write and run C code online on PyCodes.in. A free online C compiler with an IDE-style editor, instant compile & run, and a console for stdin/stdout - no installation, no signup required.">
+    <meta name="twitter:image" content="https://www.pycodes.in/assets/og-image-c.jpg">
+    <meta name="twitter:image:alt" content="PyCodes.in — online C compiler with an IDE-style interface">
+
+    <!-- ============ STRUCTURED DATA (JSON-LD) ============ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PyCodes.in — C Compiler",
+      "url": "https://www.pycodes.in/C.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (runs in browser)",
+      "description": "A free online C compiler with an IDE-style editor, instant compile and run, and a console for stdin/stdout.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "featureList": [
+        "Online C editor with IDE-style layout",
+        "Instant compile and run (gcc)",
+        "Selectable C standard (C99, C11, C17)",
+        "Console with stdin/stdout support",
+        "No installation or signup required"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.pycodes.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "C Compiler",
+          "item": "https://www.pycodes.in/C.html"
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            /* ---- Color tokens (matches PyCode Online's site-wide theme) ---- */
+            --bg:            #0a0e14;
+            --bg-panel:      #10151c;
+            --bg-elevated:   #161c25;
+            --bg-input:      #0d1117;
+            --border:        #232b36;
+            --border-soft:   #1b212b;
+            --text:          #e6edf3;
+            --text-dim:      #8b98a5;
+            --text-faint:    #5b6774;
+            --accent:        deepskyblue;   /* terminal green — signature */
+            --accent-dim:    dodgerblue;
+            --accent2:       deepskyblue;   /* electric green */
+            --danger:        #f85149;
+            --warn:          #d29922;
+
+            --mono: 'JetBrains Mono', 'Consolas', monospace;
+            --sans: 'Inter', system-ui, sans-serif;
+
+            --radius: 8px;
+        }
+
+        *{ margin:0; padding:0; box-sizing:border-box; }
+        html, body{ height:100%; }
+        html{ scroll-behavior:smooth; }
+
+        body{
+            background:
+                radial-gradient(ellipse 900px 500px at 15% -10%, rgba(126,231,135,0.06), transparent),
+                radial-gradient(ellipse 700px 500px at 100% 0%, rgba(88,166,255,0.05), transparent),
+                var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            height: 100vh;
+            overflow: hidden;
+            display:flex;
+            flex-direction:column;
+        }
+
+        a{ color: inherit; }
+        ::selection{ background: var(--accent-dim); color:#fff; }
+        ::-webkit-scrollbar{ width:10px; height:10px; }
+        ::-webkit-scrollbar-track{ background: var(--bg-panel); }
+        ::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover{ background: var(--text-faint); }
+
+        /* ============ HEADER (slim, matches Python compiler) ============ */
+        header{
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 1%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            flex: 0 0 auto;
+            z-index: 50;
+        }
+
+        .logo{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .logo .prompt-symbol{ font-family: var(--mono); color: var(--accent); font-weight:700; font-size:1.5rem; }
+        .logo .brand{ font-family: var(--mono); font-size: 1.25rem; font-weight:700; color: var(--text); letter-spacing: -0.02em; }
+        .logo .brand span{ color: var(--text-dim); font-weight:500; }
+
+        .logo .cursor-blink{
+            display:inline-block; width:9px; height:1.1em; background: var(--accent);
+            margin-left: 3px; vertical-align: -2px; animation: blink 1.1s steps(2) infinite;
+        }
+        @keyframes blink{ 50%{ opacity:0; } }
+
+        header .header-tag{
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            border: 1px solid var(--border);
+            border-radius: 0px;
+            padding: 5px 12px;
+            display:flex;
+            align-items:center;
+            gap:7px;
+        }
+        header .header-tag .status-dot{
+            width:6px; height:6px; border-radius:50%;
+            background: var(--accent);
+        }
+
+        /* ============ MAIN LAYOUT ============ */
+        .ide-wrap{
+            padding: 0px 0%;
+            flex: 1;
+            min-height: 0;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .workspace-outer{
+            display:flex;
+            gap: 0px;
+            flex: 1;
+            min-height: 0;
+            align-items: stretch;
+        }
+
+        /* ============ LANGUAGE SIDEBAR ============ */
+        .lang-sidebar{
+            width: 40px;
+            flex: 0 0 50px;
+            background: var(--bg-panel);
+            border-radius: 0px;
+            padding: 14px 0px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap: 10px;
+        }
+
+        .lang-sidebar .sidebar-label{
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 4px;
+            text-align:center;
+        }
+
+        .lang-icon{
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 0px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-family: var(--mono);
+            font-weight: 700;
+            font-size: 0.72rem;
+            text-decoration:none;
+            cursor:pointer;
+            transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+            flex-shrink:0;
+        }
+        .lang-icon:hover{ transform: translateY(-2px); border-color: var(--text-faint); }
+        .lang-icon.active{ border:1px solid #333; }
+       .lang-icon img{
+    height:25px;
+    width:25px;
+}
+        /* ============ IDE WINDOW (flat, matches Python compiler) ============ */
+        .ide-window{
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            overflow:hidden;
+            display:flex;
+            flex-direction:column;
+            flex:1;
+            min-width:0;
+            min-height:0;
+        }
+
+        .titlebar{
+            background: var(--bg-elevated); border-bottom: 1px solid var(--border);
+            padding: 5px 16px; display:flex; align-items:center; gap: 14px;
+        }
+
+        .traffic-lights{ display:flex; gap:7px; }
+        .dot{ width:11px; height:11px; border-radius:50%; }
+        .dot.red{ background:#f85149; }
+        .dot.yellow{ background:#d29922; }
+        .dot.green{ background:#3fb950; }
+
+        .file-tab{
+            font-family: var(--mono); font-size: 0.82rem; color: var(--text-dim);
+            background: var(--bg-panel); border: 1px solid var(--border-soft);
+            padding: 5px 12px; border-radius: 6px; display:flex; align-items:center; gap:7px;
+        }
+        .file-tab .dot-mini{ width:6px; height:6px; border-radius:50%; background: var(--accent); }
+
+        .titlebar .run-hint{
+            margin-left:auto; font-family: var(--mono); font-size: 0.75rem; color: var(--text-faint);
+            display:flex; gap:6px;
+        }
+
+        kbd{
+            font-family: var(--mono); background: var(--bg-input); border: 1px solid var(--border);
+            border-bottom-width:2px; padding: 1px 6px; border-radius: 4px; font-size: 0.72rem; color: var(--text-dim);
+        }
+
+        .btn{
+            font-family: var(--sans); font-weight:600; font-size: 0.88rem; border:none; border-radius: 6px;
+            padding: 9px 20px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+            transition: transform .12s ease, box-shadow .12s ease, background .15s ease, opacity .12s ease;
+            text-transform:none; letter-spacing:normal;
+        }
+
+        .pane-actions .btn{ padding: 6px 13px; font-size: 0.74rem; border-radius: 5px; gap:6px; }
+
+        .btn-run{
+            background: var(--accent); color: #05170c;
+            box-shadow: 0 0 0 1px var(--accent-dim);
+        }
+        .btn-run:hover{ transform: translateY(-1px); box-shadow: 0 0 0 1px var(--accent-dim), 0 6px 16px -6px deepskyblue; }
+        .btn-run:active{ transform: translateY(0); }
+        .btn-run:disabled{ opacity:0.55; cursor:default; transform:none; box-shadow: 0 0 0 1px var(--accent-dim); }
+
+        .btn-clear{ background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+        .btn-clear:hover{ color: var(--text); border-color: var(--text-faint); }
+
+        .std-select{
+            font-family: var(--mono); font-size: 0.72rem; color: var(--text-dim);
+            background: var(--bg-input); border: 1px solid var(--border); border-radius: 5px;
+            padding: 6px 8px; cursor:pointer;
+        }
+
+        /* ============ WORKSPACE (editor / console panes) ============ */
+        .workspace{ display:flex; flex:1; min-height: 0; }
+        .pane{ flex:1; display:flex; flex-direction:column; min-width:0; min-height:0; }
+        .pane.left{ border-right: 1px solid var(--border-soft); }
+
+        /* ---- console-style pane head (shared look) ---- */
+        .pane-head{
+            padding: 6px 8px 3px 16px;
+            font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-faint);
+            display:flex; align-items:center; justify-content:space-between; gap:12px;
+            flex-wrap:wrap; row-gap:6px;
+            border-bottom: 1px solid var(--border-soft);
+            background: var(--bg-elevated);
+        }
+        .pane-head .status-text{ display:flex; align-items:center; gap:8px; white-space:nowrap; }
+        .pane-head .indicator{ width:6px; height:6px; border-radius:50%; background: var(--text-faint); flex-shrink:0; }
+        .pane-head.running .indicator{ background: var(--warn); animation: pulse 0.8s infinite; }
+        .pane-head.ok .indicator{ background: var(--accent); }
+        .pane-head.err .indicator{ background: var(--danger); }
+        @keyframes pulse{ 50%{ opacity:0.35; } }
+
+        .pane-actions{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
+
+        .file-tabs{
+            display:flex; gap:6px; padding: 8px 10px 0; background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-soft); overflow-x:auto;
+        }
+        .file-tab-btn{
+            font-family: var(--mono); font-size: 0.8rem; color: var(--text-dim); background: var(--bg-elevated);
+            border: 1px solid var(--border-soft); border-bottom: none; padding: 7px 14px; border-radius: 6px 6px 0 0;
+            cursor:pointer; display:flex; align-items:center; gap:7px; white-space:nowrap;
+            transition: color .15s ease, background .15s ease;
+        }
+        .file-tab-btn .dot-mini{ width:6px; height:6px; border-radius:50%; background: var(--text-faint); }
+        .file-tab-btn:hover{ color: var(--text); }
+        .file-tab-btn.active{ color: var(--text); background: var(--bg-input); }
+        .file-tab-btn.active .dot-mini{ background: var(--accent); }
+
+        .editor-body{ flex:1; position:relative; display:flex; min-height:0; }
+        .gutter{ display:none; }
+        .editor-stack{ flex:1; position:relative; min-width:0; }
+
+        textarea{
+            background: var(--bg-input); color: var(--text); font-family: var(--mono); font-size: 14px;
+            line-height: 1.65; padding: 16px; border:none; outline:none; resize:none;
+            caret-color: var(--accent); tab-size: 2; overflow-y:auto;
+        }
+        textarea.code-pane{ position:absolute; inset:0; width:100%; height:100%; }
+
+        /* ---- console output ---- */
+        .console{
+            flex:1; min-height:0; width:100%; background:#050709; color: var(--text); font-family: var(--mono);
+            font-size: 13.5px; line-height: 1.7; padding: 16px; overflow:auto; white-space:pre-wrap;
+        }
+        .console .line-out{ color:#c9d4de; }
+        .console .line-err{ color: var(--danger); }
+        .console .line-ok{ color: var(--accent); }
+        .console .line-muted{ color: var(--text-faint); }
+        .console .exit-code{ margin-top:10px; padding-top:10px; border-top:1px dashed var(--border-soft); color: var(--text-faint); font-size:12px; }
+
+        .stdin-wrap{
+            flex: 0 0 auto;
+            border-top: 1px solid var(--border-soft); background: var(--bg-panel);
+            padding: 10px 16px; display:flex; flex-direction:column; gap:6px;
+        }
+        .stdin-wrap label{
+            font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform:uppercase;
+            color: var(--text-faint);
+        }
+        .stdin-wrap textarea{
+            width:100%; height:52px; background: var(--bg-input); border: 1px solid var(--border);
+            border-radius:6px; color: var(--text); font-family: var(--mono); font-size:13px;
+            padding: 8px 10px; resize:vertical;
+        }
+
+        /* status bar — bottom of IDE window, signature detail */
+        .statusbar{
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border-soft);
+            color: var(--text-dim);
+            font-family: var(--mono); font-size: 0.72rem; font-weight:600;
+            padding: 6px 16px; display:flex; align-items:center; gap: 18px;
+        }
+        .statusbar span{ display:flex; align-items:center; gap:6px; opacity:0.9; }
+        .statusbar .status-dot{ width:6px; height:6px; border-radius:50%; background: var(--accent); }
+        .statusbar .push-right{ margin-left:auto; display:flex; gap:18px; }
+
+        /* ============ FRAME TABS (mobile Code / Console switcher) ============ */
+        .frame-tabs{ display:none; }
+
+
+      /* ============ FOOTER (slim) ============ */
+        footer{
+            background: var(--bg-panel);
+            flex: 0 0 auto;
+        }
+
+        .footer-slim{
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px 1%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            flex-wrap:wrap;
+            gap: 14px;
+        }
+
+        .footer-brand{
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            font-weight:700;
+            color: var(--text-dim);
+            display:flex;
+            align-items:center;
+            gap:7px;
+            white-space:nowrap;
+        }
+        .footer-brand .prompt-symbol{ color: var(--accent); }
+        .footer-brand span{ color: var(--text-faint); font-weight:500; }
+
+        .footer-links{
+            display:flex;
+            align-items:center;
+            gap: 20px;
+            flex-wrap:wrap;
+            list-style:none;
+        }
+
+        .footer-links a{
+            font-family: var(--sans);
+            font-size: 0.83rem;
+            font-weight:500;
+            color: var(--text-dim);
+            text-decoration:none;
+            transition: color .15s ease;
+        }
+        .footer-links a:hover{ color: var(--accent); }
+
+        .footer-copy{
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text-faint);
+            white-space:nowrap;
+        }
+
+
+
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 900px){
+            html, body{ height:auto; }
+            body{ min-height: 100vh; overflow: visible; }
+            .ide-wrap{ min-height:auto; }
+            .workspace-outer{ min-height:auto; flex-direction:column; }
+            .ide-window{ min-height:auto; }
+
+            .lang-sidebar{
+                width:100%; flex-direction:row; justify-content:flex-start;
+                overflow-x:auto; padding: 10px; gap: 10px;
+            }
+            .lang-sidebar .sidebar-label{ display:none; }
+            .lang-icon .lang-tip{ left:50%; top: calc(100% + 8px); transform: translateX(-50%); }
+
+            .frame-tabs{
+                display:flex; flex: 0 0 auto; background: var(--bg-elevated);
+                border-bottom: 1px solid var(--border-soft);
+            }
+            .frame-tab{
+                flex:1; background:transparent; border:none; color: var(--text-faint);
+                font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+                padding: 10px 0; cursor:pointer; position:relative; transition: color .15s ease;
+            }
+            .frame-tab.active{ color: var(--text); }
+            .frame-tab.active::after{
+                content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background: var(--accent);
+            }
+
+            .workspace{
+                flex-direction:row; flex-wrap:nowrap; overflow-x:auto;
+                scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+                min-height: 62vh; scrollbar-width:none;
+            }
+            .workspace::-webkit-scrollbar{ display:none; }
+            .pane{ flex:0 0 100%; width:100%; min-width:100%; scroll-snap-align:start; overflow-y:auto; }
+            .pane.left{ border-right:none; }
+            .titlebar .run-hint{ display:none; }
+
+            .pane-head{ padding: 8px 10px 8px 14px; }
+            .pane-head .status-text{ font-size:0.66rem; }
+            .pane-actions .btn{ padding:6px 10px; font-size:0.7rem; }
+        }
+
+        @media (max-width: 640px){
+            header{ padding: 12px 5%; }
+            .header-tag{ display:none; }
+            .statusbar{ flex-wrap:wrap; gap:10px; }
+            .statusbar .push-right{ margin-left:0; gap:12px; }
+            .lang-icon{ width:38px; height:38px; }
+            .pane-actions .btn span.btn-label{ display:none; }
+            .pane-actions .btn{ padding:6px 9px; }
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .cursor-blink, .pane-head.running .indicator{ animation:none; }
+        }
+    </style>
+</head>
+<body>
+    <noscript>
+        <div style="background:#0a0e14;color:#e6edf3;padding:16px;text-align:center;font-family:sans-serif;">
+            PyCodes.in needs JavaScript enabled to compile and run C code. Please enable JavaScript to use the compiler.
+        </div>
+    </noscript>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <a class="logo" href="index.html">
+            <span class="prompt-symbol">&gt;_</span>
+            <p class="brand">PyCodes<span>.in</span></p>
+        </a>
+        <div class="header-tag"><span class="status-dot"></span> C · gcc · Ready</div>
+    </header>
+
+    <!-- ============ IDE ============ -->
+    <main class="ide-wrap" id="compiler">
+        <div class="workspace-outer">
+   
+                   <!-- ===== Other Compilers — slim icon sidebar ===== -->
+            <aside class="lang-sidebar" aria-label="Other language compilers">
+                <span class="sidebar-label"></span>
+
+                <a class="lang-icon" href="python.html" title="Online Python Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/3840px-Python-logo-notext.svg.png">
+                 
+                </a>
+                <a class="lang-icon" href="html.html" title="Online HTML, CSS & JS Compiler">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/066/386/005/small/the-html5-logo-with-the-number-5-in-the-center-free-png.png">
+            
+                </a>
+                <a class="lang-icon active" href="C.html" title="Online C Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1920px-C_Programming_Language.svg.png">
+               
+                </a>
+                <a class="lang-icon" href="C++.html" title="Online C++ Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1280px-ISO_C%2B%2B_Logo.svg.png">
+                
+                </a>
+                <a class="lang-icon" href="java.html" title="Online Java Compiler">
+                    <img src="https://cdn-icons-png.flaticon.com/512/226/226777.png">
+                </a>
+                <a class="lang-icon" href="sql.html" style="filter:hue-rotate(30deg);" title="Online SQL Compiler">
+                    <img src="https://www.svgrepo.com/show/331760/sql-database-generic.svg">
+                </a>
+            </aside>
+
+
+
+
+            <!-- ===== Compiler IDE ===== -->
+            <div class="ide-window">
+
+                <div class="frame-tabs" role="tablist" aria-label="Switch between code and console">
+                    <button class="frame-tab active" data-frame="0" onclick="switchFrame(0)" role="tab" aria-selected="true">◧ Code</button>
+                    <button class="frame-tab" data-frame="1" onclick="switchFrame(1)" role="tab" aria-selected="false">◨ Console</button>
+                </div>
+
+                <div class="workspace">
+                    <div class="pane left">
+
+                        <div class="titlebar">
+                            <div class="traffic-lights">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="file-tab"><span class="dot-mini"></span> <span id="titlebarFile">main.c</span></div>
+                            <div class="run-hint"><kbd>Ctrl</kbd><span>+</span><kbd>Enter</kbd> to compile &amp; run</div>
+                        </div>
+
+                        <div class="file-tabs" role="tablist" aria-label="Source files">
+                            <button class="file-tab-btn active" data-tab="c" role="tab" aria-selected="true"><span class="dot-mini"></span> main.c</button>
+                        </div>
+
+                        <div class="editor-body">
+                            <div class="gutter" id="gutter">1</div>
+                            <div class="editor-stack">
+                                <textarea autofocus id="cCode" class="code-pane" spellcheck="false" aria-label="C code editor" onkeydown="handleTab(event)" oninput="onEdit()" onscroll="syncGutter(this)">#include <stdio.h>
+
+int main(void) {
+    printf("Hello, World!\n");
+    return 0;
+}
+</textarea>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    <div class="pane right">
+                        <div class="pane-head" id="consoleHead">
+                            <span class="status-text"><span class="indicator"></span> Console</span>
+                            <div class="pane-actions">
+                                <select class="std-select" id="stdSelect" aria-label="C language standard">
+                                    <option value="C99">-std=c99</option>
+                                    <option value="C11" selected>-std=c11</option>
+                                    <option value="C17">-std=c17</option>
+                                    <option value="GNU C (gcc default)">gcc default</option>
+                                </select>
+                               <button class="btn btn-clear" onclick="clearCode()" aria-label="Clear editor and console">✕ <span class="btn-label">Clear</span></button>
+                            <button class="btn btn-run" id="runBtn" onclick="runCode()" aria-label="Compile and run C code">▶ <span class="btn-label">Run</span></button>
+                                 </div>
+                        </div>
+                        <div class="console" id="consoleOutput"><span class="line-muted">// Output will appear here after you compile &amp; run.</span></div>
+                    <div class="stdin-wrap">
+                        
+                            <textarea id="stdinBox" spellcheck="false" placeholder="Values your program reads with scanf() / fgets() go here, one per line…"></textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="statusbar">
+                    <span><span class="status-dot"></span> Ready</span>
+                    <span id="stdBadge">-std=c11</span>
+                    <div class="push-right">
+                        <span>UTF-8</span>
+                        <span id="lineCount">Ln 1</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+
+    <!-- ============ FOOTER (slim) ============ -->
+    <footer>
+        <div class="footer-slim">
+            <div class="footer-brand"><span class="prompt-symbol">&gt;_</span> PyCodes<span>.in</span></div>
+            <nav class="footer-links" aria-label="Footer">
+                <a href="https://pycodes.in/online-compilers">Home</a>
+                <a href="https://pycodes.in/blogs">Blogs</a>
+                <a href="https://pycodes.in/tutorials">Tutorials</a>
+            </nav>
+
+        </div>
+    </footer>
+
+
+
+
+    <!-- ============ SCRIPT (unchanged logic — only DOM targets adjusted for the new markup) ============ -->
+    <script>
+        const cCode        = document.getElementById("cCode");
+        const gutter       = document.getElementById("gutter");
+        const lineCountEl  = document.getElementById("lineCount");
+        const consoleHead  = document.getElementById("consoleHead");
+        const consoleStatusText = consoleHead.querySelector(".status-text");
+        const consoleOutput = document.getElementById("consoleOutput");
+        const runBtn       = document.getElementById("runBtn");
+        const stdinBox     = document.getElementById("stdinBox");
+        const stdSelect    = document.getElementById("stdSelect");
+        const stdBadge     = document.getElementById("stdBadge");
+
+        /* ---------- gutter / line numbers ---------- */
+        function updateGutter(){
+            const lines = cCode.value.split("\n").length;
+            let out = "";
+            for(let i = 1; i <= lines; i++) out += i + "\n";
+            gutter.textContent = out;
+            lineCountEl.textContent = "Ln " + lines;
+        }
+        function syncGutter(el){ gutter.scrollTop = el.scrollTop; }
+
+        function onEdit(){ updateGutter(); }
+
+        stdSelect.addEventListener("change", () => {
+            const map = { C99: "-std=c99", C11: "-std=c11", C17: "-std=c17", "GNU C (gcc default)": "gcc default" };
+            stdBadge.textContent = map[stdSelect.value] || stdSelect.value;
+        });
+
+        /* ---------- tab-key indentation ---------- */
+        function handleTab(event){
+            if(event.key === "Tab"){
+                event.preventDefault();
+                const el = event.target;
+                const start = el.selectionStart;
+                const end = el.selectionEnd;
+                const value = el.value;
+                el.value = value.substring(0, start) + "    " + value.substring(end);
+                el.selectionStart = el.selectionEnd = start + 4;
+                onEdit();
+            }
+            if((event.ctrlKey || event.metaKey) && event.key === "Enter"){
+                event.preventDefault();
+                runCode();
+            }
+        }
+
+        function escapeHtml(str){
+            return (str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        }
+
+        function setConsole(html){
+            consoleOutput.innerHTML = html;
+            consoleOutput.scrollTop = 0;
+        }
+
+        function setHead(state, label){
+            consoleHead.classList.remove("running", "ok", "err");
+            if(state) consoleHead.classList.add(state);
+            consoleStatusText.innerHTML = '<span class="indicator"></span> ' + label;
+        }
+
+        /* ---------- Swipeable Code / Console frames (mobile & tablet) ---------- */
+        const workspaceEl = document.querySelector(".workspace");
+        const framePanes = document.querySelectorAll(".workspace > .pane");
+        const frameTabs = document.querySelectorAll(".frame-tab");
+
+        function switchFrame(index){
+            const target = framePanes[index];
+            if(!target || !workspaceEl) return;
+            workspaceEl.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+        }
+
+        function syncFrameTabs(){
+            if(!workspaceEl || workspaceEl.clientWidth === 0) return;
+            const idx = Math.round(workspaceEl.scrollLeft / workspaceEl.clientWidth);
+            frameTabs.forEach((tab, i) => {
+                const isActive = i === idx;
+                tab.classList.toggle("active", isActive);
+                tab.setAttribute("aria-selected", isActive ? "true" : "false");
+            });
+        }
+
+        if(workspaceEl){
+            let scrollTicking = false;
+            workspaceEl.addEventListener("scroll", () => {
+                if(!scrollTicking){
+                    window.requestAnimationFrame(() => { syncFrameTabs(); scrollTicking = false; });
+                    scrollTicking = true;
+                }
+            });
+            window.addEventListener("resize", syncFrameTabs);
+        }
+
+        /* ---------- compile & run (via Wandbox Engine) ---------- */
+        async function runCode(){
+            const source = cCode.value;
+            const stdin  = stdinBox.value;
+
+            if(!source.trim()){
+                setHead("err", "Console");
+                setConsole('<span class="line-err">error: no source code to compile</span>');
+                return;
+            }
+
+            runBtn.disabled = true;
+            setHead("running", "Compiling…");
+            setConsole('<span class="line-muted">Sending to compiler service...</span>');
+            if(window.innerWidth <= 900){ switchFrame(1); }
+
+            // Map UI selection to actual compiler flags
+            const stdMap = {
+                "C99": "-std=c99",
+                "C11": "-std=c11",
+                "C17": "-std=c17",
+                "GNU C (gcc default)": ""
+            };
+            const stdFlag = stdMap[stdSelect.value] || "";
+
+            try{
+                // Using Wandbox API (Free, CORS-friendly, NO API KEY required)
+                const response = await fetch("https://wandbox.org/api/compile.json", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        compiler: "gcc-head-c", // Specific target for C Language on Wandbox
+                        code: source,
+                        stdin: stdin,
+                        "compiler-option-raw": stdFlag
+                    })
+                });
+
+                if(!response.ok){
+                    setHead("err", "Console");
+                    setConsole('<span class="line-err">Compiler service returned an error (HTTP ' + response.status + '). Please try again.</span>');
+                    runBtn.disabled = false;
+                    return;
+                }
+
+                const result = await response.json();
+                let html = "";
+
+                // 1. Show compiler warnings or errors
+                if (result.compiler_message) {
+                    html += '<span class="line-err">' + escapeHtml(result.compiler_message.trim()) + '</span>\n\n';
+                }
+
+                // 2. Execution output (only present if compilation succeeded and code ran)
+                if ("program_message" in result) {
+                    setHead(result.status === "0" ? "ok" : "err", "Console");
+
+                    if(result.program_error) {
+                        html += '<span class="line-err">' + escapeHtml(result.program_error) + '</span>';
+                    }
+                    if(result.program_output) {
+                        html += '<span class="line-out">' + escapeHtml(result.program_output) + '</span>';
+                    }
+                    if(!result.program_output && !result.program_error) {
+                        html += '<span class="line-muted">(program produced no output)</span>';
+                    }
+                    html += '\n<div class="exit-code">process exited with code ' + result.status + '</div>';
+                } else {
+                    // Compilation failed completely
+                    setHead("err", "Console");
+                    html += '<div class="exit-code">compilation terminated — exit status ' + result.status + '</div>';
+                }
+
+                setConsole(html.trim());
+
+            }catch(err){
+                setHead("err", "Console");
+                setConsole('<span class="line-err">network error — could not reach the compiler service. Please try again.</span>\n<span class="line-muted">' + escapeHtml(err.message) + '</span>');
+            }finally{
+                runBtn.disabled = false;
+            }
+        }
+
+        function clearCode(){
+            cCode.value = "";
+            stdinBox.value = "";
+            updateGutter();
+            setHead(null, "Console");
+            setConsole('<span class="line-muted">// Output will appear here after you compile &amp; run.</span>');
+        }
+
+        updateGutter();
+    </script>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- SEO Meta Tags -->
+<title>Age Calculator - Check Exact Age for Exam Eligibility | pycodes.in</title>
+<meta name="description" content="Free online Age Calculator to check your exact age in years, months, and days. Perfect for checking exam eligibility, form submissions, and cut-off dates." />
+<meta name="keywords" content="age calculator, exact age calculator, exam age limit calculator, DOB calculator, pycodes.in, age calculator by date of birth" />
+<meta name="author" content="pycodes.in" />
+<link rel="canonical" href="https://pycodes.in/age-calculator.html" />
+
+<!-- Open Graph / Social Meta Tags -->
+<meta property="og:title" content="Age Calculator - Check Exact Age" />
+<meta property="og:description" content="Calculate your exact age in years, months, and days for exam eligibility." />
+<meta property="og:url" content="https://pycodes.in/age-calculator.html" />
+<meta property="og:type" content="website" />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #a80d3c;
+  --navy-dark: #7e0926;
+  --saffron: #F2A93B;
+  --saffron-dark: #D88F1F;
+  --green: #1F8A55;
+  --ink: #16212E;
+  --ink-soft: #5B6472;
+  --bg: #F4F6F9;
+  --surface: #FFFFFF;
+  --line: #E3E7EC;
+  --danger: #C62828;
+  --font-head: 'Hind', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font: 15px/1.7em var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a { color: var(--navy); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 3px solid var(--saffron); outline-offset: 2px; }
+
+/* ===== Header & Footer ===== */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-family: var(--font-head);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+}
+.logo span { color: var(--ink); }
+
+
+
+/* ===== Layout Containers ===== */
+.page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 16px;
+  width: 100%;
+}
+
+/* Ad Banners */
+.ad-banner {
+  background: var(--surface);
+  border: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 12px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display:none;
+}
+.ad-horizontal { width: 100%; height: 90px; } /* Typical Leaderboard */
+.ad-vertical { width: 100%; height: 600px; } /* Typical Skyscraper */
+
+/* Main Grid Layout */
+.layout-container {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 30px;
+  align-items: start;
+}
+
+.main-content {
+  background: var(--surface);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.page-head { margin-bottom: 25px; text-align: center; }
+.page-head h1 {
+  font-family: var(--font-head);
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.page-head p { font-size: 15px; color: var(--ink-soft); }
+
+/* ===== Form card ===== */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.field { margin-bottom: 18px; }
+.field:last-of-type { margin-bottom: 0; }
+.field label {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.field .hint {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+
+.date-row { display: flex; gap: 10px; }
+.date-row input[type="date"] { flex: 1 1 auto; }
+
+input[type="date"] {
+  width: 100%;
+  font: inherit;
+  font-size: 15px;
+  padding: 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+  transition: border-color 0.2s;
+}
+input[type="date"]:focus { border-color: var(--navy); outline: none; }
+
+.btn-today {
+  flex: 0 0 auto;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  color: var(--ink-soft);
+  font-family: var(--font-head);
+  font-weight: 600;
+  padding: 0 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-today:hover { border-color: var(--navy); color: var(--navy); }
+
+.btn-calc {
+  width: 100%;
+  margin-top: 10px;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+  color: white;
+  border: 0;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: .02em;
+  padding: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.2s;
+}
+.btn-calc:hover { filter: brightness(1.1); }
+.btn-calc:active { transform: translateY(2px); }
+
+/* ===== Result area (Ticket) ===== */
+#result-wrap { min-height: 0; margin-top: 20px; }
+
+.ticket {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  transform: rotate(-0.2deg);
+  box-shadow: 0 10px 30px rgba(11,61,98,.1);
+  animation: ticket-in .4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+@keyframes ticket-in {
+  from { opacity: 0; transform: rotate(-2deg) translateY(20px); }
+  to   { opacity: 1; transform: rotate(-0.2deg) translateY(0); }
+}
+
+.ticket-perf {
+  height: 14px;
+  background-image: radial-gradient(circle 7px, var(--bg) 7px, transparent 7.5px);
+  background-size: 22px 22px;
+  background-position: -5px -7px;
+  background-repeat: repeat-x;
+}
+.ticket-perf.bottom { transform: scaleY(-1); }
+
+.ticket-head, .ticket-meta, .ticket-extra, .ticket-foot {
+  padding: 12px 20px;
+  border-bottom: 1px dashed var(--line);
+}
+.ticket-head { display: flex; justify-content: space-between; align-items: center; }
+.ticket-head .label { font-family: var(--font-head); font-weight: 700; font-size: 14px; text-transform: uppercase; color: var(--navy); letter-spacing: 1px; }
+
+.ticket-meta { display: flex; gap: 20px; }
+.ticket-meta div span.k { display: block; color: var(--ink-soft); font-size: 11px; text-transform: uppercase; }
+.ticket-meta div span.v { font-weight: 600; font-family: var(--font-mono); font-size: 14px; }
+
+.ticket-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px dashed var(--line);
+}
+.stat-block {
+  text-align: center;
+  background: var(--bg);
+  border-radius: 6px;
+  padding: 16px 8px;
+}
+.stat-block .num { font-family: var(--font-mono); font-weight: 700; font-size: 32px; color: var(--navy); line-height: 1; }
+.stat-block .unit { display: block; margin-top: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ink-soft); }
+
+.ticket-extra ul { list-style: none; }
+.ticket-extra li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--bg); font-size: 13px; }
+.ticket-extra li:last-child { border: 0; }
+.ticket-extra li b { font-family: var(--font-mono); font-size: 14px; }
+
+.ticket-foot { display: flex; align-items: center; gap: 10px; border-bottom: none; }
+.barcode { flex: 1; height: 26px; background: repeating-linear-gradient(90deg, var(--ink) 0px, var(--ink) 2px, transparent 2px, transparent 4px, var(--ink) 4px, var(--ink) 6px, transparent 6px, transparent 10px); opacity: .7; }
+.verified { font-family: var(--font-head); font-weight: 700; font-size: 11px; color: var(--green); border: 2px solid var(--green); border-radius: 4px; padding: 4px 10px; transform: rotate(-5deg); text-transform: uppercase; }
+
+/* ===== SEO Content Area ===== */
+.seo-content {
+  background: var(--surface);
+  padding: 40px;
+  border-radius: 8px;
+  margin-top: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.seo-content h2 { font-family: var(--font-head); color: var(--navy); margin-bottom: 15px; font-size: 24px; }
+.seo-content h3 { font-family: var(--font-head); margin: 25px 0 10px; font-size: 20px; }
+.seo-content p { margin-bottom: 15px; color: var(--ink-soft); }
+.seo-content ul { margin: 0 0 20px 20px; color: var(--ink-soft); }
+.seo-content li { margin-bottom: 8px; }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .layout-container { grid-template-columns: 1fr; }
+  .left-ads-sidebar, .right-ads-sidebar { display: none; }
+}
+@media (max-width: 600px) {
+  .ticket-stats { gap: 8px; }
+  .stat-block .num { font-size: 24px; }
+  .seo-content { padding: 25px 20px; }
+}
+
+
+
+     /* === FOOTER === */
+footer {
+  width:100%;
+    background: #111827;
+    color: #9ca3af;
+    padding: 20px 5%;
+    margin-top: auto;
+    font-size: 0.9rem;
+    border-top: 1px solid #1f2937;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Keeps copyright left, links right */
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Wraps items cleanly if screen is too small */
+    gap: 15px;
+}
+
+.footer-content p {
+    margin: 0;
+}
+
+/* Base Footer Link Style */
+footer a { 
+    color: darkred; 
+    text-decoration: none; 
+    transition: color 0.3s ease;
+}
+
+footer a:hover { 
+    color: brown;
+    text-decoration: underline; 
+}
+
+/* Footer Navbar Links */
+.footer-nav {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.footer-nav a {
+    color: #d1d5db; /* Lighter text for nav links */
+    font-weight: 500;
+}
+
+.footer-nav a:hover {
+    color: brown;
+    text-decoration: none;
+}
+
+/* === RESPONSIVE FOOTER FOR MOBILE === */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stacks items vertically on mobile */
+        text-align: center;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .footer-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .hero { padding: 40px 15px; }
+            .hero h1 { font-size: 2rem; }
+            .tools-container { gap: 15px; padding: 30px 5%; }
+            header { padding: 15px 20px; }
+        }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/" class="logo">pycodes<span>.in</span></a>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    
+    <!-- Top AdSense Banner Placeholder -->
+    <div class="ad-banner ad-horizontal">
+      AdSense Banner (728x90 or Responsive)
+    </div>
+
+    <div class="layout-container">
+      <!-- Left AdSense Sidebar -->
+      <aside class="left-ads-sidebar">
+        <div class="ad-banner ad-vertical">
+          AdSense Sidebar<br>(160x600)
+        </div>
+      </aside>
+
+      <!-- Main Calculator -->
+      <main>
+        <div class="main-content">
+          <div class="page-head">
+            <h1>Exact Age Calculator</h1>
+            <p>Calculate your precise age in years, months, and days for exam eligibility forms and applications.</p>
+          </div>
+
+          <div class="card">
+            <div class="field">
+              <label for="dob">Enter Date of Birth (DOB)</label>
+              <input type="date" id="dob" required />
+            </div>
+
+            <div class="field">
+              <label for="asOn">Calculate Age As On</label>
+              <div class="date-row">
+                <input type="date" id="asOn" required />
+                <button type="button" class="btn-today" id="todayBtn">Today</button>
+              </div>
+              <span class="hint">Check official notifications (like UPSC, SSC, state police) for their specific cut-off date.</span>
+            </div>
+
+            <button type="button" class="btn-calc" id="calcBtn">Generate Age Slip</button>
+          </div>
+
+          <div id="result-wrap"></div>
+        </div>
+
+        <!-- SEO Article & FAQs for AdSense Approval -->
+        <article class="seo-content">
+          <h2>How to Use the Age Calculator</h2>
+          <p>Whether you are filling out a government job application, a college admission form, or checking eligibility for exams, calculating your exact age can be tricky. This tool from <strong>pycodes.in</strong> makes it simple:</p>
+          <ul>
+            <li><strong>Step 1:</strong> Select your exact Date of Birth from the first calendar.</li>
+            <li><strong>Step 2:</strong> Select the "As On" date. If an exam requires you to be a certain age by "1st July," enter that date. Otherwise, click "Today."</li>
+            <li><strong>Step 3:</strong> Click "Generate Age Slip" to get a detailed breakdown of your age in years, months, days, and total weeks lived.</li>
+          </ul>
+
+          <h3>Frequently Asked Questions (FAQ)</h3>
+          <p><strong>Why is my age calculated differently for different exams?</strong></p>
+          <p>Government exams and academic boards often set a specific "cut-off date" (e.g., January 1st or July 1st of the exam year). Your eligibility depends on your age exactly on that date, not today's date.</p>
+
+          <p><strong>Does this calculator handle leap years?</strong></p>
+          <p>Yes, the pycodes.in calculator uses built-in calendar logic to accurately account for leap years and months with 28, 29, 30, or 31 days.</p>
+        </article>
+      </main>
+
+      <!-- Right AdSense Sidebar -->
+      <aside class="right-ads-sidebar">
+         <div class="ad-banner ad-vertical">
+          AdSense Sidebar<br>(160x600)
+        </div>
+      </aside>
+    </div>
+
+    <!-- Bottom AdSense Banner Placeholder -->
+    <div class="ad-banner ad-horizontal" style="margin-top: 30px;">
+      AdSense Banner (Responsive)
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-content">
+   <p>&copy; 2026 <a href="https://www.pycodes.in">PyCodes.in</a>. All Rights Reserved.</p>
+        <nav class="footer-nav">
+            <a href="https://www.pycodes.in">Home</a>
+            <a href="https://www.pycodes.in/tutorials">Tutorials</a>
+            <a href="https://www.pycodes.in/blogs">Blogs</a>
+        </nav>
+  </footer>
+
+<script>
+(function () {
+  var dobInput = document.getElementById('dob');
+  var asOnInput = document.getElementById('asOn');
+  var todayBtn = document.getElementById('todayBtn');
+  var calcBtn = document.getElementById('calcBtn');
+  var resultWrap = document.getElementById('result-wrap');
+
+  function todayStr() {
+    var d = new Date();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return d.getFullYear() + '-' + m + '-' + day;
+  }
+
+  asOnInput.value = todayStr();
+
+  todayBtn.addEventListener('click', function () {
+    asOnInput.value = todayStr();
+  });
+
+  function fmt(dateObj) {
+    var dd = String(dateObj.getDate()).padStart(2, '0');
+    var mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+    var yyyy = dateObj.getFullYear();
+    return dd + '-' + mm + '-' + yyyy;
+  }
+
+  function diffYMD(dob, asOn) {
+    var y = asOn.getFullYear() - dob.getFullYear();
+    var m = asOn.getMonth() - dob.getMonth();
+    var d = asOn.getDate() - dob.getDate();
+    if (d < 0) {
+      m -= 1;
+      var prevMonthLastDay = new Date(asOn.getFullYear(), asOn.getMonth(), 0).getDate();
+      d += prevMonthLastDay;
+    }
+    if (m < 0) {
+      y -= 1;
+      m += 12;
+    }
+    return { y: y, m: m, d: d };
+  }
+
+  function nextBirthday(dob, asOn) {
+    var next = new Date(asOn.getFullYear(), dob.getMonth(), dob.getDate());
+    if (next < asOn) {
+      next = new Date(asOn.getFullYear() + 1, dob.getMonth(), dob.getDate());
+    }
+    var msPerDay = 24 * 60 * 60 * 1000;
+    var daysLeft = Math.round((next - asOn) / msPerDay);
+    return { date: next, daysLeft: daysLeft };
+  }
+
+  function renderResult(dob, asOn) {
+    var age = diffYMD(dob, asOn);
+    var msPerDay = 24 * 60 * 60 * 1000;
+    var totalDays = Math.floor((asOn - dob) / msPerDay);
+    var totalMonths = age.y * 12 + age.m;
+    var totalWeeks = Math.floor(totalDays / 7);
+    var nb = nextBirthday(dob, asOn);
+
+    var nbText = nb.daysLeft === 0 ? 'Today! 🎂' : nb.daysLeft + ' days';
+
+    resultWrap.innerHTML = 
+      '<div class="ticket">' +
+        '<div class="ticket-perf"></div>' +
+        '<div class="ticket-head">' +
+          '<span class="label">Official Age Slip</span>' +
+        '</div>' +
+        '<div class="ticket-meta">' +
+          '<div><span class="k">DOB</span><span class="v">' + fmt(dob) + '</span></div>' +
+          '<div><span class="k">As On</span><span class="v">' + fmt(asOn) + '</span></div>' +
+        '</div>' +
+        '<div class="ticket-stats">' +
+          '<div class="stat-block"><div class="num">' + age.y + '</div><span class="unit">Years</span></div>' +
+          '<div class="stat-block"><div class="num">' + age.m + '</div><span class="unit">Months</span></div>' +
+          '<div class="stat-block"><div class="num">' + age.d + '</div><span class="unit">Days</span></div>' +
+        '</div>' +
+        '<div class="ticket-extra">' +
+          '<ul>' +
+            '<li>Total months lived <b>' + totalMonths + '</b></li>' +
+            '<li>Total weeks lived <b>' + totalWeeks + '</b></li>' +
+            '<li>Total days lived <b>' + totalDays + '</b></li>' +
+            '<li>Next birthday in <b>' + nbText + '</b></li>' +
+          '</ul>' +
+        '</div>' +
+        '<div class="ticket-foot">' +
+          '<div class="barcode"></div>' +
+          '<span class="verified">Verified</span>' +
+        '</div>' +
+        '<div class="ticket-perf bottom"></div>' +
+      '</div>';
+  }
+
+  function calculate() {
+    var dobVal = dobInput.value;
+    var asOnVal = asOnInput.value;
+
+    if (!dobVal || !asOnVal) {
+      alert("Please fill in both dates.");
+      return;
+    }
+
+    var dob = new Date(dobVal + 'T00:00:00');
+    var asOn = new Date(asOnVal + 'T00:00:00');
+
+    if (dob > asOn) {
+      alert("Date of birth cannot be in the future relative to the 'As On' date.");
+      return;
+    }
+    renderResult(dob, asOn);
+  }
+
+  calcBtn.addEventListener('click', calculate);
+})();
+</script>
+
+<!-- SEO Schema Markup for FAQs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Why is my age calculated differently for different exams?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Government exams and academic boards often set a specific cut-off date. Your eligibility depends on your age exactly on that date, not today's date."
+    }
+  }, {
+    "@type": "Question",
+    "name": "Does this calculator handle leap years?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, the pycodes.in calculator uses built-in calendar logic to accurately account for leap years."
+    }
+  }]
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free AI Hashtag Generator. Generate smart, trending, and SEO-optimized hashtags instantly.">
+    <title>Hashtag Generator | PyCodes</title>
+    
+    <style>
+        /* Google-like Minimalist Variables */
+        :root {
+            --blue: #1a73e8;
+            --blue-hover: #1b66c9;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --border: #dadce0;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            --font-family: 'Google Sans', Roboto, Arial, sans-serif;
+        }
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family);
+        }
+
+        body {
+            background-color: var(--bg-white);
+            color: var(--text-main);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Header */
+        header {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--blue);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        /* Generator Box */
+        .generator-box {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1);
+            margin-bottom: 24px;
+            transition: box-shadow 0.2s;
+        }
+
+        .generator-box:focus-within {
+            box-shadow: var(--shadow);
+            border-color: transparent;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 16px;
+            color: var(--text-main);
+            resize: vertical;
+            margin-bottom: 16px;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: var(--blue);
+        }
+
+        .controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        select {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+            color: var(--text-main);
+            background: var(--bg-white);
+            outline: none;
+            cursor: pointer;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        select:focus {
+            border-color: var(--blue);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-light);
+        }
+
+        /* Stats inline */
+        .stats {
+            display: flex;
+            gap: 24px;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 24px;
+            justify-content: center;
+        }
+
+        /* Results */
+        #results-section {
+            display: none;
+        }
+
+        .pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 16px 0;
+            margin-bottom: 20px;
+        }
+
+        .hashtag-pill {
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            background: var(--bg-white);
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .hashtag-pill:hover {
+            background: var(--bg-light);
+            color: var(--text-main);
+            border-color: var(--text-muted);
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Native FAQ Details/Summary */
+        .faq-section {
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+        }
+        
+        .faq-section h2 {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        details {
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--bg-light);
+            padding-bottom: 12px;
+        }
+
+        summary {
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--text-main);
+            outline: none;
+            list-style: none; /* Hide default arrow in some browsers */
+        }
+        
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        summary::before {
+            content: "+ ";
+            color: var(--text-muted);
+        }
+        
+        details[open] summary::before {
+            content: "- ";
+        }
+
+        details p {
+            margin-top: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            padding-left: 12px;
+        }
+
+        /* Minimal Footer */
+        footer {
+            background-color: var(--bg-light);
+            border-top: 1px solid var(--border);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Snackbar/Toast */
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #323232;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 12px 24px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 14px;
+            box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14);
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="https://pycodes.in/hashtag-generator" class="logo">#tag<span>Generator</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Tool Area -->
+    <main class="container">
+        <h1>AI Hashtag Generator</h1>
+        <p class="subtitle">Simple and Free Hashtag Generator</p>
+
+        <div class="generator-box">
+            <textarea id="user-input" placeholder="Type your sentence here..."></textarea>
+            
+            <div class="controls-row">
+                <select id="platform-select">
+                    <option value="instagram">Instagram</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="twitter">Twitter / X</option>
+                    <option value="linkedin">LinkedIn</option>
+                </select>
+                <select id="count-select">
+                    <option value="10">10 Hashtags</option>
+                    <option value="20">20 Hashtags</option>
+                    <option value="30" selected>30 Hashtags</option>
+                    <option value="50">50 Hashtags</option>
+                </select>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-outline" id="clear-btn">Clear</button>
+                <button class="btn btn-primary" id="generate-btn">Generate</button>
+            </div>
+        </div>
+
+        <div class="stats">
+            <span id="char-count">0 Characters</span> • 
+            <span id="stat-words">0 Words</span> • 
+            <span id="stat-keywords">0 Keywords Found</span>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section">
+            <div class="pill-container" id="hashtag-container">
+                <!-- Hashtags injected here via JS -->
+            </div>
+            
+            <div class="result-actions">
+                <button class="btn btn-primary" id="copy-all-btn">Copy All</button>
+                <button class="btn btn-outline" id="random-btn">Shuffle</button>
+                <button class="btn btn-outline" id="download-txt-btn">Download .TXT</button>
+            </div>
+        </div>
+
+        <!-- Minimal FAQ -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <details>
+                <summary>How does this work offline?</summary>
+                <p>The entire algorithm runs locally in your browser using vanilla JavaScript. It filters out common words and combines core keywords without needing a backend server.</p>
+            </details>
+            
+            <details>
+                <summary>Why did it generate fewer hashtags than I requested?</summary>
+                <p>If your input sentence is very short, the tool has fewer keywords to work with. Try writing a slightly longer, more descriptive sentence.</p>
+            </details>
+        </div>
+    </main>
+
+    <!-- Single Line Footer -->
+    <footer>
+        <div class="container footer-links">
+            <span>&copy; <span id="year"></span> PyCodes |</span>
+            <a href="https://pycodes.in">Home</a> •
+            <a href="https://pycodes.in/blogs">Blogs</a> •
+         
+        </div>
+    </footer>
+
+    <!-- Snackbar -->
+    <div id="snackbar">Notification text</div>
+
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Snackbar logic
+        function showToast(message) {
+            const snackbar = document.getElementById("snackbar");
+            snackbar.textContent = message;
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+        }
+
+        /* --- ALGORITHM LOGIC --- */
+        const userInput = document.getElementById('user-input');
+        const charCount = document.getElementById('char-count');
+        const statWords = document.getElementById('stat-words');
+        const statKeywords = document.getElementById('stat-keywords');
+        const generateBtn = document.getElementById('generate-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const resultsSection = document.getElementById('results-section');
+        const hashtagContainer = document.getElementById('hashtag-container');
+
+        let generatedTags = [];
+
+        // English Stop Words
+        const stopWords = new Set(["a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "as", "at", "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "could", "did", "do", "does", "doing", "down", "during", "each", "few", "for", "from", "further", "had", "has", "have", "having", "he", "he'd", "he'll", "he's", "her", "here", "hers", "herself", "him", "himself", "his", "how", "i", "i'm", "if", "in", "into", "is", "it", "it's", "its", "itself", "me", "more", "most", "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "she", "should", "so", "some", "such", "than", "that", "the", "their", "theirs", "them", "themselves", "then", "there", "these", "they", "this", "those", "through", "to", "too", "under", "until", "up", "very", "was", "we", "were", "what", "when", "where", "which", "while", "who", "whom", "why", "with", "would", "you", "your", "yours", "yourself", "yourselves"]);
+
+        // Platform Defaults
+        const platformDefaults = {
+            instagram: ["instagood", "photooftheday", "explore", "viral", "reels", "trending"],
+            tiktok: ["fyp", "foryou", "foryoupage", "viral", "tiktok", "trending"],
+            youtube: ["youtube", "youtuber", "shorts", "viralvideo", "trending"],
+            twitter: ["twitter", "x", "trending", "viral", "thread"],
+            linkedin: ["linkedin", "business", "networking", "career", "success"]
+        };
+
+        const nicheMap = {
+            "travel": ["wanderlust", "adventure", "explore", "trip", "nature"],
+            "photography": ["lens", "capture", "picoftheday", "dslr"],
+            "food": ["foodie", "delicious", "yummy", "instafood", "tasty"],
+            "tech": ["technology", "coding", "developer", "software"]
+        };
+
+        // Real-time Input Stats
+        let timeout;
+        userInput.addEventListener('input', () => {
+            clearTimeout(timeout);
+            const text = userInput.value;
+            charCount.textContent = `${text.length} Characters`;
+            
+            timeout = setTimeout(() => {
+                const words = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 0);
+                statWords.textContent = `${words.length} Words`;
+                
+                const validKeywords = words.filter(w => !stopWords.has(w) && w.length > 2);
+                statKeywords.textContent = `${new Set(validKeywords).size} Keywords Found`;
+            }, 300);
+        });
+
+        clearBtn.addEventListener('click', () => {
+            userInput.value = '';
+            userInput.dispatchEvent(new Event('input'));
+            resultsSection.style.display = 'none';
+            hashtagContainer.innerHTML = '';
+        });
+
+        generateBtn.addEventListener('click', () => {
+            const text = userInput.value.trim();
+            const platform = document.getElementById('platform-select').value;
+            const maxCount = parseInt(document.getElementById('count-select').value);
+            
+            if(!text) {
+                showToast('Please type something first.');
+                return;
+            }
+
+            // Extract Keywords
+            const rawWords = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+            const baseKeywords = [...new Set(rawWords.filter(w => w.length > 2 && !stopWords.has(w)))];
+            
+            let tagsSet = new Set();
+            baseKeywords.forEach(k => tagsSet.add(k));
+
+            // Niche Inference
+            baseKeywords.forEach(k => {
+                for (const [niche, related] of Object.entries(nicheMap)) {
+                    if(k.includes(niche) || niche.includes(k)) {
+                        related.forEach(r => tagsSet.add(r));
+                    }
+                }
+            });
+
+            // Long-tail combinations
+            for(let i = 0; i < baseKeywords.length - 1; i++) {
+                tagsSet.add(baseKeywords[i] + baseKeywords[i+1]);
+            }
+
+            // Platform Defaults
+            const pDefaults = platformDefaults[platform] || [];
+            pDefaults.forEach(t => tagsSet.add(t));
+
+            // Convert and pad if necessary
+            let tagsArray = Array.from(tagsSet);
+            tagsArray = tagsArray.sort(() => 0.5 - Math.random());
+
+            const fallback = ["lifestyle", "amazing", "life", "bestoftheday", "motivation", "success"];
+            if(tagsArray.length < maxCount) {
+                fallback.forEach(f => {
+                    if(!tagsArray.includes(f)) tagsArray.push(f);
+                });
+            }
+
+            generatedTags = tagsArray.slice(0, maxCount).map(t => `#${t}`);
+            
+            renderTags(generatedTags);
+            resultsSection.style.display = 'block';
+        });
+
+        function renderTags(tags) {
+            hashtagContainer.innerHTML = '';
+            tags.forEach(tag => {
+                const pill = document.createElement('div');
+                pill.className = 'hashtag-pill';
+                pill.textContent = tag;
+                pill.title = "Click to copy";
+                pill.addEventListener('click', () => {
+                    navigator.clipboard.writeText(tag).then(() => {
+                        showToast(`Copied ${tag}`);
+                    });
+                });
+                hashtagContainer.appendChild(pill);
+            });
+        }
+
+        /* --- EXPORT BUTTONS --- */
+        document.getElementById('copy-all-btn').addEventListener('click', () => {
+            if(generatedTags.length === 0) return;
+            navigator.clipboard.writeText(generatedTags.join(' ')).then(() => {
+                showToast('All hashtags copied!');
+            });
+        });
+
+        document.getElementById('random-btn').addEventListener('click', () => {
+            if(generatedTags.length === 0) return;
+            generatedTags = generatedTags.sort(() => 0.5 - Math.random());
+            renderTags(generatedTags);
+        });
+
+        document.getElementById('download-txt-btn').addEventListener('click', () => {
+            if(generatedTags.length === 0) return;
+            const blob = new Blob([generatedTags.join(' ')], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'pycodes-hashtags.txt';
+            a.click();
+            URL.revokeObjectURL(a.href);
+            showToast('Downloaded .TXT');
+        });
+    </script>
+</body>
+</html>

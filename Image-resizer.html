@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Photo & Signature Resizer Online — Compress Image to 20KB, 50KB, 100KB</title>
+<meta name="description" content="Free online Image Resizer and Compressor designed for student exam forms. Easily compress passport photos, signatures, and document scans to exactly 20KB, 50KB, or 100KB instantly. 100% secure, private, and client-side tool.">
+<meta name="keywords" content="image resizer, photo compressor, signature resizer online, compress image to 50kb, reduce photo size for exam form, online image size reducer, jpeg compressor 20kb, webp converter">
+<meta name="robots" content="index, follow">
+
+<meta property="og:title" content="Photo & Signature Resizer Online — Student Exam Form Tool">
+<meta property="og:description" content="Instantly compress and resize your photos or signatures to target sizes like 20KB, 50KB, or 100KB. Safe, private, and runs entirely in your browser.">
+<meta property="og:type" content="website">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Photo & Signature Resizer — Student Utility Tool",
+  "description": "An online browser-based utility tool to compress and resize photos, signatures, and documents to exact target sizes (e.g., 20KB, 50KB) for government and entrance exam forms.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5 Canvas and JavaScript enabled.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "100% Client-side processing for privacy",
+    "Smart Target KB compression matching algorithms",
+    "Pre-configured profiles for Photos, Signatures, and Scanned Documents",
+    "Advanced custom resolution adjustment tool"
+  ]
+}
+</script>
+
+<script>
+  // Anti-flash dark mode init — must run before paint
+  (function () {
+    try {
+      var saved = localStorage.getItem('su-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['"Inter"', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace']
+        }
+      }
+    }
+  };
+</script>
+
+<style>
+  :root{
+    --bg:#F7F8FA; --panel:#FFFFFF; --panel-2:#FBFBFD; --border:#E4E6EB;
+    --ink:#14161B; --ink-muted:#5B5F6B;
+    --brand:#4338CA; --brand-ink:#FFFFFF; --brand-soft:#EEF0FF;
+    --stamp:#B8430C; --stamp-soft:#FBEAE0;
+    --success:#15803D; --success-soft:#ECFDF3;
+    --warn:#B45309; --warn-soft:#FEF3E2;
+  }
+  .dark{
+    --bg:#0E0F13; --panel:#171922; --panel-2:#1D2029; --border:#2A2D38;
+    --ink:#ECEDF2; --ink-muted:#9298A6;
+    --brand:#6D63F4; --brand-ink:#0E0F13; --brand-soft:#1C1B3A;
+    --stamp:#E08A52; --stamp-soft:#2B1B12;
+    --success:#4ADE80; --success-soft:#0F2A1B;
+    --warn:#F0B259; --warn-soft:#2E2310;
+  }
+  body{ background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; transition:background .25s ease, color .25s ease; }
+  ::selection{ background:var(--brand); color:var(--brand-ink); }
+  
+  .su-card{ background:var(--panel); border:1px solid var(--border); }
+  .su-card-soft{ background:var(--panel-2); border:1px solid var(--border); }
+  .su-border{ border-color:var(--border); }
+  .su-muted{ color:var(--ink-muted); }
+  .su-brand-bg{ background:var(--brand); color:var(--brand-ink); }
+
+  .seg-btn{ border:1px solid var(--border); color:var(--ink); background:transparent; }
+  .seg-btn.is-active{ background:var(--brand); color:var(--brand-ink); border-color:var(--brand); }
+  .chip-btn{ border:1px solid var(--border); color:var(--ink-muted); background:transparent; }
+  .chip-btn.is-active{ background:var(--brand-soft); color:var(--brand); border-color:var(--brand); font-weight:600; }
+
+  .dropzone{ border:2px dashed var(--border); transition:border-color .15s ease, background .15s ease; }
+  .dropzone.is-active{ border-color:var(--brand); background:var(--brand-soft); }
+
+  .corner{ position:absolute; width:18px; height:18px; border-color:var(--stamp); }
+
+  @keyframes stampIn{
+    0%{ opacity:0; transform:scale(2.1) rotate(-20deg); }
+    55%{ opacity:1; transform:scale(0.92) rotate(-3deg); }
+    100%{ opacity:1; transform:scale(1) rotate(-6deg); }
+  }
+  .stamp-pop{ animation:stampIn .5s cubic-bezier(.2,.8,.3,1.2) both; }
+
+  details > summary{ list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker{ display:none; }
+  details[open] .chev{ transform:rotate(180deg); }
+
+  input[type="number"], select{
+    background:var(--panel-2); color:var(--ink); border:1px solid var(--border);
+  }
+  input[type="number"]:focus, select:focus, button:focus-visible, [tabindex]:focus-visible{
+    outline:2px solid var(--brand); outline-offset:2px;
+  }
+
+  footer button{
+    padding-right: 50px;
+    font-size: 14px;
+  }
+</style>
+</head>
+
+<body class="font-body">
+
+<header class="sticky top-0 z-30 border-b su-border" style="background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(8px);">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="leading-tight">
+        <h1 class="font-display font-semibold text-sm sm:text-base">Image Resizer & Compressor</h1>
+      </div>
+    </div>
+    <button id="themeToggle" aria-label="Toggle dark mode"
+      class="w-10 h-10 rounded-full flex items-center justify-center su-card hover:opacity-80 transition">
+      <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
+    </button>
+  </div>
+</header>
+
+
+<main class="max-w-6xl mx-auto px-4 py-8 grid gap-6 lg:grid-cols-[380px_1fr] items-start">
+
+  <section class="su-card rounded-2xl p-5 sm:p-6 space-y-6">
+
+    <div>
+      <p class="font-display text-xs uppercase tracking-wider su-muted mb-2">Step 1 · Upload your image</p>
+      <div id="dropzone" tabindex="0" role="button" aria-label="Upload image"
+        class="dropzone rounded-xl flex flex-col items-center justify-center text-center gap-1.5 py-9 px-4 cursor-pointer">
+        <i class="fa-solid fa-cloud-arrow-up text-2xl mb-1" style="color:var(--ink-muted)"></i>
+        <p class="font-medium text-sm">Click to upload or drag &amp; drop</p>
+        <p class="text-xs su-muted">JPG or PNG, up to 15MB</p>
+        <input id="fileInput" type="file" accept="image/*" class="hidden">
+      </div>
+      <div id="fileMeta" class="hidden items-center justify-between text-sm mt-3">
+        <span class="flex items-center gap-2 truncate">
+          <i class="fa-solid fa-file-image" style="color:var(--brand)"></i>
+          <span id="fileNameLabel" class="truncate"></span>
+        </span>
+        <button id="changeFileBtn" class="text-xs underline shrink-0 ml-2" style="color:var(--brand)">Change</button>
+      </div>
+    </div>
+
+    <div>
+      <p class="font-display text-xs uppercase tracking-wider su-muted mb-2">What is this for?</p>
+      <div class="flex flex-wrap gap-2" id="typeChips">
+        <button class="chip-btn is-active px-3 py-1.5 rounded-full text-xs" data-type="photo" data-suggest="50">Photo</button>
+        <button class="chip-btn px-3 py-1.5 rounded-full text-xs" data-type="signature" data-suggest="20">Signature</button>
+        <button class="chip-btn px-3 py-1.5 rounded-full text-xs" data-type="document" data-suggest="200">Document Scan</button>
+      </div>
+      <p id="typeHint" class="text-xs su-muted mt-2">Most exam forms require a photo under 50KB.</p>
+    </div>
+
+    <div>
+      <p class="font-display text-xs uppercase tracking-wider su-muted mb-2">Step 2 · Target file size</p>
+      <div class="flex flex-wrap gap-2" id="targetButtons">
+        <button class="seg-btn px-3 py-1.5 rounded-full text-sm font-mono" data-kb="20">20 KB</button>
+        <button class="seg-btn is-active px-3 py-1.5 rounded-full text-sm font-mono" data-kb="50">50 KB</button>
+        <button class="seg-btn px-3 py-1.5 rounded-full text-sm font-mono" data-kb="100">100 KB</button>
+        <button class="seg-btn px-3 py-1.5 rounded-full text-sm font-mono" data-kb="200">200 KB</button>
+        <button class="seg-btn px-3 py-1.5 rounded-full text-sm font-mono" data-kb="custom">Custom</button>
+      </div>
+      <div id="customRow" class="hidden items-center gap-2 mt-3">
+        <input id="customValue" type="number" min="1" value="75" class="w-24 rounded-lg px-3 py-1.5 text-sm font-mono">
+        <select id="customUnit" class="rounded-lg px-2 py-1.5 text-sm">
+          <option value="KB" selected>KB</option>
+          <option value="MB">MB</option>
+        </select>
+      </div>
+    </div>
+
+    <details class="group rounded-xl su-card-soft px-4 py-3">
+      <summary class="flex items-center justify-between font-display text-xs uppercase tracking-wider su-muted">
+        Step 3 · Advanced options (optional)
+        <i class="fa-solid fa-chevron-down chev text-[10px] transition-transform"></i>
+      </summary>
+      <div class="mt-4 space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs su-muted block mb-1">Max width (px)</label>
+            <input id="maxWidth" type="number" min="20" placeholder="Auto" class="w-full rounded-lg px-3 py-1.5 text-sm font-mono">
+          </div>
+          <div>
+            <label class="text-xs su-muted block mb-1">Max height (px)</label>
+            <input id="maxHeight" type="number" min="20" placeholder="Auto" class="w-full rounded-lg px-3 py-1.5 text-sm font-mono">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs su-muted block mb-1">Output format</label>
+          <select id="formatSelect" class="w-full rounded-lg px-3 py-2 text-sm">
+            <option value="jpeg" selected>JPEG — Recommended (smallest)</option>
+            <option value="webp">WEBP — Modern, very small</option>
+            <option value="png">PNG — Lossless (larger)</option>
+          </select>
+        </div>
+        <p id="formatNote" class="text-xs su-muted"></p>
+      </div>
+    </details>
+
+    <div>
+      <button id="compressBtn" disabled
+        class="w-full py-3 rounded-xl font-display font-semibold flex items-center justify-center gap-2 su-brand-bg opacity-50 cursor-not-allowed transition">
+        <i class="fa-solid fa-compress"></i> Compress Image
+      </button>
+      <p id="statusLine" aria-live="polite" class="text-xs text-center su-muted mt-2 min-h-[1rem]"></p>
+    </div>
+  </section>
+
+  <section>
+    <div id="emptyState" class="su-card rounded-2xl py-20 px-6 flex flex-col items-center justify-center text-center gap-2" style="border:2px dashed var(--border)">
+      <i class="fa-regular fa-image text-3xl mb-1" style="color:var(--ink-muted)"></i>
+      <p class="font-medium su-muted">Your before &amp; after preview will appear here</p>
+      <p class="text-xs su-muted">Upload an image to get started</p>
+    </div>
+
+    <div id="resultsWrapper" class="hidden space-y-5">
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="su-card rounded-2xl p-4">
+          <p class="font-mono text-xs tracking-widest su-muted mb-3">ORIGINAL</p>
+          <div class="relative w-full su-card-soft rounded-lg flex items-center justify-center overflow-hidden" style="aspect-ratio:4/5;">
+            <div class="corner" style="top:8px;left:8px;border-top:2px solid;border-left:2px solid;"></div>
+            <div class="corner" style="top:8px;right:8px;border-top:2px solid;border-right:2px solid;"></div>
+            <div class="corner" style="bottom:8px;left:8px;border-bottom:2px solid;border-left:2px solid;"></div>
+            <div class="corner" style="bottom:8px;right:8px;border-bottom:2px solid;border-right:2px solid;"></div>
+            <img id="originalPreviewImg" class="max-h-full max-w-full object-contain p-3" alt="Original uploaded image">
+          </div>
+          <div class="flex items-center justify-between mt-3 text-xs">
+            <span id="originalDims" class="font-mono su-muted">—</span>
+            <span id="originalSizeBadge" class="font-mono font-semibold">—</span>
+          </div>
+        </div>
+
+        <div class="su-card rounded-2xl p-4">
+          <p class="font-mono text-xs tracking-widest su-muted mb-3">COMPRESSED</p>
+          <div class="relative w-full su-card-soft rounded-lg flex items-center justify-center overflow-hidden" style="aspect-ratio:4/5;">
+            <div class="corner" style="top:8px;left:8px;border-top:2px solid;border-left:2px solid;"></div>
+            <div class="corner" style="top:8px;right:8px;border-top:2px solid;border-right:2px solid;"></div>
+            <div class="corner" style="bottom:8px;left:8px;border-bottom:2px solid;border-left:2px solid;"></div>
+            <div class="corner" style="bottom:8px;right:8px;border-bottom:2px solid;border-right:2px solid;"></div>
+            <img id="compressedPreviewImg" class="max-h-full max-w-full object-contain p-3" alt="Compressed image result">
+          </div>
+          <div class="flex items-center justify-between mt-3 text-xs">
+            <span id="compressedDims" class="font-mono su-muted">—</span>
+            <span id="compressedSizeBadge" class="font-mono font-semibold" style="color:var(--success)">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="su-card rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap gap-6">
+          <div>
+            <p class="text-[11px] uppercase tracking-wider su-muted">Target</p>
+            <p id="targetValueLabel" class="font-mono font-semibold text-sm mt-0.5">—</p>
+          </div>
+          <div>
+            <p class="text-[11px] uppercase tracking-wider su-muted">Reduction</p>
+            <p id="reductionLabel" class="font-mono font-semibold text-sm mt-0.5" style="color:var(--success)">—</p>
+          </div>
+          <div>
+            <p class="text-[11px] uppercase tracking-wider su-muted">Quality used</p>
+            <p id="qualityLabel" class="font-mono font-semibold text-sm mt-0.5">—</p>
+          </div>
+        </div>
+        <div id="stampBadgeWrap"></div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button id="downloadBtn" class="flex-1 py-3 rounded-xl font-display font-semibold flex items-center justify-center gap-2 su-brand-bg">
+          <i class="fa-solid fa-download"></i> Download Compressed Image
+        </button>
+        <button id="resetBtn" class="sm:flex-none px-5 py-3 rounded-xl font-display font-semibold su-card">
+          Compress Another
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="max-w-6xl mx-auto px-4 mt-12 pt-8 border-t su-border">
+  <h2 class="font-display font-bold text-lg sm:text-xl mb-4">Frequently Asked Questions & User Guide</h2>
+  <div class="grid gap-4 sm:grid-cols-2 text-sm">
+    <div class="su-card rounded-xl p-4">
+      <h3 class="font-semibold mb-1">How to compress an image to exactly 50KB or 20KB?</h3>
+      <p class="su-muted">Simply upload your passport photo or signature image into our online dropzone. Choose the standard 20KB or 50KB presets or set a custom size limit. Click 'Compress Image' and our algorithm will dynamically fine-tune the scale and pixel ratios to lock under your specified file target perfectly.</p>
+    </div>
+    <div class="su-card rounded-xl p-4">
+      <h3 class="font-semibold mb-1">Is this Image Resizer secure for uploading personal documents?</h3>
+      <p class="su-muted">Yes, this utility is 100% secure. It functions entirely inside your web browser (client-side processing). No data or photographs are ever uploaded to an external database, cloud service, or backend server. Your absolute privacy is guaranteed.</p>
+    </div>
+    <div class="su-card rounded-xl p-4">
+      <h3 class="font-semibold mb-1">Which output format should I use for government/exam forms?</h3>
+      <p class="su-muted">JPEG (or JPG) is universally recommended for standard student application portals. If you require higher graphic efficiency for newer platforms, you can switch the output engine to WEBP or lossless PNG formats inside the step 3 advanced panel configuration.</p>
+    </div>
+    <div class="su-card rounded-xl p-4">
+      <h3 class="font-semibold mb-1">Why is my image resolution automatically changing?</h3>
+      <p class="su-muted">To drop complex digital weights into tiny sizes like 10KB or 20KB while avoiding complete pixel distortion, the compression algorithm scales down physical dimensions proportionally. This provides optimization balanced perfectly for modern online applications.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t su-border mt-6">
+  <div class="max-w-6xl mx-auto px-4 py-8 text-center text-xs su-muted">
+    <ul>
+            <a href="https://www.pycodes.in"><button>Home</button></a>
+            <a href="https://www.pycodes.in/tutorials"><button>Tutorials</button></a>
+            <a href="https://www.pycodes.in/blogs"><button>Blogs</button></a>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- THEME ---------- */
+  var htmlEl = document.documentElement;
+  var themeIcon = document.getElementById('themeIcon');
+  function syncThemeIcon(){
+    themeIcon.className = htmlEl.classList.contains('dark') ? 'fa-solid fa-sun text-sm' : 'fa-solid fa-moon text-sm';
+  }
+  syncThemeIcon();
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    htmlEl.classList.toggle('dark');
+    localStorage.setItem('su-theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+    syncThemeIcon();
+  });
+
+  /* ---------- STATE ---------- */
+  var currentFile = null;
+  var currentImage = null;       // HTMLImageElement
+  var originalObjectUrl = null;
+  var compressedObjectUrl = null;
+  var selectedTargetKB = 50;     // number or 'custom'
+
+  var typeHints = {
+    photo: 'Most exam forms require a photo under 50KB, often around 200×230px.',
+    signature: 'Signatures are usually capped at 10–20KB, around 300×150px.',
+    document: 'Scanned documents/certificates are commonly capped near 200–300KB.'
+  };
+  var formatNotes = {
+    jpeg: 'JPEG compresses smoothly — best choice for hitting small KB targets.',
+    webp: 'WEBP gives strong compression with good quality, supported by all modern browsers.',
+    png: 'PNG is lossless — to hit small targets we will reduce dimensions instead of quality.'
+  };
+
+  /* ---------- ELEMENTS ---------- */
+  var dropzone = document.getElementById('dropzone');
+  var fileInput = document.getElementById('fileInput');
+  var fileMeta = document.getElementById('fileMeta');
+  var fileNameLabel = document.getElementById('fileNameLabel');
+  var changeFileBtn = document.getElementById('changeFileBtn');
+
+  var typeChips = document.querySelectorAll('#typeChips .chip-btn');
+  var typeHint = document.getElementById('typeHint');
+
+  var targetButtons = document.querySelectorAll('#targetButtons .seg-btn');
+  var customRow = document.getElementById('customRow');
+  var customValue = document.getElementById('customValue');
+  var customUnit = document.getElementById('customUnit');
+
+  var maxWidthInput = document.getElementById('maxWidth');
+  var maxHeightInput = document.getElementById('maxHeight');
+  var formatSelect = document.getElementById('formatSelect');
+  var formatNote = document.getElementById('formatNote');
+
+  var compressBtn = document.getElementById('compressBtn');
+  var statusLine = document.getElementById('statusLine');
+
+  var emptyState = document.getElementById('emptyState');
+  var resultsWrapper = document.getElementById('resultsWrapper');
+
+  var originalPreviewImg = document.getElementById('originalPreviewImg');
+  var originalDims = document.getElementById('originalDims');
+  var originalSizeBadge = document.getElementById('originalSizeBadge');
+
+  var compressedPreviewImg = document.getElementById('compressedPreviewImg');
+  var compressedDims = document.getElementById('compressedDims');
+  var compressedSizeBadge = document.getElementById('compressedSizeBadge');
+
+  var targetValueLabel = document.getElementById('targetValueLabel');
+  var reductionLabel = document.getElementById('reductionLabel');
+  var qualityLabel = document.getElementById('qualityLabel');
+  var stampBadgeWrap = document.getElementById('stampBadgeWrap');
+
+  var downloadBtn = document.getElementById('downloadBtn');
+  var resetBtn = document.getElementById('resetBtn');
+
+  formatNote.textContent = formatNotes.jpeg;
+
+  /* ---------- HELPERS ---------- */
+  function formatBytes(bytes){
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(bytes / 1024 < 10 ? 2 : 1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  }
+  function yieldFrame(){ return new Promise(function (r) { setTimeout(r, 0); }); }
+  function canvasToBlob(canvas, mime, quality){
+    return new Promise(function (resolve) { canvas.toBlob(resolve, mime, quality); });
+  }
+  function setStatus(text){ statusLine.textContent = text || ''; }
+
+  /* ---------- FILE HANDLING ---------- */
+  dropzone.addEventListener('click', function(){ fileInput.click(); });
+  dropzone.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+  });
+  ['dragenter','dragover'].forEach(function(evt){
+    dropzone.addEventListener(evt, function(e){ e.preventDefault(); dropzone.classList.add('is-active'); });
+  });
+  ['dragleave','drop'].forEach(function(evt){
+    dropzone.addEventListener(evt, function(e){ e.preventDefault(); dropzone.classList.remove('is-active'); });
+  });
+  dropzone.addEventListener('drop', function(e){
+    var files = e.dataTransfer.files;
+    if (files && files.length) handleFile(files[0]);
+  });
+  fileInput.addEventListener('change', function(e){
+    if (e.target.files && e.target.files.length) handleFile(e.target.files[0]);
+  });
+  changeFileBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    fileInput.click();
+  });
+
+  function handleFile(file){
+    if (!file.type || file.type.indexOf('image/') !== 0) {
+      setStatus('Please choose a valid image file (JPG or PNG).');
+      return;
+    }
+    if (file.size > 15 * 1024 * 1024) {
+      setStatus('That file is larger than 15MB — please choose a smaller image.');
+      return;
+    }
+    currentFile = file;
+    setStatus('Loading image…');
+
+    if (originalObjectUrl) URL.revokeObjectURL(originalObjectUrl);
+    originalObjectUrl = URL.createObjectURL(file);
+
+    var img = new Image();
+    img.onload = function () {
+      currentImage = img;
+      fileNameLabel.textContent = file.name;
+      fileMeta.classList.remove('hidden');
+      fileMeta.classList.add('flex');
+
+      originalPreviewImg.src = originalObjectUrl;
+      originalDims.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px';
+      originalSizeBadge.textContent = formatBytes(file.size);
+
+      compressBtn.disabled = false;
+      compressBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+      resultsWrapper.classList.remove('hidden');
+      resultsWrapper.classList.add('space-y-5');
+      emptyState.classList.add('hidden');
+
+      // collapse any previous compressed result until re-run
+      compressedPreviewImg.removeAttribute('src');
+      compressedDims.textContent = '—';
+      compressedSizeBadge.textContent = '—';
+      stampBadgeWrap.innerHTML = '';
+      targetValueLabel.textContent = '—';
+      reductionLabel.textContent = '—';
+      qualityLabel.textContent = '—';
+
+      setStatus('Image loaded — choose a target size and compress.');
+    };
+    img.onerror = function () {
+      setStatus('Could not read that image. Please try a different file.');
+    };
+    img.src = originalObjectUrl;
+  }
+
+  /* ---------- TYPE CHIPS ---------- */
+  typeChips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      typeChips.forEach(function (c) { c.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+      typeHint.textContent = typeHints[chip.dataset.type] || '';
+      selectTargetByKB(chip.dataset.suggest);
+    });
+  });
+
+  /* ---------- TARGET SIZE ---------- */
+  function selectTargetByKB(kb){
+    targetButtons.forEach(function (btn) {
+      var match = btn.dataset.kb === String(kb);
+      btn.classList.toggle('is-active', match);
+    });
+    selectedTargetKB = Number(kb);
+    customRow.classList.add('hidden');
+    customRow.classList.remove('flex');
+  }
+  targetButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      targetButtons.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      if (btn.dataset.kb === 'custom') {
+        selectedTargetKB = 'custom';
+        customRow.classList.remove('hidden');
+        customRow.classList.add('flex');
+      } else {
+        selectedTargetKB = Number(btn.dataset.kb);
+        customRow.classList.add('hidden');
+        customRow.classList.remove('flex');
+      }
+    });
+  });
+
+  function getTargetBytes(){
+    if (selectedTargetKB === 'custom') {
+      var val = parseFloat(customValue.value);
+      if (!val || val <= 0) return null;
+      var unit = customUnit.value;
+      return unit === 'MB' ? Math.round(val * 1024 * 1024) : Math.round(val * 1024);
+    }
+    return Math.round(Number(selectedTargetKB) * 1024);
+  }
+
+  /* ---------- FORMAT NOTE ---------- */
+  formatSelect.addEventListener('change', function () {
+    formatNote.textContent = formatNotes[formatSelect.value] || '';
+  });
+
+  /* ---------- COMPRESSION ENGINE ---------- */
+  async function compressToTarget(opts){
+    var img = opts.img;
+    var targetBytes = opts.targetBytes;
+    var maxW = opts.maxW;
+    var maxH = opts.maxH;
+    var mime = opts.mime;
+    var supportsQuality = mime !== 'image/png';
+
+    var srcW = img.naturalWidth, srcH = img.naturalHeight;
+    var HARD_CAP = 2200;
+    var longEdge = Math.max(srcW, srcH);
+    var scale = longEdge > HARD_CAP ? HARD_CAP / longEdge : 1;
+
+    if (maxW || maxH) {
+      var wScale = maxW ? maxW / srcW : 1;
+      var hScale = maxH ? maxH / srcH : 1;
+      scale = Math.min(scale, wScale, hScale, 1);
+    }
+
+    var MIN_DIM = 60;
+    var best = null;
+
+    for (var outer = 0; outer < 14; outer++) {
+      var w = Math.max(MIN_DIM, Math.round(srcW * scale));
+      var h = Math.max(MIN_DIM, Math.round(srcH * scale));
+
+      var canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, w, h);
+
+      if (supportsQuality) {
+        for (var q = 0.92; q >= 0.08; q -= 0.07) {
+          setStatus('Trying ' + w + '×' + h + 'px at ' + Math.round(q * 100) + '% quality…');
+          var blob = await canvasToBlob(canvas, mime, q);
+          if (!best || blob.size < best.blob.size) best = { blob: blob, w: w, h: h, q: q };
+          if (blob.size <= targetBytes) {
+            return { blob: blob, width: w, height: h, quality: q, met: true };
+          }
+          await yieldFrame();
+        }
+      } else {
+        setStatus('Trying ' + w + '×' + h + 'px (lossless)…');
+        var pngBlob = await canvasToBlob(canvas, mime);
+        if (!best || pngBlob.size < best.blob.size) best = { blob: pngBlob, w: w, h: h, q: 1 };
+        if (pngBlob.size <= targetBytes) {
+          return { blob: pngBlob, width: w, height: h, quality: 1, met: true };
+        }
+      }
+
+      if (w <= MIN_DIM && h <= MIN_DIM) break;
+      scale *= 0.85;
+      await yieldFrame();
+    }
+
+    return { blob: best.blob, width: best.w, height: best.h, quality: best.q, met: false };
+  }
+
+  /* ---------- RUN COMPRESSION ---------- */
+  compressBtn.addEventListener('click', async function () {
+    if (!currentImage || !currentFile) return;
+
+    var targetBytes = getTargetBytes();
+    if (!targetBytes) {
+      setStatus('Please enter a valid custom target size.');
+      return;
+    }
+
+    var format = formatSelect.value;
+    var mime = format === 'png' ? 'image/png' : format === 'webp' ? 'image/webp' : 'image/jpeg';
+    var maxW = parseInt(maxWidthInput.value, 10) || null;
+    var maxH = parseInt(maxHeightInput.value, 10) || null;
+
+    compressBtn.disabled = true;
+    compressBtn.classList.add('opacity-50', 'cursor-not-allowed');
+    setStatus('Compressing…');
+
+    try {
+      var result = await compressToTarget({
+        img: currentImage, targetBytes: targetBytes, maxW: maxW, maxH: maxH, mime: mime
+      });
+      renderCompressed(result, targetBytes, format);
+      setStatus(result.met ? 'Done — target size achieved.' : 'Done — closest possible size reached.');
+    } catch (err) {
+      setStatus('Something went wrong while compressing. Please try a different image.');
+    } finally {
+      compressBtn.disabled = false;
+      compressBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+  });
+
+  function renderCompressed(result, targetBytes, format){
+    if (compressedObjectUrl) URL.revokeObjectURL(compressedObjectUrl);
+    compressedObjectUrl = URL.createObjectURL(result.blob);
+
+    compressedPreviewImg.src = compressedObjectUrl;
+    compressedDims.textContent = result.width + ' × ' + result.height + ' px';
+    compressedSizeBadge.textContent = formatBytes(result.blob.size);
+    compressedSizeBadge.style.color = result.met ? 'var(--success)' : 'var(--warn)';
+
+    targetValueLabel.textContent = formatBytes(targetBytes);
+    var reduction = Math.max(0, Math.round((1 - result.blob.size / currentFile.size) * 100));
+    reductionLabel.textContent = '↓ ' + reduction + '%';
+    qualityLabel.textContent = format === 'png' ? '—' : Math.round(result.quality * 100) + '%';
+
+    stampBadgeWrap.innerHTML = '';
+    var badge = document.createElement('div');
+    badge.className = 'stamp-pop inline-flex items-center gap-2 px-4 py-1.5 rounded-sm font-display uppercase tracking-widest text-xs';
+    if (result.met) {
+      badge.style.border = '2px solid var(--stamp)';
+      badge.style.color = 'var(--stamp)';
+      badge.style.transform = 'rotate(-6deg)';
+      badge.innerHTML = '<i class="fa-solid fa-check"></i> Target Met';
+    } else {
+      badge.style.border = '2px solid var(--warn)';
+      badge.style.color = 'var(--warn)';
+      badge.style.transform = 'rotate(-3deg)';
+      badge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Closest Size';
+    }
+    stampBadgeWrap.appendChild(badge);
+
+    downloadBtn.dataset.ready = '1';
+    window.__suCompressedBlob = result.blob;
+    window.__suCompressedExt = format === 'png' ? 'png' : format === 'webp' ? 'webp' : 'jpg';
+  }
+
+  /* ---------- DOWNLOAD ---------- */
+  downloadBtn.addEventListener('click', function () {
+    if (!window.__suCompressedBlob) {
+      setStatus('Compress an image first.');
+      return;
+    }
+    var baseName = (currentFile.name || 'image').replace(/\.[^/.]+$/, '');
+    var kbLabel = selectedTargetKB === 'custom' ? 'custom' : selectedTargetKB + 'kb';
+    var fileName = baseName + '-' + kbLabel + '.' + window.__suCompressedExt;
+
+    var url = URL.createObjectURL(window.__suCompressedBlob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  });
+
+  /* ---------- RESET ---------- */
+  resetBtn.addEventListener('click', function () {
+    currentFile = null;
+    currentImage = null;
+    window.__suCompressedBlob = null;
+
+    if (originalObjectUrl) URL.revokeObjectURL(originalObjectUrl);
+    if (compressedObjectUrl) URL.revokeObjectURL(compressedObjectUrl);
+    originalObjectUrl = null;
+    compressedObjectUrl = null;
+
+    fileInput.value = '';
+    fileMeta.classList.add('hidden');
+    fileMeta.classList.remove('flex');
+
+    compressBtn.disabled = true;
+    compressBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+    resultsWrapper.classList.add('hidden');
+    emptyState.classList.remove('hidden');
+    setStatus('');
+  });
+
+})();
+</script>
+</body>
+</html>

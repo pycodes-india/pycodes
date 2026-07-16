@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accurate EMI Calculator - Calculate Home, Car & Personal Loans</title>
+    <meta name="description" content="Free online EMI Calculator. Calculate monthly loan repayments, total interest payable, and view a complete monthly amortization schedule table instantly.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pycodes.in/emi-calculator">
+    
+    <!-- Open Graph / SEO Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Accurate EMI Calculator - Loan Repayment Planner">
+    <meta property="og:description" content="Calculate your loan EMI, total interest, and check the breakdown table instantly.">
+    
+    <!-- Structured Data (Schema.org) for AEO/SEO Optimization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Advanced EMI Calculator",
+      "url": "https://yourdomain.com/emi-calculator",
+      "description": "An interactive calculator to compute Equated Monthly Installments (EMI) for home, car, or personal loans with a comprehensive amortization table breakdown.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5."
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --bg-light: #f3f4f6;
+            --border: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* Header & Single-line Navbar */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            white-space: nowrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Main Content Container */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        /* Grid Layout */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        /* Input Controls */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .input-wrapper input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-addon {
+            position: absolute;
+            right: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .toggle-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.35rem;
+            border: 1px solid var(--border);
+            background: #fff;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .toggle-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        button.calculate-btn {
+            width: 100%;
+            padding: 0.85rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button.calculate-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Results Display */
+        .results-summary {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .result-box {
+            background: var(--bg-light);
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .result-box.highlight {
+            background: rgba(37, 99, 235, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .result-box span {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-box var {
+            font-size: 1.5rem;
+            font-style: normal;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .result-box.highlight var {
+            color: var(--primary);
+        }
+
+        /* Table Section */
+        .table-section {
+            display: none; /* Dynamic visibility requirement */
+            margin-top: 2rem;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .table-section h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+        }
+
+        tr:hover td {
+            background-color: rgba(243, 244, 246, 0.5);
+        }
+
+        /* SEO Informational Text Block */
+        .seo-content {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .seo-content h2 {
+            color: var(--text-dark);
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.4rem;
+        }
+
+        .seo-content p {
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: #ffffff;
+            padding: 2rem 1.5rem;
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            color: #9ca3af;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">EMI Calculator</a>
+            <nav>
+            
+                <a href="#how-it-works">How It Works</a>
+                <a href="#faq">FAQ</a>
+             
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1 id="calculator">Online EMI Calculator</h1>
+        <p class="subtitle">Quickly evaluate your monthly installments, total payable interest, and clean breakdown schedules.</p>
+
+        <div class="calculator-grid">
+            <!-- Inputs Box -->
+            <div class="card">
+                <form id="emiForm" onsubmit="event.preventDefault(); calculateLoan();">
+                    <div class="input-group">
+                        <label for="loanAmount">Loan Amount</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="loanAmount" min="1000" placeholder=" 500000" required>
+                            <div class="input-addon">₹</div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="interestRate">Annual Interest Rate</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="interestRate" step="0.01" min="0.1" max="100" placeholder=" 7.5" required>
+                            <div class="input-addon">%</div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="loanTenure">Loan Tenure</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="loanTenure" min="1" placeholder=" 5" required>
+                            <div class="input-addon" id="tenureAddon">Years</div>
+                        </div>
+                        <div class="toggle-container">
+                            <button type="button" class="toggle-btn active" id="btnYears" onclick="setTenureType('years')">Years</button>
+                            <button type="button" class="toggle-btn" id="btnMonths" onclick="setTenureType('months')">Months</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="calculate-btn">Calculate EMI Breakdown</button>
+                </form>
+            </div>
+
+            <!-- Basic Summary Box -->
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <h2>Calculation Summary</h2>
+                <div class="results-summary">
+                    <div class="result-box highlight">
+                        <span>Monthly EMI</span>
+                        <var id="monthlyEmi">₹0.00</var>
+                    </div>
+                    <div class="result-box">
+                        <span>Total Interest Payable</span>
+                        <var id="totalInterest">₹0.00</var>
+                    </div>
+                    <div class="result-box">
+                        <span>Total Payment (Principal + Interest)</span>
+                        <var id="totalAmount">₹0.00</var>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amortization Schedule Table (Shows after data details are filled) -->
+        <div class="table-section" id="tableSection">
+            <h2>Amortization Schedule (Monthly Breakdown)</h2>
+            <div class="table-wrapper">
+                <table id="amortizationTable">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Principal Paid</th>
+                            <th>Interest Paid</th>
+                            <th>Total Monthly Payment</th>
+                            <th>Remaining Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Dynamic content filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Semantic SEO/AEO Rich Content Section -->
+        <article class="seo-content" id="how-it-works">
+            <h2>What is an EMI Calculator and How Does It Help You?</h2>
+            <p>An Equated Monthly Installment (EMI) calculator is a digital asset designed to compute your predictable monthly payments outlays for fixed-term commitments. By setting clear values for principal, rate structure, and duration terms, you can safely model your cash flows prior to bank consultations.</p>
+
+            <h2>The Mathematical Formula Behind Loan EMIs</h2>
+            <p>Loan calculations rely on the universal reducing balance metric formulation:</p>
+            <p style="font-family: monospace; background: var(--bg-light); padding: 1rem; border-radius: 0.375rem; text-align: center;">
+                EMI = [P x R x (1+R)^N] / [(1+R)^N - 1]
+            </p>
+            <p>Where <strong>P</strong> represents the principal, <strong>R</strong> details your fractional monthly interest calculation rate, and <strong>N</strong> records total individual monthly horizons.</p>
+
+            <h2 id="faq">Frequently Asked Questions (FAQ)</h2>
+            <h3>Does prepaying a loan reduce my monthly EMI structure?</h3>
+            <p>Typically, processing single capital lump-sum injections scales down either total outstanding operational durations or shifts your next required cyclical baseline payments downward depending on custom provider clauses.</p>
+
+            <h3>Why do initial schedules reflect heavy interest ratios?</h3>
+            <p>Because processing percentages dynamically scales off the exact size of current un-cleared balances. As your principal components lower across terms, corresponding monthly interest fees decrease proportionally.</p>
+        </article>
+    </main>
+
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+            <div>© 2026 EMI Calculator. All rights reserved.</div>
+            <nav style="gap: 1rem;">
+                <a href="https://pycodes.in" style="color: #9ca3af; font-size: 1rem;">Home</a>
+                <a href="https://pycodes.in/tutorials" style="color: #9ca3af; font-size: 1rem;">Tutorials</a>
+                <a href="https://pycodes.in/blogs" style="color: #9ca3af; font-size: 1rem;">Blogs</a>
+            </nav>
+        </div>
+         </footer>
+
+    <script>
+        let tenureType = 'years';
+
+        function setTenureType(type) {
+            tenureType = type;
+            const btnYears = document.getElementById('btnYears');
+            const btnMonths = document.getElementById('btnMonths');
+            const addon = document.getElementById('tenureAddon');
+
+            if (type === 'years') {
+                btnYears.classList.add('active');
+                btnMonths.classList.remove('active');
+                addon.textContent = 'Years';
+            } else {
+                btnMonths.classList.add('active');
+                btnYears.classList.remove('active');
+                addon.textContent = 'Months';
+            }
+        }
+
+        function formatCurrency(num) {
+            return '₹' + parseFloat(num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        function calculateLoan() {
+            const principal = parseFloat(document.getElementById('loanAmount').value);
+            const annualRate = parseFloat(document.getElementById('interestRate').value);
+            let tenure = parseInt(document.getElementById('loanTenure').value);
+
+            if (isNaN(principal) || isNaN(annualRate) || isNaN(tenure)) return;
+
+            // Convert tenure to total months
+            const totalMonths = tenureType === 'years' ? tenure * 12 : tenure;
+            
+            // Monthly interest rate
+            const monthlyRate = (annualRate / 100) / 12;
+
+            let emi = 0;
+            // Handle edge case for 0% interest rate
+            if (monthlyRate === 0) {
+                emi = principal / totalMonths;
+            } else {
+                emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+            }
+
+            const totalAmountPayable = emi * totalMonths;
+            const totalInterestPayable = totalAmountPayable - principal;
+
+            // Display Top level Summaries
+            document.getElementById('monthlyEmi').textContent = formatCurrency(emi);
+            document.getElementById('totalInterest').textContent = formatCurrency(totalInterestPayable);
+            document.getElementById('totalAmount').textContent = formatCurrency(totalAmountPayable);
+
+            // Generate Amortization Table data
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = ''; // Reset content
+            
+            let balance = principal;
+            
+            for (let i = 1; i <= totalMonths; i++) {
+                let interestPayment = balance * monthlyRate;
+                let principalPayment = emi - interestPayment;
+                balance -= principalPayment;
+
+                // Adjust minor floating point tail bugs on the final month iteration
+                if (i === totalMonths || balance < 0) {
+                    principalPayment += balance;
+                    balance = 0;
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${i}</td>
+                    <td>${formatCurrency(principalPayment)}</td>
+                    <td>${formatCurrency(interestPayment)}</td>
+                    <td>${formatCurrency(emi)}</td>
+                    <td>${formatCurrency(balance)}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+
+            // Unhide Table Container smoothly
+            document.getElementById('tableSection').style.display = 'block';
+            
+            // Auto scroll down smoothly to view the generated breakdown matrix
+            document.getElementById('tableSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============ PRIMARY SEO ============ -->
+    <title>CodeNotes | Computer Science Notes, Programming Tutorials & Guides</title>
+    <meta name="description" content="CodeNotes brings you the latest programming tutorials, computer science notes, and web development guides — Python, Java, JavaScript, Data Structures, and more, updated regularly.">
+    <meta name="keywords" content="CodeNotes, Code Notes, computer science notes, programming tutorials, learn coding, web development, software engineering, DSA tutorials, tech notes">
+    <meta name="author" content="CodeNotes Editorial Desk">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="revisit-after" content="1 day">
+    <meta name="theme-color" content="#8b0000">
+    <link rel="canonical" href="https://www.codenotes.com/">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://www.codenotes.com/sitemap.xml">
+
+    <!-- ============ OPEN GRAPH (SEO / GEO SHARE PREVIEWS) ============ -->
+    <meta property="og:site_name" content="CodeNotes">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CodeNotes | Computer Science Notes, Programming Tutorials & Guides">
+    <meta property="og:description" content="Comprehensive, easy-to-understand computer notes and programming tutorials.">
+    <meta property="og:image" content="https://www.codenotes.com/og-cover.jpg">
+    <meta property="og:url" content="https://www.codenotes.com/">
+    <meta property="og:locale" content="en_US">
+
+    <!-- ============ TWITTER CARD ============ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CodeNotes | Computer Science Notes, Programming Tutorials & Guides">
+    <meta name="twitter:description" content="Comprehensive, easy-to-understand computer notes and programming tutorials.">
+    <meta name="twitter:image" content="https://www.codenotes.com/og-cover.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%238b0000'/%3E%3Ctext x='50' y='70' font-size='58' font-family='Georgia,serif' font-weight='bold' fill='white' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer">
+
+    <style>
+        @font-face {
+            font-family: 'Exotc350 Bd BT';
+            src: local('Exotc350 Bd BT'), local('Exotc350-BdBT'), local('Exotic350 Bold BT'), local('Exotic350-Bold');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-color: #ffffff;
+            --surface-color: #ffffff;
+            --surface-alt: #fcfcfc;
+            --text-main: #0b0f19;
+            --text-muted: #5b6472;
+            --primary: #8b0000; /* Dark Red */
+            --primary-dark: #5c0000;
+            --primary-light: #fae6e6;
+            --border: #e2e6ed;
+            --shadow: 0 2px 10px rgba(10, 15, 25, 0.06);
+            --hover-shadow: 0 12px 26px rgba(139, 0, 0, 0.12); /* Slightly tinted shadow */
+            --font-main: 'Inter', 'Segoe UI', sans-serif;
+            --font-head: 'Playfair Display', Georgia, serif;
+            --font-logo: 'Exotc350 Bd BT', 'Playfair Display', Georgia, serif;
+        }
+
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-main); background: var(--bg-color); color: var(--text-main); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; }
+        img { max-width: 100%; display: block; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+        h1, h2, h3 { font-family: var(--font-head); font-weight: 700; color: var(--text-main); line-height: 1.3; }
+
+        /* =========================================
+           HEADER & NAVIGATION (SMOOTH SCROLL FIX)
+           ========================================= */
+        header { position: sticky; top: 0; z-index: 1000; background: var(--surface-color); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); }
+        
+        .top-bar { display: flex; justify-content: space-between; align-items: center; max-height: 120px; padding: 14px 5%; border-bottom: 1px solid var(--border); position: relative; z-index: 1001; background: var(--surface-color); overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.2s ease, border-color 0.4s ease; }
+        
+        .logo-block { display: flex; flex-direction: column; }
+        .logo { font-family: var(--font-logo); font-size: 32px; font-weight: 700; letter-spacing: 0.4px; }
+        .logo-hindustan { color: var(--text-main); }
+        .logo-primes { color: var(--primary); }
+        .tagline { font-size: 0.72rem; color: var(--text-muted); font-style: italic; letter-spacing: 0.4px; margin-top: -2px; }
+
+        /* Fixed Right Actions in Top Bar */
+        .top-bar-right { display: flex; align-items: center; gap: 15px; }
+        .datetime-display { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+        .datetime-display .dt-sep { margin: 0 6px; color: var(--border); }
+        .datetime-display .dt-compact { display: none; }
+
+        .icon-btn { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--primary); transition: 0.2s; }
+        .icon-btn:hover { background: var(--primary-light); }
+        
+        /* Mobile Search button is hidden on PC */
+        .mobile-search-btn { display: none; }
+        .mobile-menu-btn { display: none; font-size: 26px; font-weight: bold; color: var(--text-main); padding: 5px 10px; line-height: 1; }
+
+        /* Navbar Layout */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; background: var(--surface-color); gap: 20px; transition: 0.3s ease-in-out; }
+        .navbar-left { display: flex; align-items: center; gap: 5px; flex-wrap: nowrap; overflow: hidden; }
+        .navbar-right { display: flex; align-items: center; gap: 15px; }
+        
+        /* Smooth Sliding Navbar Brand (Hidden by default) */
+        .navbar-brand { 
+            display: inline-flex; align-items: center; 
+            font-family: var(--font-logo); font-weight: 700; font-size: 1.15rem; letter-spacing: 0.3px; 
+            white-space: nowrap; 
+            
+            /* Hidden State Properties */
+            max-width: 0;
+            opacity: 0;
+            margin-right: 0;
+            overflow: hidden;
+            transition: max-width 0.4s ease, opacity 0.3s ease 0.1s, margin 0.4s ease;
+        }
+
+        /* Scroll Logic FOR PC ONLY */
+        @media (min-width: 769px) {
+            #site-header.header-scrolled .top-bar { 
+                max-height: 0; 
+                padding-top: 0; 
+                padding-bottom: 0; 
+                opacity: 0; 
+                border-bottom-color: transparent; 
+                /* Hide quickly so it doesn't overlap visually */
+                transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.15s ease, border-color 0.4s ease;
+            }
+            #site-header.header-scrolled .navbar-brand { 
+                max-width: 250px; /* Enough to reveal logo */
+                opacity: 1;
+                margin-right: 18px;
+            }
+        }
+        
+        .nav-categories { display: flex; gap: 5px; flex-wrap: wrap; }
+        .nav-link { padding: 8px 16px; font-weight: 700; color: var(--text-muted); border-radius: 20px; transition: 0.3s; white-space: nowrap; border: 1px solid transparent; }
+        .nav-link:hover { background: var(--primary-light); color: var(--primary-dark); }
+        .nav-link.active { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+        
+        .nav-states select { padding: 8px 15px; border: 1px solid var(--border); border-radius: 2px; background: var(--surface-alt); color: var(--text-main); font-weight: 700; outline: none; cursor: pointer; font-family: inherit; }
+
+        /* Search bar */
+        .search-bar { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: var(--surface-alt); border-bottom: 0 solid var(--border); }
+        .search-bar.active { max-height: 90px; border-bottom: 1px solid var(--border); }
+        .search-bar-inner { display: flex; align-items: center; gap: 10px; padding: 14px 5%; max-width: 1400px; margin: 0 auto; }
+        #search-input { flex-grow: 1; padding: 11px 18px; border: 1px solid var(--border); border-radius: 24px; font-size: 1rem; outline: none; font-family: inherit; background: var(--surface-color); }
+        #search-input:focus { border-color: var(--primary); }
+        .search-close-btn { font-size: 1.1rem; color: var(--text-muted); padding: 8px 12px; }
+        .search-close-btn:hover { color: var(--primary); }
+
+        /* =========================================
+           BODY & GRID STYLES
+           ========================================= */
+        .container { padding: 30px 5%; max-width: 1400px; margin: 0 auto; flex-grow: 1; width: 100%; }
+
+        .category-section { margin-bottom: 45px; background: transparent; }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid var(--text-main); padding-bottom: 8px; margin-bottom: 25px; }
+        .section-header h2 { font-size: 1.8rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-header .highlight { color: var(--primary); }
+        .view-all-btn { font-size: 0.95rem; color: var(--primary); font-weight: 700; transition: 0.2s; background: var(--surface-color); padding: 5px 12px; border-radius: 4px; border: 1px solid var(--border); }
+        .view-all-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; grid-auto-flow: dense; }
+
+        .news-card { background: var(--surface-color); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; cursor: pointer; box-shadow: var(--shadow); }
+        .news-card:hover { transform: translateY(-5px); box-shadow: var(--hover-shadow); }
+        .news-img { height: 200px; position: relative; overflow: hidden; background: var(--surface-alt); }
+        .news-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .news-card:hover .news-img img { transform: scale(1.05); }
+
+        .badge { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; color: #fff; background: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; z-index: 2; }
+        .state-badge { position: absolute; top: 12px; right: 12px; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; color: #fff; background: rgba(11, 15, 25, 0.75); backdrop-filter: blur(4px); z-index: 2; }
+
+        .news-body { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+        .news-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; display: flex; align-items: center; flex-wrap: wrap; }
+        .news-title { font-size: 1.15rem; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .news-card.featured { grid-column: span 2; grid-row: span 2; }
+        .news-card.featured .news-img { height: 350px; }
+        .news-card.featured .news-title { font-size: 1.8rem; -webkit-line-clamp: 4; }
+
+        .news-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 25px; }
+        .news-list-item { display: flex; align-items: stretch; background: var(--surface-color); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.25s; box-shadow: var(--shadow); min-width: 0; }
+        .news-list-item:hover { box-shadow: var(--hover-shadow); transform: translateY(-2px); border-color: var(--primary); }
+        .news-list-text { flex-grow: 1; padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+        .news-list-text .news-title { font-size: 1.05rem; -webkit-line-clamp: 3; }
+        .news-list-img { width: 180px; flex-shrink: 0; overflow: hidden; background: var(--surface-alt); }
+        .news-list-img img { width: 100%; height: 100%; object-fit: cover; min-height: 110px; }
+
+        .mini-badge { background: var(--primary-light); color: var(--primary-dark); padding: 2px 9px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-right: 10px; letter-spacing: 0.3px; }
+
+        #single-post-view { display: none; background: var(--surface-color); padding: 40px; border-radius: 8px; box-shadow: var(--shadow); max-width: 900px; margin: 0 auto; border: 1px solid var(--border); }
+        .back-btn { display: inline-block; padding: 10px 20px; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text-main); transition: 0.2s; }
+        .back-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; }
+        .breadcrumb a { color: var(--primary); font-weight: 600; }
+        .article-summary { background: var(--primary-light); border-left: 4px solid var(--primary); padding: 14px 18px; margin: 18px 0; border-radius: 4px; font-size: 1rem; color: var(--text-main); }
+        .full-post-img { width: 100%; max-height: 500px; object-fit: cover; border-radius: 8px; margin: 20px 0; }
+        .full-post-meta { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .full-post-badge { padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; color: #fff; background: var(--primary); text-transform: uppercase; }
+        .full-post-content { font-size: 1.15rem; line-height: 1.9; margin-bottom: 30px; white-space: pre-wrap; color: #232733; }
+        .full-post-author { border-top: 2px solid var(--border); padding-top: 15px; font-weight: 700; font-size: 1rem; color: var(--primary); }
+
+        .loading { text-align: center; font-size: 1.2rem; color: var(--text-muted); padding: 50px; }
+
+        /* FOOTER */
+        footer { background: var(--surface-color); border-top: 1px solid var(--border); padding: 40px 5% 20px; margin-top: auto; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; flex-wrap: wrap; gap: 20px; }
+        .footer-brand h2 { font-family: var(--font-logo); font-size: 24px; color: var(--primary); margin-bottom: 5px; text-transform: uppercase; }
+        .footer-brand h2 span { color: var(--text-main); }
+        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; }
+        .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-main); font-weight: 700; font-size: 0.95rem; transition: 0.2s; }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-bottom { text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); padding-top: 20px; margin-top: 30px; }
+
+        /* =========================================
+           RESPONSIVENESS (TABLET & MOBILE)
+           ========================================= */
+        @media (max-width: 1024px) {
+            .news-grid { gap: 15px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+            .news-list { grid-template-columns: 1fr; } 
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 24px; }
+            .tagline { display: none; }
+            .datetime-display { display: none; } /* Hide time on mobile to save space */
+            
+            /* Always Show Mobile Header Elements */
+            .mobile-search-btn { display: flex; }
+            .pc-search-btn { display: none; }
+            .mobile-menu-btn { display: block; }
+
+            /* PREVENT HEADER COLLAPSE ON MOBILE */
+            #site-header.header-scrolled .top-bar {
+                max-height: 120px; /* Reset */
+                padding: 14px 5%;
+                opacity: 1;
+            }
+            .navbar-brand { display: none !important; }
+
+            /* Mobile Dropdown Navbar */
+            .navbar {
+                position: absolute;
+                top: 100%; left: 0; width: 100%;
+                background: var(--surface-color);
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                border-bottom: 1px solid var(--border);
+                transform: translateY(-150%);
+                opacity: 0;
+                pointer-events: none;
+                z-index: 1000;
+            }
+            .navbar.active { transform: translateY(0); opacity: 1; pointer-events: auto; padding: 15px 5%; }
+
+            .navbar-left, .navbar-right { flex-direction: column; align-items: stretch; width: 100%; gap: 0; }
+            
+            .nav-categories { flex-direction: column; gap: 0; }
+            .nav-categories .nav-link { width: 100%; text-align: left; padding: 12px 15px; border-radius: 4px; border-bottom: 1px solid var(--surface-alt); }
+            .nav-states { width: 100%; margin-top: 10px; }
+            .nav-states select { width: 100%; text-align: left; padding: 10px 15px; }
+
+            .container { padding: 20px 3%; }
+            .section-header h2 { font-size: 1.3rem; }
+            .news-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .news-card { border-radius: 6px; }
+            .news-img { height: 110px; }
+            .news-body { padding: 8px; }
+            .news-title { font-size: 0.9rem; line-height: 1.3; -webkit-line-clamp: 3; }
+
+            .badge, .state-badge { padding: 2px 6px; font-size: 0.6rem; top: 6px; border-radius: 2px; }
+            .badge { left: 6px; }
+            .state-badge { right: 6px; }
+
+            .news-card.featured { grid-column: span 2; grid-row: span 1; }
+            .news-card.featured .news-img { height: 200px; }
+            .news-card.featured .news-title { font-size: 1.2rem; }
+
+            .news-list { gap: 8px; }
+            .news-list-img { width: 78px; }
+            .news-list-img img { min-height: 65px; }
+            .news-list-text { padding: 6px 8px; }
+            .news-list-text .news-title { font-size: 0.72rem; -webkit-line-clamp: 3; }
+            .news-list-text .news-meta { font-size: 0.6rem; }
+            .mini-badge { font-size: 0.55rem; padding: 1px 5px; margin-right: 4px; }
+
+            #single-post-view { padding: 15px; }
+            #single-post-view h1 { font-size: 1.5rem !important; }
+            .full-post-img { max-height: 250px; margin: 15px 0; }
+
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+
+        @media (max-width: 400px) {
+            .logo { font-size: 20px; }
+            .news-title { font-size: 0.85rem; }
+            .news-img { height: 95px; }
+            .news-card.featured .news-img { height: 180px; }
+            .news-list-img { width: 60px; }
+            .news-list-img img { min-height: 55px; }
+            .news-list-text { padding: 5px 6px; }
+            .news-list-text .news-title { font-size: 0.66rem; -webkit-line-clamp: 2; }
+            .mini-badge { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header id="site-header">
+        
+        <!-- Top Bar (Main Logo + Mobile Icons) -->
+        <div class="top-bar" id="top-bar">
+            <a href="#" class="logo-block" onclick="goBackToHome(); setCategory('All'); return false;" aria-label="CodeNotes home">
+                <div class="logo"><span class="logo-hindustan">Code</span><span class="logo-primes">Notes</span></div>
+                <div class="tagline">Expert Computer Notes & Tutorials</div>
+            </a>
+
+            <div class="top-bar-right">
+                <div class="datetime-display" id="datetime-display" aria-live="off"></div>
+                <!-- Search & Menu Button for Mobile Only -->
+                <button class="icon-btn mobile-search-btn" onclick="toggleSearch()" aria-label="Search tutorials"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Open menu">⋮</button>
+            </div>
+        </div>
+
+        <!-- Search Bar Dropdown -->
+        <div class="search-bar" id="search-bar">
+            <div class="search-bar-inner">
+                <input type="text" id="search-input" placeholder="Search tutorials, languages, concepts..." oninput="handleSearch(this.value)" autocomplete="off">
+                <button class="search-close-btn" onclick="toggleSearch()" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+
+        <!-- Navbar (Categories + PC Search) -->
+        <nav class="navbar" id="mobile-navbar" aria-label="Primary">
+            <div class="navbar-left">
+                <!-- Small Logo that slides in smoothly on scroll (PC Only) -->
+                <span class="navbar-brand" id="navbar-brand"><span class="logo-hindustan">Code</span><span class="logo-primes">Notes</span></span>
+                
+                <div class="nav-categories" id="dynamic-nav-categories">
+                    <button class="nav-link active" onclick="setCategory('All', this)">Top Tutorials</button>
+                </div>
+            </div>
+            
+            <div class="navbar-right">
+                <div class="nav-states">
+                    <!-- The filter is re-purposed for Difficulty/Topic Levels to fit the new theme -->
+                    <!-- Note: Update your Google Sheet's 'state' column to match these values if you want filtering to work perfectly -->
+                    <select id="state-filter" onchange="setState(this.value)" aria-label="Filter by level">
+                        <option value="All">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+                <!-- Search Button for PC -->
+                <button class="icon-btn pc-search-btn" onclick="toggleSearch()" aria-label="Search tutorials"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- HOME VIEW -->
+        <div id="home-view">
+            <h1 class="sr-only">CodeNotes – Computer Science Tutorials & Guides</h1>
+            <div id="dynamic-content">
+                <div class="loading">Loading Tutorials...</div>
+            </div>
+        </div>
+
+        <!-- SINGLE POST VIEW -->
+        <div id="single-post-view"></div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo"><span class="logo-hindustan">Code</span><span class="logo-primes">Notes</span></div>
+                <p>Delivering authentic, easy-to-understand computer notes and programming tutorials.</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://www.pycodes.in">Home</a>
+                <a href="https://www.pycodes.in/hindustan-primes-news">News</a>
+                
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; <span id="copyright-year"></span> PyCodes.in. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbzs6F1Ta4g3ShSb3kKHy_cgRp8qeZ9u7yFT9jUjFrwBy6MGh-X-Q_Jdf2Z5Oa-OmUm9/exec";
+        const SITE_URL = "https://www.pycodes.in/tutorials.html";
+        const DEFAULT_TITLE = "CodeNotes | Computer Science Notes, Programming Tutorials & Guides";
+        const DEFAULT_DESCRIPTION = "CodeNotes brings you the latest programming tutorials, computer science notes, and web development guides — Python, Java, JavaScript, Data Structures, and more, updated regularly.";
+
+        let allNewsData = []; // Variables kept same to match your backend data structure
+        let currentCategory = 'All';
+        let currentState = 'All'; // Now acts as "Level" filter
+        let searchQuery = '';
+        let isHeaderScrolled = false;
+
+        // --- UTILITIES ---
+        function escapeHtml(str) {
+            if (str === undefined || str === null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function setMetaContent(name, content, isProperty) {
+            const attr = isProperty ? 'property' : 'name';
+            let tag = document.querySelector(`meta[${attr}="${name}"]`);
+            if (!tag) {
+                tag = document.createElement('meta');
+                tag.setAttribute(attr, name);
+                document.head.appendChild(tag);
+            }
+            tag.setAttribute('content', content);
+        }
+
+        // --- LIVE DATE & TIME ---
+        function updateDateTime() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            const el = document.getElementById('datetime-display');
+            if (el) {
+                el.innerHTML = `<span class="dt-full">${dateStr}<span class="dt-sep">•</span>${timeStr}</span>`;
+            }
+        }
+
+        // --- MOBILE MENU TOGGLE ---
+        function toggleMenu() {
+            document.getElementById('mobile-navbar').classList.toggle('active');
+        }
+
+        // --- ADVANCED SCROLL LOGIC (HYSTERESIS FIX) ---
+        window.onscroll = () => {
+            const header = document.getElementById('site-header');
+            const currentScroll = window.scrollY;
+
+            // Always close mobile menu on deep scroll
+            if (currentScroll > 60) {
+                document.getElementById('mobile-navbar').classList.remove('active');
+            }
+
+            // Hysteresis: Scroll past 120px to shrink, scroll back above 20px to grow.
+            if (currentScroll > 120 && !isHeaderScrolled) {
+                header.classList.add('header-scrolled');
+                isHeaderScrolled = true;
+            } else if (currentScroll <= 20 && isHeaderScrolled) {
+                header.classList.remove('header-scrolled');
+                isHeaderScrolled = false;
+            }
+        };
+
+        // --- SEARCH ---
+        function toggleSearch() {
+            const bar = document.getElementById('search-bar');
+            bar.classList.toggle('active');
+            if (bar.classList.contains('active')) {
+                document.getElementById('search-input').focus();
+            } else {
+                document.getElementById('search-input').value = '';
+                if (searchQuery) { searchQuery = ''; applyFilters(); }
+            }
+        }
+
+        function handleSearch(query) {
+            searchQuery = query.trim().toLowerCase();
+            document.getElementById('single-post-view').style.display = 'none';
+            document.getElementById('home-view').style.display = 'block';
+
+            if (searchQuery.length === 0) {
+                applyFilters();
+                return;
+            }
+
+            const results = allNewsData.filter(post => post.title && (
+                post.title.toLowerCase().includes(searchQuery) ||
+                (post.desc && post.desc.toLowerCase().includes(searchQuery)) ||
+                (post.category && post.category.toLowerCase().includes(searchQuery)) ||
+                (post.state && post.state.toLowerCase().includes(searchQuery))
+            ));
+
+            const container = document.getElementById('dynamic-content');
+            container.innerHTML = '';
+
+            if (results.length === 0) {
+                container.innerHTML = `<div class="loading">No tutorials found for "${escapeHtml(query)}".</div>`;
+                return;
+            }
+            renderSection(container, `Search Results: <span class="highlight">"${escapeHtml(query)}"</span>`, results, null, true);
+        }
+
+        // --- FILTER LOGIC ---
+        function setCategory(category, buttonElement) {
+            currentCategory = category;
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            } else {
+                document.querySelectorAll('.nav-link').forEach(btn => {
+                    if (btn.innerText === category) btn.classList.add('active');
+                });
+            }
+
+            document.getElementById('mobile-navbar').classList.remove('active');
+            document.getElementById('search-bar').classList.remove('active');
+            searchQuery = '';
+
+            applyFilters();
+            goBackToHome();
+        }
+
+        function setState(state) {
+            currentState = state;
+            document.getElementById('mobile-navbar').classList.remove('active');
+            applyFilters();
+            goBackToHome();
+        }
+
+        function updateNavbarCategories() {
+            const navContainer = document.getElementById('dynamic-nav-categories');
+            navContainer.innerHTML = `<button class="nav-link ${currentCategory === 'All' ? 'active' : ''}" onclick="setCategory('All', this)">Top Tutorials</button>`;
+
+            const uniqueCategories = [...new Set(allNewsData.map(item => item.category).filter(c => c))];
+            uniqueCategories.forEach(cat => {
+                const isActive = currentCategory === cat ? 'active' : '';
+                navContainer.innerHTML += `<button class="nav-link ${isActive}" onclick="setCategory('${cat}', this)">${escapeHtml(cat)}</button>`;
+            });
+        }
+
+        // --- RENDER LOGIC ---
+        function applyFilters() {
+            const container = document.getElementById('dynamic-content');
+            container.innerHTML = '';
+
+            let stateFilteredData = allNewsData.filter(post => {
+                if (!post.title) return false;
+                return (currentState === 'All') || (post.state === currentState);
+            });
+
+            if (stateFilteredData.length === 0) {
+                container.innerHTML = `<div class="loading">No tutorials available for ${escapeHtml(currentState)} right now.</div>`;
+                return;
+            }
+
+            if (currentCategory === 'All') {
+                renderSection(container, '<span class="highlight">Latest</span> Tutorials', stateFilteredData.slice(0, 14), null, true);
+
+                const uniqueCategories = [...new Set(stateFilteredData.map(item => item.category))];
+                uniqueCategories.forEach(cat => {
+                    const catNews = stateFilteredData.filter(p => p.category === cat).slice(0, 4);
+                    if (catNews.length > 0) {
+                        renderSection(container, `${escapeHtml(cat)} <span class="highlight">Guides</span>`, catNews, cat, false);
+                    }
+                });
+            } else {
+                const categoryData = stateFilteredData.filter(p => p.category === currentCategory);
+                if (categoryData.length > 0) {
+                    renderSection(container, `${escapeHtml(currentCategory)} <span class="highlight">Notes</span>`, categoryData, null, true);
+                } else {
+                    container.innerHTML = `<div class="loading">No ${escapeHtml(currentCategory)} notes found for ${escapeHtml(currentState)}.</div>`;
+                }
+            }
+        }
+
+        function buildCardHTML(post, originalIndex, extraClass) {
+            const safeTitle = escapeHtml(post.title);
+            return `
+                <article class="news-card ${extraClass}" onclick="openFullPost(${originalIndex})">
+                    <div class="news-img">
+                        <img src="${post.img}" alt="${safeTitle}" loading="lazy">
+                        <span class="badge">${escapeHtml(post.category)}</span>
+                        <span class="state-badge">${escapeHtml(post.state)}</span>
+                    </div>
+                    <div class="news-body">
+                        
+                        <h3 class="news-title">${safeTitle}</h3>
+                    </div>
+                </article>
+            `;
+        }
+
+        function buildListItemHTML(post, originalIndex) {
+            const safeTitle = escapeHtml(post.title);
+            return `
+                <article class="news-list-item" onclick="openFullPost(${originalIndex})">
+                    <div class="news-list-text">
+                        <div class="news-meta">
+                            <span class="mini-badge">${escapeHtml(post.category)}</span>
+                            
+                        </div>
+                        <h3 class="news-title">${safeTitle}</h3>
+                    </div>
+                    <div class="news-list-img">
+                        <img src="${post.img}" alt="${safeTitle}" loading="lazy">
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderSection(container, titleHTML, posts, viewAllCategory, expandLayout) {
+            const section = document.createElement('div');
+            section.className = 'category-section';
+
+            let headerHTML = `<div class="section-header"><h2>${titleHTML}</h2>`;
+            if (viewAllCategory) {
+                headerHTML += `<button class="view-all-btn" onclick="setCategory('${viewAllCategory}')">View All</button>`;
+            }
+            headerHTML += `</div>`;
+
+            let bodyHTML = '';
+
+            if (expandLayout) {
+                const gridPosts = posts.slice(0, 4);
+                const listPosts = posts.slice(4, 14);
+
+                bodyHTML += `<div class="news-grid">`;
+                gridPosts.forEach((post, idx) => {
+                    const originalIndex = allNewsData.indexOf(post);
+                    const extraClass = idx === 0 ? 'featured' : '';
+                    bodyHTML += buildCardHTML(post, originalIndex, extraClass);
+                });
+                bodyHTML += `</div>`;
+
+                if (listPosts.length > 0) {
+                    bodyHTML += `<div class="news-list">`;
+                    listPosts.forEach(post => {
+                        const originalIndex = allNewsData.indexOf(post);
+                        bodyHTML += buildListItemHTML(post, originalIndex);
+                    });
+                    bodyHTML += `</div>`;
+                }
+            } else {
+                bodyHTML += `<div class="news-grid">`;
+                posts.forEach(post => {
+                    const originalIndex = allNewsData.indexOf(post);
+                    bodyHTML += buildCardHTML(post, originalIndex, '');
+                });
+                bodyHTML += `</div>`;
+            }
+
+            section.innerHTML = headerHTML + bodyHTML;
+            container.appendChild(section);
+        }
+
+        // --- DATABASE FETCH ---
+        async function fetchNews() {
+            try {
+                const response = await fetch(API_URL);
+                allNewsData = await response.json();
+                updateNavbarCategories();
+                applyFilters();
+            } catch (error) {
+                console.error("Error fetching data: ", error);
+                document.getElementById('dynamic-content').innerHTML = '<div class="loading" style="color: var(--primary);">Servers busy. Please try again later.</div>';
+            }
+        }
+
+        // --- VIEW SWITCHERS ---
+        function openFullPost(index) {
+            const post = allNewsData[index];
+            if (!post) return;
+
+            document.getElementById('home-view').style.display = 'none';
+            const singleView = document.getElementById('single-post-view');
+            singleView.style.display = 'block';
+
+            const safeTitle = escapeHtml(post.title);
+            const rawSummary = post.desc ? post.desc.slice(0, 160) + (post.desc.length > 160 ? '…' : '') : post.title;
+
+            singleView.innerHTML = `
+                <button class="back-btn" onclick="goBackToHome()">← Back to Tutorials</button>
+                <nav class="breadcrumb">
+                    <a href="#" onclick="goBackToHome(); return false;">Home</a> ›
+                    <a href="#" onclick="setCategory('${post.category}'); return false;">${escapeHtml(post.category)}</a> ›
+                    <span>${safeTitle}</span>
+                </nav>
+                <article>
+                    <h1 style="font-size: 2.2rem; margin-bottom: 10px;">${safeTitle}</h1>
+                    <div class="full-post-meta">
+                        <span class="full-post-badge">${escapeHtml(post.category)}</span>
+                       
+                        <span style="color: var(--text-muted);">Level: ${escapeHtml(post.state)}</span>
+                    </div>
+                    <img src="${post.img}" class="full-post-img" alt="${safeTitle}" loading="lazy">
+                    <div class="full-post-content">${escapeHtml(post.desc)}</div>
+                    <div class="full-post-author">Author: <span>${escapeHtml(post.author)}</span></div>
+                </article>
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goBackToHome() {
+            document.getElementById('single-post-view').style.display = 'none';
+            document.getElementById('home-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        fetchNews();
+    </script>
+</body>
+</html>

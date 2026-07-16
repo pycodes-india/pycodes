@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pics Gallery — Vibrant High-Resolution Photo Collection</title>
+
+<!-- SEO & AEO Meta Tags -->
+<meta name="description" content="Explore Pics Gallery, a vibrant collection of high-resolution images. Download, share, and discover stunning photography for your creative projects.">
+<meta name="keywords" content="photo gallery, high-resolution images, download photos, colorful image gallery, aesthetic photography, royalty free images">
+<meta name="author" content="PyCodes">
+<link rel="canonical" href="https://pycodes.in/pics-gallery">
+
+<!-- Open Graph / Social Media -->
+<meta property="og:title" content="Pics Gallery — Vibrant Photo Collection">
+<meta property="og:description" content="Discover and download stunning high-resolution photography curated just for you.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pycodes.in/pics-gallery">
+
+<!-- Structured Data (JSON-LD) for GEO/AEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Pics Gallery",
+  "description": "A curated, vibrant collection of high-quality, high-resolution photos available for free download.",
+  "url": "https://pycodes.in/pics-gallery",
+  "publisher": {
+    "@type": "Organization",
+    "name": "PyCodes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pycodes.in/logo.png"
+    }
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1. RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+body { 
+    margin: 0; 
+    background: #fcfcfc; 
+    color: #14151a; 
+    font-family: 'Inter', sans-serif; 
+    -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+/* ============================================================
+   2. SINGLE LINE HEADER & FOOTER
+   ============================================================ */
+   .site-header{
+    position: fixed;
+    width:100%;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+   }
+.site-header, .site-footer {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    height: 70px; 
+    padding: 0 32px;
+    background: #ffffff;
+    border-bottom: 1px solid #e9eaed;
+}
+.site-footer {
+    border-bottom: none;
+    border-top: 1px solid #e9eaed;
+    margin-top: 40px;
+    height: 80px;
+}
+.brand { 
+    font-weight: 700; 
+    font-size: 22px; 
+    letter-spacing: -0.02em; 
+}
+.nav-links { 
+    display: flex; 
+    gap: 24px; 
+    align-items: center; 
+}
+.nav-links a { 
+    font-size: 14.5px; 
+    font-weight: 500; 
+    color: #666b76; 
+    transition: color 0.2s; 
+}
+.nav-links a:hover { color: #14151a; }
+
+/* ============================================================
+   3. GALLERY / MASONRY
+   ============================================================ */
+.gallery-section { padding: 32px; min-height: 80vh; padding-top: 100px; }
+.masonry { 
+    column-gap: 16px; 
+}
+@media (min-width: 1600px) { .masonry { columns: 6; } }
+@media (min-width: 1200px) and (max-width: 1599px) { .masonry { columns: 5; } }
+@media (min-width: 900px) and (max-width: 1199px) { .masonry { columns: 4; } }
+@media (min-width: 600px) and (max-width: 899px)  { .masonry { columns: 3; } }
+@media (max-width: 599px) { .masonry { columns: 2; column-gap: 10px; } }
+
+.photo-card {
+    break-inside: avoid; 
+    margin-bottom: 16px; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    position: relative;
+    background: #eef0f3;
+}
+@media (max-width: 599px) { .photo-card { margin-bottom: 10px; } }
+
+.photo-card__media { 
+    position: relative; 
+    width: 100%; 
+    cursor: zoom-in;
+}
+.photo-card__media img {
+    width: 100%; 
+    height: auto; 
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.photo-card:hover .photo-card__media img {
+    transform: scale(1.05);
+}
+
+.skeleton-shine {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(100deg, #eef0f3 30%, #f5f6f8 50%, #eef0f3 70%);
+    background-size: 200% 100%; 
+    animation: shine 1.2s ease-in-out infinite;
+}
+img.loaded + .skeleton-shine { display: none; }
+@keyframes shine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* ============================================================
+   4. CARD OVERLAY & BUTTONS
+   ============================================================ */
+.card-overlay {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding: 40px 14px 14px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    opacity: 0; transition: opacity 0.25s ease;
+    pointer-events: none; 
+}
+.photo-card:hover .card-overlay { opacity: 1; }
+
+.source-tag { 
+    font-size: 12px; 
+    font-weight: 600; 
+    color: #fff; 
+    background: rgba(255,255,255,0.2); 
+    padding: 4px 10px; 
+    border-radius: 20px; 
+    backdrop-filter: blur(4px);
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+    pointer-events: auto; 
+}
+
+.action-btn {
+    width: 36px; height: 36px; 
+    border-radius: 50%; 
+    border: none; 
+    background: rgba(255, 255, 255, 0.9); 
+    color: #14151a; 
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, background 0.2s;
+    cursor: pointer;
+}
+.action-btn:hover { 
+    transform: scale(1.1); 
+    background: #ffffff;
+}
+.action-btn svg { width: 16px; height: 16px; }
+
+.loading-indicator {
+    text-align: center;
+    padding: 40px;
+    color: #666b76;
+    font-weight: 500;
+}
+
+/* ============================================================
+   5. TOAST NOTIFICATION
+   ============================================================ */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #14151a;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 3000; /* Increased z-index to show above lightbox */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   6. LIGHTBOX MODAL
+   ============================================================ */
+.lightbox {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.lightbox.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.lightbox-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 85vh; /* Left some space for buttons below */
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 2001;
+}
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Lightbox Green Buttons */
+.lb-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+.lb-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #22c55e; /* Green Color */
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+.lb-btn:hover {
+    background: #16a34a; /* Darker green on hover */
+    transform: translateY(-2px);
+}
+.lb-btn svg {
+    width: 18px;
+    height: 18px;
+}
+</style>
+</head>
+<body>
+
+<!-- Single Line Header -->
+<header class="site-header">
+    <a href="https://pycodes.in/pics-gallery" class="brand">Pics Gallery</a>
+    <nav class="nav-links">
+        <a href="https://pycodes.in">Home</a>
+        <a href="https://pycodes.in/blogs">Blogs</a>
+    </nav>
+</header>
+
+<!-- Minimal Gallery -->
+<main class="gallery-section">
+    <div class="masonry" id="masonry"></div>
+    <div id="sentinel" class="loading-indicator">Loading more images...</div>
+</main>
+
+<!-- Single Line Footer -->
+<footer class="site-footer">
+    <span style="color: #666b76; font-size: 14px;">© 2026 Pics Gallery.</span>
+    <nav class="nav-links">
+        <a href="https://pycodes.in">Home</a>
+        <a href="https://pycodes.in/blogs">Blogs</a>
+        
+    </nav>
+</footer>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast">Link copied to clipboard!</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+    <button id="lightbox-close" class="lightbox-close" aria-label="Close modal">&times;</button>
+    <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="Expanded Image">
+        
+        <!-- Lightbox Green Buttons -->
+        <div class="lb-actions">
+            <button id="lb-copy-btn" class="lb-btn" title="Copy Link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="12" height="12" rx="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                Copy Link
+            </button>
+            <button id="lb-download-btn" class="lb-btn" title="Download Image">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3v12m0 0-4-4m4 4 4-4M4 21h16"/>
+                </svg>
+                Download
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+(() => {
+    "use strict";
+
+    const masonry = document.getElementById("masonry");
+    const sentinel = document.getElementById("sentinel");
+    const toast = document.getElementById("toast");
+    
+    // Lightbox Elements
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxClose = document.getElementById("lightbox-close");
+    const lbCopyBtn = document.getElementById("lb-copy-btn");
+    const lbDownloadBtn = document.getElementById("lb-download-btn");
+    
+    let page = 1;
+    let loading = false;
+    let toastTimeout;
+    let currentHighResUrl = ""; // लाइटबॉक्स में खुली हुई इमेज का URL सेव करने के लिए
+
+    // Simulated sources for the UI
+    const SOURCES = ["Pixabay", "Pexels", "WallpaperCave", "Peakpx", "Pinterest"];
+
+    async function fetchAggregatedImages(pageNumber) {
+        await new Promise(resolve => setTimeout(resolve, 1200));
+        const batchSize = 12; 
+        const items = [];
+        
+        for (let i = 0; i < batchSize; i++) {
+            const uniqueId = (pageNumber - 1) * batchSize + i;
+            const ratio = (uniqueId % 3 === 0) ? 0.75 : (uniqueId % 2 === 0) ? 1.5 : 1; 
+            const sourceName = SOURCES[uniqueId % SOURCES.length];
+            
+            items.push({
+                id: uniqueId,
+                url: `https://picsum.photos/seed/Pics Gallery-${uniqueId}/600/${Math.round(600 / ratio)}`,
+                downloadUrl: `https://picsum.photos/seed/Pics Gallery-${uniqueId}/1920/${Math.round(1920 / ratio)}`,
+                source: sourceName,
+                ratio: ratio
+            });
+        }
+        return items;
+    }
+
+    function createCard(photo) {
+        const card = document.createElement("div");
+        card.className = "photo-card";
+        
+        card.innerHTML = `
+            <div class="photo-card__media" style="aspect-ratio: ${photo.ratio}">
+                <img 
+                    src="${photo.url}" 
+                    loading="lazy" 
+                >
+                <div class="skeleton-shine"></div>
+                <div class="card-overlay">
+                    
+                    <div class="card-actions">
+                        <button class="action-btn copy-btn" data-url="${photo.downloadUrl}" title="Copy Link" aria-label="Copy Link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="12" height="12" rx="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <button class="action-btn download-btn" data-url="${photo.downloadUrl}" title="Download" aria-label="Download">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3v12m0 0-4-4m4 4 4-4M4 21h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const img = card.querySelector("img");
+        if (img.complete) {
+            img.classList.add("loaded");
+        } else {
+            img.addEventListener("load", () => img.classList.add("loaded"), { once: true });
+        }
+
+        return card;
+    }
+
+    function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove("show");
+        }, 2500);
+    }
+
+    // --- REUSABLE FUNCTIONS FOR COPY & DOWNLOAD ---
+
+    async function handleCopy(url) {
+        try {
+            await navigator.clipboard.writeText(url);
+            showToast("Link copied to clipboard!");
+        } catch (err) {
+            const tempInput = document.createElement("input");
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            showToast("Link copied to clipboard!");
+        }
+    }
+
+    async function handleDownload(url) {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            
+            const a = document.createElement("a");
+            a.href = blobUrl;
+            a.download = `Pics Gallery-image-${Date.now()}.jpg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(blobUrl);
+        } catch (err) {
+            window.open(url, "_blank");
+        }
+    }
+
+    // --- LIGHTBOX LOGIC ---
+    
+    function openLightbox(imageUrl) {
+        currentHighResUrl = imageUrl; // सेव कर लिया ताकि बटन्स काम कर सकें
+        lightboxImg.src = imageUrl;
+        lightbox.classList.add("show");
+        document.body.style.overflow = "hidden"; 
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("show");
+        document.body.style.overflow = ""; 
+        currentHighResUrl = "";
+        setTimeout(() => {
+            lightboxImg.src = "";
+        }, 300); 
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && lightbox.classList.contains("show")) {
+            closeLightbox();
+        }
+    });
+
+    // Lightbox Buttons Event Listeners
+    lbCopyBtn.addEventListener("click", () => {
+        if (currentHighResUrl) handleCopy(currentHighResUrl);
+    });
+
+    lbDownloadBtn.addEventListener("click", () => {
+        if (currentHighResUrl) handleDownload(currentHighResUrl);
+    });
+
+
+    // --- LOAD MORE IMAGES ---
+
+    async function loadMore() {
+        if (loading) return;
+        loading = true;
+
+        try {
+            const images = await fetchAggregatedImages(page);
+            const fragment = document.createDocumentFragment();
+            
+            images.forEach(photo => {
+                fragment.appendChild(createCard(photo));
+            });
+            
+            masonry.appendChild(fragment);
+            page++;
+        } catch (error) {
+            console.error("Failed to load images:", error);
+        } finally {
+            loading = false;
+        }
+    }
+
+    // --- GRID EVENT DELEGATION ---
+
+    masonry.addEventListener("click", async (e) => {
+        
+        // 1. Check Copy Button
+        const copyBtn = e.target.closest(".copy-btn");
+        if (copyBtn) {
+            handleCopy(copyBtn.dataset.url);
+            return;
+        }
+
+        // 2. Check Download Button
+        const dlBtn = e.target.closest(".download-btn");
+        if (dlBtn) {
+            handleDownload(dlBtn.dataset.url);
+            return; 
+        }
+
+        // 3. Image Click (Open Lightbox)
+        const mediaCard = e.target.closest(".photo-card__media");
+        if (mediaCard) {
+            const highResUrl = mediaCard.querySelector(".download-btn").dataset.url;
+            openLightbox(highResUrl);
+        }
+    });
+
+    // Infinite Scroll
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            loadMore();
+        }
+    }, { rootMargin: "100px" });
+
+    observer.observe(sentinel);
+})();
+</script>
+</body>
+</html>

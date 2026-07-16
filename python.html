@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============ PRIMARY SEO ============ -->
+    <title>Online Python Compiler - Run Python Code in Browser | PyCodes.in</title>
+    <meta name="description" content="Run Python code instantly in your browser with PyCodes.in's free online Python compiler. No installation, no signup - a real IDE experience alongside our C, C++, Java, SQL and HTML compilers.">
+    <meta name="keywords" content="online python compiler, python online editor, run python in browser, free python ide, online code editor, python interpreter online, c compiler online, c++ compiler online, java compiler online, sql compiler online, pycodes python compiler">
+    <meta name="author" content="PyCodes.in">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#0a0e14">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://www.pycodes.in/python.html">
+
+    <!-- ============ FAVICONS ============ -->
+     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- ============ OPEN GRAPH / FACEBOOK ============ -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.pycodes.in/python.html">
+    <meta property="og:site_name" content="PyCodes.in">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="Online Python Compiler - Run Python Code in Browser | PyCodes.in">
+    <meta property="og:description" content="Run Python code instantly in your browser with PyCodes.in - no installation, no signup. A real IDE experience alongside our C, C++, Java, SQL and HTML compilers.">
+    <meta property="og:image" content="https://www.pycodes.in/assets/og-image-python.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="PyCodes.in — browser-based Python compiler with an IDE-style interface">
+
+    <!-- ============ TWITTER CARD ============ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.pycodes.in/python.html">
+    <meta name="twitter:title" content="Online Python Compiler - Run Python Code in Browser | PyCodes.in">
+    <meta name="twitter:description" content="Run Python code instantly in your browser with PyCodes.in - no installation, no signup. A real IDE experience alongside our C, C++, Java, SQL and HTML compilers.">
+    <meta name="twitter:image" content="https://www.pycodes.in/assets/og-image-python.jpg">
+    <meta name="twitter:image:alt" content="PyCodes.in — browser-based Python compiler with an IDE-style interface">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Skulpt Core Compiler -->
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js" defer></script>
+
+    <!-- ============ STRUCTURED DATA (JSON-LD) ============ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PyCodes.in — Python Compiler",
+      "url": "https://www.pycodes.in/python.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (runs in browser)",
+      "description": "A free online Python compiler that runs code directly in the browser, styled as a full developer IDE, alongside C, C++, Java, SQL and HTML compilers.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "featureList": [
+        "Online Python compiler",
+        "In-browser code execution",
+        "IDE-style editor with tab indentation",
+        "No installation or signup required"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.pycodes.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Python Compiler",
+          "item": "https://www.pycodes.in/python.html"
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root{
+            /* ---- Color tokens ---- */
+            --bg:            #0a0e14;
+            --bg-panel:      #10151c;
+            --bg-elevated:   #161c25;
+            --bg-input:      #0d1117;
+            --border:        #232b36;
+            --border-soft:   #1b212b;
+            --text:          #e6edf3;
+            --text-dim:      #8b98a5;
+            --text-faint:    #5b6774;
+            --accent:        #7ee787;   /* terminal green — signature */
+            --accent-dim:    #2e7d4f;
+            --accent2:       rgb(1, 168, 71);   /* electric green */
+            --danger:        #f85149;
+            --warn:          #d29922;
+
+            --mono: 'JetBrains Mono', 'Consolas', monospace;
+            --sans: 'Inter', system-ui, sans-serif;
+
+            --radius: 8px;
+        }
+
+        *{ margin:0; padding:0; box-sizing:border-box; }
+
+        html{ scroll-behavior:smooth; }
+
+        html, body{ height: 100%; }
+
+        body{
+            background:
+                radial-gradient(ellipse 900px 500px at 15% -10%, rgba(126,231,135,0.06), transparent),
+                radial-gradient(ellipse 700px 500px at 100% 0%, rgba(88,166,255,0.05), transparent),
+                var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            height: 100vh;
+            overflow: hidden;
+            display:flex;
+            flex-direction:column;
+        }
+
+        a{ color: inherit; }
+
+        ::selection{ background: var(--accent-dim); color:#fff; }
+
+        /* scrollbars — feels native to an editor */
+        ::-webkit-scrollbar{ width:10px; height:10px; }
+        ::-webkit-scrollbar-track{ background: var(--bg-panel); }
+        ::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover{ background: var(--text-faint); }
+
+        /* ============ HEADER (slim) ============ */
+        header{
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 1%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            flex: 0 0 auto;
+            z-index: 50;
+        }
+
+        .logo{ display:flex; align-items:center; gap:10px; }
+
+        .logo .prompt-symbol{
+            font-family: var(--mono);
+            color: var(--accent);
+            font-weight:700;
+            font-size:1.5rem;
+        }
+
+        .logo .brand{
+            font-family: var(--mono);
+            font-size: 1.25rem;
+            font-weight:700;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .logo .brand span{ color: var(--text-dim); font-weight:500; }
+
+        .logo .cursor-blink{
+            display:inline-block;
+            width:9px; height:1.1em;
+            background: var(--accent);
+            margin-left: 3px;
+            vertical-align: -2px;
+            animation: blink 1.1s steps(2) infinite;
+        }
+
+        @keyframes blink{ 50%{ opacity:0; } }
+
+        header .header-tag{
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            border: 1px solid var(--border);
+            border-radius: 0px;
+            padding: 5px 12px;
+            display:flex;
+            align-items:center;
+            gap:7px;
+        }
+        header .header-tag .status-dot{
+            width:6px; height:6px; border-radius:50%;
+            background: var(--accent);
+        }
+
+        /* ============ MAIN LAYOUT ============ */
+        .ide-wrap{
+            padding: 0px 0%;
+            flex: 1;
+            min-height: 0;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .workspace-outer{
+            display:flex;
+            gap: 0px;
+            flex: 1;
+            min-height: 0;
+            align-items: stretch;
+        }
+
+        /* ============ LANGUAGE SIDEBAR ============ */
+        .lang-sidebar{
+            width: 40px;
+            flex: 0 0 50px;
+            background: var(--bg-panel);
+            border-radius: 0px;
+            padding: 14px 0px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap: 10px;
+        }
+
+        .lang-sidebar .sidebar-label{
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 4px;
+            text-align:center;
+        }
+
+        .lang-icon{
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 0px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-family: var(--mono);
+            font-weight: 700;
+            font-size: 0.72rem;
+            text-decoration:none;
+            cursor:pointer;
+            transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+            flex-shrink:0;
+        }
+        .lang-icon:hover{ transform: translateY(-2px); border-color: var(--text-faint); }
+        .lang-icon.active{
+            border:1px  solid #333;
+        }
+  .lang-icon img{
+    height:25px;
+    width:25px;
+}
+        /* ============ IDE WINDOW ============ */
+        .ide-window{
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            overflow:hidden;
+            display:flex;
+            flex-direction:column;
+            flex:1;
+            min-width:0;
+            min-height:0;
+        }
+
+        /* fake window titlebar — macOS-style traffic lights, signature detail */
+        .titlebar{
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+            padding: 5px 16px;
+            display:flex;
+            align-items:center;
+            gap: 14px;
+        }
+
+        .traffic-lights{ display:flex; gap:7px; }
+        .dot{ width:11px; height:11px; border-radius:50%; }
+        .dot.red{ background:#f85149; }
+        .dot.yellow{ background:#d29922; }
+        .dot.green{ background:#3fb950; }
+
+        .file-tab{
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            background: var(--bg-panel);
+            border: 1px solid var(--border-soft);
+            padding: 5px 12px;
+            border-radius: 6px;
+            display:flex;
+            align-items:center;
+            gap:7px;
+        }
+
+        .file-tab .dot-mini{
+            width:6px; height:6px; border-radius:50%;
+            background: var(--accent);
+        }
+
+        .titlebar .run-hint{
+            margin-left:auto;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            display:flex;
+            gap:6px;
+        }
+
+        kbd{
+            font-family: var(--mono);
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-bottom-width:2px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+        }
+
+        /* ============ CONSOLE PANE HEAD — status text + run/clear actions ============ */
+        .pane-head{
+            padding: 6px 8px 3px 16px;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            border-bottom: 1px solid var(--border-soft);
+            background: var(--bg-elevated);
+        }
+
+        .pane-head .status-text{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            white-space:nowrap;
+        }
+
+        .pane-head .indicator{
+            width:6px; height:6px; border-radius:50%;
+            background: var(--text-faint);
+            flex-shrink:0;
+        }
+        .pane-head.running .indicator{ background: var(--warn); animation: pulse 0.8s infinite; }
+        .pane-head.ok .indicator{ background: var(--accent); }
+        .pane-head.err .indicator{ background: var(--danger); }
+
+        @keyframes pulse{ 50%{ opacity:0.35; } }
+
+        /* action buttons live inside the console pane-head */
+        .pane-actions{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            flex-shrink:0;
+        }
+
+        .btn{
+            font-family: var(--sans);
+            font-weight:600;
+            font-size: 0.88rem;
+            border:none;
+            border-radius: 6px;
+            padding: 9px 20px;
+            cursor:pointer;
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            transition: transform .12s ease, box-shadow .12s ease, background .15s ease, opacity .12s ease;
+            text-transform:none;
+            letter-spacing:normal;
+        }
+
+        .pane-actions .btn{
+            padding: 6px 13px;
+            font-size: 0.74rem;
+            border-radius: 5px;
+            gap:6px;
+        }
+
+        .btn-run{
+            background: var(--accent);
+            color: #05170c;
+            box-shadow: 0 0 0 1px var(--accent-dim);
+        }
+        .btn-run:hover{ transform: translateY(-1px); box-shadow: 0 0 0 1px var(--accent-dim), 0 6px 16px -6px rgba(126,231,135,0.55); }
+        .btn-run:active{ transform: translateY(0); }
+
+        .btn-clear{
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+        }
+        .btn-clear:hover{ color: var(--text); border-color: var(--text-faint); }
+
+        /* ============ WORKSPACE (editor / output panes) ============ */
+        .workspace{
+            display:flex;
+            flex:1;
+            min-height: 0;
+        }
+
+        .pane{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            min-width:0;
+            min-height:0;
+        }
+
+        .pane.left{ border-right: 1px solid var(--border-soft); }
+
+        .editor-body{
+            flex:1;
+            min-height:0;
+            position:relative;
+            display:flex;
+        }
+
+        textarea{
+            flex:1;
+            min-height:0;
+            width:100%;
+            background: var(--bg-input);
+            color: var(--text);
+            font-family: var(--mono);
+            font-size: 14px;
+            line-height: 1.65;
+            padding: 16px;
+            border:none;
+            outline:none;
+            resize:none;
+            overflow-y:auto;
+            caret-color: var(--accent);
+            tab-size: 4;
+        }
+
+        #output{
+            flex:1;
+            min-height:0;
+            background: var(--bg-input);
+            color: #d5f5db;
+            font-family: var(--mono);
+            font-size: 14px;
+            line-height: 1.65;
+            padding: 16px;
+            white-space: pre-wrap;
+            overflow-y:auto;
+        }
+
+        #output .placeholder{ color: var(--text-faint); }
+        #output .err-line{ color: var(--danger); }
+
+        /* status bar — bottom of IDE window, signature detail */
+        .statusbar{
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border-soft);
+            color: var(--text-dim);
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight:600;
+            padding: 6px 16px;
+            display:flex;
+            align-items:center;
+            gap: 18px;
+        }
+        .statusbar span{ display:flex; align-items:center; gap:6px; opacity:0.9; }
+        .statusbar .status-dot{ width:6px; height:6px; border-radius:50%; background: var(--accent); }
+        .statusbar .push-right{ margin-left:auto; display:flex; gap:18px; }
+
+        /* ============ FOOTER (slim) ============ */
+        footer{
+            background: var(--bg-panel);
+            flex: 0 0 auto;
+        }
+
+        .footer-slim{
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px 1%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            flex-wrap:wrap;
+            gap: 14px;
+        }
+
+        .footer-brand{
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            font-weight:700;
+            color: var(--text-dim);
+            display:flex;
+            align-items:center;
+            gap:7px;
+            white-space:nowrap;
+        }
+        .footer-brand .prompt-symbol{ color: var(--accent); }
+        .footer-brand span{ color: var(--text-faint); font-weight:500; }
+
+        .footer-links{
+            display:flex;
+            align-items:center;
+            gap: 20px;
+            flex-wrap:wrap;
+            list-style:none;
+        }
+
+        .footer-links a{
+            font-family: var(--sans);
+            font-size: 0.83rem;
+            font-weight:500;
+            color: var(--text-dim);
+            text-decoration:none;
+            transition: color .15s ease;
+        }
+        .footer-links a:hover{ color: var(--accent); }
+
+        .footer-copy{
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text-faint);
+            white-space:nowrap;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        /* ============ FRAME TABS (mobile Code / Output switcher) ============ */
+        .frame-tabs{ display:none; }
+
+        @media (max-width: 900px){
+            html, body{ height:auto; }
+            body{ min-height: 100vh; overflow: visible; }
+            .ide-wrap{ min-height:auto; }
+            .workspace-outer{ min-height:auto; }
+            .ide-window{ min-height:auto; }
+
+            /* two full-width frames the user swipes between, instead of a vertical stack */
+            .frame-tabs{
+                display:flex;
+                flex: 0 0 auto;
+                background: var(--bg-elevated);
+                border-bottom: 1px solid var(--border-soft);
+            }
+            .frame-tab{
+                flex:1;
+                background:transparent;
+                border:none;
+                color: var(--text-faint);
+                font-family: var(--mono);
+                font-size: 0.72rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                padding: 10px 0;
+                cursor:pointer;
+                position:relative;
+                transition: color .15s ease;
+            }
+            .frame-tab.active{ color: var(--text); }
+            .frame-tab.active::after{
+                content:"";
+                position:absolute;
+                left:0; right:0; bottom:0;
+                height:2px;
+                background: var(--accent);
+            }
+
+            .workspace{
+                flex-direction:row;
+                flex-wrap:nowrap;
+                overflow-x:auto;
+                scroll-snap-type:x mandatory;
+                -webkit-overflow-scrolling:touch;
+                min-height: 62vh;
+                scrollbar-width:none;
+            }
+            .workspace::-webkit-scrollbar{ display:none; }
+
+            .pane{
+                flex:0 0 100%;
+                width:100%;
+                min-width:100%;
+                scroll-snap-align:start;
+            }
+            .pane.left{ border-right:none; border-bottom:none; }
+            .titlebar .run-hint{ display:none; }
+
+            .workspace-outer{ flex-direction:column; }
+            .lang-sidebar{
+                width:100%;
+                flex-direction:row;
+                justify-content:flex-start;
+                overflow-x:auto;
+                padding: 10px;
+                gap: 10px;
+            }
+            .lang-sidebar .sidebar-label{ display:none; }
+            .lang-icon .lang-tip{
+                left:50%;
+                top: calc(100% + 8px);
+                transform: translateX(-50%);
+            }
+
+            .pane-head{ padding: 8px 10px 8px 14px; }
+            .pane-head .status-text{ font-size:0.66rem; }
+            .pane-actions .btn{ padding:6px 10px; font-size:0.7rem; }
+
+            .footer-slim{ justify-content:center; text-align:center; }
+        }
+
+        @media (max-width: 640px){
+            header{ padding: 12px 5%; }
+            .header-tag{ display:none; }
+            .toolbar{ flex-wrap:wrap; }
+            .statusbar{ flex-wrap:wrap; gap:10px; }
+            .statusbar .push-right{ margin-left:0; gap:12px; }
+            .lang-icon{ width:38px; height:38px; }
+            .footer-links{ justify-content:center; gap:14px 16px; }
+
+            .pane-head{ flex-wrap:wrap; row-gap:8px; }
+            .pane-actions .btn span.btn-label{ display:none; }
+            .pane-actions .btn{ padding:6px 9px; }
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .cursor-blink, .pane-head.running .indicator{ animation:none; }
+        }
+    </style>
+</head>
+<body>
+    <noscript>
+        <div style="background:#0a0e14;color:#e6edf3;padding:16px;text-align:center;font-family:sans-serif;">
+            PyCodes.in needs JavaScript enabled to compile and run Python code in your browser. Please enable JavaScript to use the compiler.
+        </div>
+    </noscript>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <a href="index.html" class="logo" style="text-decoration:none;">
+            <span class="prompt-symbol">&gt;_</span>
+            <p class="brand">PyCodes<span>.in</span></p>
+        </a>
+        <div class="header-tag"><span class="status-dot"></span> Python 3.6 · Ready</div>
+    </header>
+
+    <!-- ============ IDE ============ -->
+    <main class="ide-wrap" id="compiler">
+        <div class="workspace-outer">
+ 
+
+           <!-- ===== Other Compilers — slim icon sidebar ===== -->
+            <aside class="lang-sidebar" aria-label="Other language compilers">
+                <span class="sidebar-label"></span>
+
+                <a class="lang-icon active" href="python.html" title="Online Python Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/3840px-Python-logo-notext.svg.png">
+                 
+                </a>
+                <a class="lang-icon" href="html.html" title="Online HTML, CSS & JS Compiler">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/066/386/005/small/the-html5-logo-with-the-number-5-in-the-center-free-png.png">
+            
+                </a>
+                <a class="lang-icon" href="C.html" title="Online C Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1920px-C_Programming_Language.svg.png">
+               
+                </a>
+                <a class="lang-icon" href="C++.html" title="Online C++ Compiler">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1280px-ISO_C%2B%2B_Logo.svg.png">
+                
+                </a>
+                <a class="lang-icon" href="java.html" title="Online Java Compiler">
+                    <img src="https://cdn-icons-png.flaticon.com/512/226/226777.png">
+                </a>
+                <a class="lang-icon" href="sql.html" style="filter:hue-rotate(30deg);" title="Online SQL Compiler">
+                    <img src="https://www.svgrepo.com/show/331760/sql-database-generic.svg">
+                </a>
+            </aside>
+
+            <!-- ===== Compiler IDE ===== -->
+            <div class="ide-window">
+
+                <div class="frame-tabs" role="tablist" aria-label="Switch between code and output">
+                    <button class="frame-tab active" data-frame="0" onclick="switchFrame(0)" role="tab" aria-selected="true">◧ Code</button>
+                    <button class="frame-tab" data-frame="1" onclick="switchFrame(1)" role="tab" aria-selected="false">◨ Output</button>
+                </div>
+
+                <div class="workspace">
+                    <div class="pane left">
+
+                        <div class="titlebar">
+                            <div class="traffic-lights">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="file-tab"><span class="dot-mini"></span> main.py</div>
+                            <div class="run-hint"><kbd>Ctrl</kbd><span>+</span><kbd>Enter</kbd> to run</div>
+                        </div>
+
+                        <div class="editor-body">
+                            <textarea id="code" spellcheck="false" aria-label="Python code editor" onkeydown="handleTab(event)" oninput="updateLineCount()">print("Hello, Developer!")</textarea>
+                        </div>
+                    </div>
+                    <div class="pane right">
+                        <div class="pane-head" id="statusHead">
+                            <span class="status-text"><span class="indicator"></span> Console Output</span>
+                            <div class="pane-actions">
+                                  <button class="btn btn-clear" onclick="clearOutput()" aria-label="Clear console output">✕ <span class="btn-label">Clear</span></button>
+                              <button class="btn btn-run" onclick="runPython()" aria-label="Run Python code">▶ <span class="btn-label">Run</span></button>
+                            </div>
+                        </div>
+                        <pre id="output" role="log" aria-live="polite" aria-label="Program output"><span class="placeholder">// Terminal output will appear here...</span></pre>
+                    </div>
+                </div>
+
+                <div class="statusbar">
+                    <span><span class="status-dot"></span> Ready</span>
+                    <span>Python 3.6</span>
+                    <div class="push-right">
+                        <span>UTF-8</span>
+                        <span id="lineCount">Ln 1</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ============ FOOTER (slim) ============ -->
+      <footer>
+        <div class="footer-slim">
+            <div class="footer-brand"><span class="prompt-symbol">&gt;_</span> PyCodes<span>.in</span></div>
+            <nav class="footer-links" aria-label="Footer">
+                <a href="https://pycodes.in/online-compilers">Home</a>
+                <a href="https://pycodes.in/blogs">Blogs</a>
+                <a href="https://pycodes.in/tutorials">Tutorials</a>
+            </nav>
+
+        </div>
+    </footer>
+
+    <!-- ============ SCRIPT ============ -->
+    <script>
+        const codeInput = document.getElementById("code");
+        const lineCountEl = document.getElementById("lineCount");
+        const statusHead = document.getElementById("statusHead");
+        const statusText = statusHead.querySelector(".status-text");
+        const outputEl = document.getElementById("output");
+
+        // ===== Swipeable Code / Output frames (mobile & tablet) =====
+        const workspaceEl = document.querySelector(".workspace");
+        const framePanes = document.querySelectorAll(".workspace > .pane");
+        const frameTabs = document.querySelectorAll(".frame-tab");
+
+        function switchFrame(index){
+            const target = framePanes[index];
+            if(!target || !workspaceEl) return;
+            workspaceEl.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+        }
+
+        function syncFrameTabs(){
+            if(!workspaceEl || workspaceEl.clientWidth === 0) return;
+            const idx = Math.round(workspaceEl.scrollLeft / workspaceEl.clientWidth);
+            frameTabs.forEach((tab, i) => {
+                const isActive = i === idx;
+                tab.classList.toggle("active", isActive);
+                tab.setAttribute("aria-selected", isActive ? "true" : "false");
+            });
+        }
+
+        if(workspaceEl){
+            let scrollTicking = false;
+            workspaceEl.addEventListener("scroll", () => {
+                if(!scrollTicking){
+                    window.requestAnimationFrame(() => { syncFrameTabs(); scrollTicking = false; });
+                    scrollTicking = true;
+                }
+            });
+            window.addEventListener("resize", syncFrameTabs);
+        }
+
+        function updateLineCount(){
+            const lines = codeInput.value.split("\n").length;
+            lineCountEl.textContent = "Ln " + lines;
+        }
+
+        // TAB indentation handler (4 spaces)
+        function handleTab(event){
+            if(event.key === 'Tab'){
+                event.preventDefault();
+                const start = codeInput.selectionStart;
+                const end = codeInput.selectionEnd;
+                const value = codeInput.value;
+                codeInput.value = value.substring(0, start) + "    " + value.substring(end);
+                codeInput.selectionStart = codeInput.selectionEnd = start + 4;
+                updateLineCount();
+            }
+            if((event.ctrlKey || event.metaKey) && event.key === 'Enter'){
+                event.preventDefault();
+                runPython();
+            }
+        }
+
+        function clearOutput(){
+            outputEl.innerHTML = '<span class="placeholder">// Terminal output will appear here...</span>';
+            setStatus('idle');
+        }
+
+        // NOTE: only the .status-text span is rewritten here — this keeps the
+        // Run/Clear buttons in the pane-head intact across every status change.
+        function setStatus(state){
+            statusHead.classList.remove('running','ok','err');
+            if(state === 'running'){ statusHead.classList.add('running'); statusText.innerHTML = '<span class="indicator"></span> Running…'; }
+            else if(state === 'ok'){ statusHead.classList.add('ok'); statusText.innerHTML = '<span class="indicator"></span> Console Output'; }
+            else if(state === 'err'){ statusHead.classList.add('err'); statusText.innerHTML = '<span class="indicator"></span> Error'; }
+            else{ statusText.innerHTML = '<span class="indicator"></span> Console Output'; }
+        }
+
+        function outf(text){ outputEl.textContent += text; }
+
+        function builtinRead(x){
+            if(Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+                throw "File not found: '" + x + "'";
+            return Sk.builtinFiles["files"][x];
+        }
+
+        function runPython(){
+            const sourceCode = codeInput.value;
+            outputEl.textContent = "";
+            setStatus('running');
+            if(window.innerWidth <= 900){ switchFrame(1); }
+
+            if(typeof Sk === "undefined"){
+                outputEl.innerHTML = "<span class='err-line'>Error: Compiler engine failed to load. Please check your internet connection.</span>";
+                setStatus('err');
+                return;
+            }
+
+            Sk.pre = "output";
+            Sk.configure({ output: outf, read: builtinRead });
+
+            const myPromise = Sk.misceval.asyncToPromise(function(){
+                return Sk.importMainWithBody("<stdin>", false, sourceCode, true);
+            });
+
+            myPromise.then(function(){
+                setStatus('ok');
+            }, function(err){
+                outputEl.innerHTML = "<span class='err-line'>" + err.toString() + "</span>";
+                setStatus('err');
+            });
+        }
+
+        updateLineCount();
+    </script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>PyCodes.in - Online C, C++, Java & Python Compiler</title>
+    <meta name="description" content="Fast online C compiler, online Java compiler, and Python compiler. Practice C programming, Java, and execute code instantly with our next-gen online C++ compiler with zero latency.">
+    <meta name="keywords" content="online c compiler, online java compiler, python compiler, c compiler, python, java, c programming, java compiler, c++ online compiler, online c++ compiler">
+    <meta name="author" content="JeeSoft">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.pycodes.in/">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <meta property="og:title" content="PyCodes.in - Best Online C, C++, Java & Python Compiler">
+    <meta property="og:description" content="Practice C programming, Java, and execute Python code instantly without server latency using our advanced online compilers.">
+    <meta property="og:url" content="https://www.pycodes.in/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PyCodes.in">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PyCodes.in - Best Online C, C++, Java & Python Compiler">
+    <meta name="twitter:description" content="Practice C programming, Java, and execute Python code instantly without server latency using our advanced online compilers.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://www.pycodes.in/#webapp",
+          "url": "https://www.pycodes.in/",
+          "name": "PyCodes.in Compiler",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires HTML5 support",
+          "description": "An online browser-based IDE and compiler for Python, C, C++, Java, HTML, and SQL with zero latency."
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.pycodes.in/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What programming languages are supported on PyCodes.in?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "PyCodes.in supports multiple high-demand environments including Python, C, C++, Java, live HTML/CSS/JS preview, and sandboxed SQL databases."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is registration required to use the online compiler?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No, PyCodes.in allows developers and students to write, compile, and run code instantly without any signup or mandatory registration."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the zero latency compilation work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our compiler is built using optimized client-side processing and lightweight secure containers, ensuring your code executes in absolute milliseconds directly in your browser tab."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* === Core Variables === */
+        :root {
+            --bg-main: #ffffff;
+            --bg-alt: #f8fafc;
+            --bg-dark: #0f172a;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #0ea5e9;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --radius-md: 8px;
+            --radius-lg: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { background-color: var(--bg-main); color: var(--text-dark); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        a:link, a:visited {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* === Navbar === */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); position: sticky; top: 0;
+            z-index: 1000; border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; letter-spacing: -1px; }
+        
+        .nav-buttons { display: flex; gap: 1rem; }
+        .btn { padding: 10px 20px; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; border: none; transition: 0.3s; font-size: 0.95rem; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: var(--shadow-md); }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        /* === Global Section Styles === */
+        section { padding: 5rem 5%; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -1px; }
+        .section-header p { color: var(--text-muted); font-size: 1.15rem; max-width: 700px; margin: 0 auto; }
+
+        /* === Interactive Compiler Preview === */
+        .compiler-section { background-color: var(--bg-main);}
+        .editor-wrapper { max-width: 1000px; margin: 0 auto; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xl); background: #1e1e1e; border: 1px solid #333; }
+        .editor-header { background: #2d2d2d; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; }
+        .mac-btns { display: flex; gap: 8px; }
+        .mac-btn { width: 12px; height: 12px; border-radius: 50%; }
+        .mac-close { background: #ff5f56; } .mac-min { background: #ffbd2e; } .mac-max { background: #27c93f; }
+        
+        .editor-tabs { display: flex; background: #252526; overflow-x: auto; }
+        .tab { padding: 12px 25px; color: #8a8a8a; cursor: pointer; font-size: 0.95rem; font-weight: 600; border-right: 1px solid #333; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .tab:hover { background: #2d2d2d; color: #ccc; }
+        .tab.active { color: #ffffff; background: #1e1e1e; border-top: 2px solid var(--primary); }
+        
+        .editor-code { padding: 30px; color: #d4d4d4; font-family: 'Consolas', 'Courier New', monospace; font-size: 1.05rem; line-height: 1.6; min-height: 350px; overflow-x: auto; background: #1e1e1e; white-space: pre; }
+        .kw { color: #569cd6; } .str { color: #ce9178; } .fnc { color: #dcdcaa; } .cmt { color: #6a9955; } .var { color: #9cdcfe; }
+
+        .compiler-section .compilemenus{
+            width:100%;
+            display:flex;
+            gap:2%;
+            margin-bottom: 20px;
+        }
+        .compiler-section .compilemenus a{
+            width:100%;
+        }
+        .compiler-section .compilemenus button{
+            width:100%;
+            padding:10px 5px;
+            background:linear-gradient(45deg,#4f46e5,#4f46e5);
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            transition:0.2s;
+            cursor:pointer;
+        }
+        .compilemenus button:hover{
+            background:linear-gradient(45deg,#4f46e5,dodgerblue);
+            transform: translateY(-4px);
+        }
+
+        /* === FAQ Section Styling (AEO/GEO Optimized) === */
+        .faq-section { background-color: var(--bg-alt); border-top: 1px solid var(--border); }
+        .faq-container { max-width: 850px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+        .faq-item { background: var(--bg-main); padding: 25px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+        .faq-item h3 { font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
+        .faq-item p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+
+        /* === Simple Footer Navbar === */
+        .simple-footer {
+            background-color: var(--bg-dark);
+            padding: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: auto;
+        }
+        .simple-footer a {
+            color: #cbd5e1 !important;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .simple-footer a:hover {
+            color: var(--secondary) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                 PyCodes.in
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-primary">
+                    <a href="https://www.pycodes.in/tutorials.html">Coding Tutorials</a>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="compiler" class="compiler-section">
+            <div class="section-header">
+                <h2>Supported Environments</h2>
+                <p>Select a language tab below to experience our high-fidelity syntax highlighting and intelligent code formatting engine.</p>
+            </div>
+            <div class="compilemenus">
+                <a href="html.html"><button>HTML</button></a>
+                <a href="python.html"><button>Python</button></a>
+                <a href="C.html"><button>C</button></a>
+                <a href="C++.html"><button>C++</button></a>
+                <a href="sql.html"><button>SQL</button></a>
+                <a href="java.html"><button>Java</button></a>
+            </div>
+            
+            <div class="editor-wrapper">
+                <div class="editor-header">
+                    <div class="mac-btns">
+                        <div class="mac-btn mac-close"></div>
+                        <div class="mac-btn mac-min"></div>
+                        <div class="mac-btn mac-max"></div>
+                    </div>
+                    <div style="color: #888; font-size: 0.85rem; font-family: monospace;">workspace/main <i class="fa-solid fa-lock" style="font-size: 0.7rem;"></i></div>
+                    <div><i class="fa-solid fa-gear" style="color: #888; cursor: pointer;"></i></div>
+                </div>
+                <div class="editor-tabs">
+                    <div class="tab active" data-lang="python"><i class="fa-brands fa-python" style="color: #3776ab;"></i> main.py</div>
+                    <div class="tab" data-lang="cpp"><i class="fa-solid fa-c" style="color: #00599c;"></i> solution.cpp</div>
+                    <div class="tab" data-lang="java"><i class="fa-brands fa-java" style="color: #b07219;"></i> Application.java</div>
+                    <div class="tab" data-lang="web"><i class="fa-brands fa-html5" style="color: #e34f26;"></i> index.html</div>
+                    <div class="tab" data-lang="sql"><i class="fa-solid fa-database" style="color: #f29111;"></i> query.sql</div>
+                </div>
+                <div class="editor-code" id="code-display">
+<span class="cmt"># Workspace initialized. Running Python 3.11</span>
+<span class="kw">import</span> sys
+<span class="kw">import</span> time
+
+<span class="kw">class</span> <span class="fnc">PyCodesCompiler</span>:
+    <span class="kw">def</span> <span class="fnc">__init__</span>(<span class="var">self</span>, user):
+        <span class="var">self</span>.user = user
+        <span class="var">self</span>.status = <span class="str">"Ready"</span>
+
+    <span class="kw">def</span> <span class="fnc">execute_code</span>(<span class="var">self</span>):
+        <span class="kw">print</span>(<span class="str">f"Initializing environment for {<span class="var">self</span>.user}..."</span>)
+        time.sleep(<span class="var">0.5</span>)
+        <span class="kw">return</span> <span class="str">"Execution Successful! 0ms latency."</span>
+
+<span class="cmt"># Initialize and Run</span>
+ide = PyCodesCompiler(<span class="str">"Developer"</span>)
+result = ide.execute_code()
+<span class="kw">print</span>(result)
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+               </div>
+            <div class="faq-container">
+                <article class="faq-item">
+                    <h3>What programming languages are supported on PyCodes.in?</h3>
+                    <p>PyCodes.in supports multiple standard environments including Python, C, C++, Java, live HTML/CSS/JS preview, and fully sandboxed SQL databases for comprehensive practice.</p>
+                </article>
+                <article class="faq-item">
+                    <h3>Is registration required to use the online compiler?</h3>
+                    <p>No registration or signup is required. You can start writing, running, and testing your programming logic instantly within your web browser completely free.</p>
+                </article>
+                <article class="faq-item">
+                    <h3>How does the zero latency compilation engine work?</h3>
+                    <p>Our IDE utilizes state-of-the-art browser rendering combined with high-speed remote execution containers, ensuring that your scripts execute and return results in absolute milliseconds.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="simple-footer">
+        <a href="https://www.pycodes.in">Home</a>
+        <a href="https://www.pycodes.in/tutorials">Tutorials</a>
+        <a href="https://www.pycodes.in/blogs">Blogs</a>
+    </footer>
+
+    <script>
+        const codeTabs = document.querySelectorAll('.tab');
+        const codeDisplay = document.getElementById('code-display');
+
+        const snippets = {
+            python: `<span class="cmt"># Workspace initialized. Running Python 3.11</span>\n<span class="kw">import</span> sys\n<span class="kw">import</span> time\n\n<span class="kw">class</span> <span class="fnc">PyCodesCompiler</span>:\n    <span class="kw">def</span> <span class="fnc">__init__</span>(<span class="var">self</span>, user):\n        <span class="var">self</span>.user = user\n        <span class="var">self</span>.status = <span class="str">"Ready"</span>\n\n    <span class="kw">def</span> <span class="fnc">execute_code</span>(<span class="var">self</span>):\n        <span class="kw">print</span>(<span class="str">f"Initializing environment for {<span class="var">self</span>.user}..."</span>)\n        time.sleep(<span class="var">0.5</span>)\n        <span class="kw">return</span> <span class="str">"Execution Successful! 0ms latency."</span>\n\nide = PyCodesCompiler(<span class="str">"Developer"</span>)\n<span class="kw">print</span>(ide.execute_code())`,
+            
+            cpp: `<span class="cmt">// Fast C++17 Compiler Instance</span>\n<span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span>\n<span class="kw">#include</span> <span class="str">&lt;vector&gt;</span>\n\n<span class="kw">int</span> <span class="fnc">main</span>() {\n    std::vector&lt;<span class="kw">int</span>&gt; data = {1, 2, 3, 4, 5};\n    std::cout << <span class="str">"PyCodes Engine Ready."</span> << std::endl;\n    \n    <span class="kw">for</span>(<span class="kw">int</span> val : data) {\n        std::cout << val << <span class="str">" "</span>;\n    }\n    <span class="kw">return</span> 0;\n}`,
+            
+            java: `<span class="cmt">// Java 21 LTS Environment</span>\n<span class="kw">public class</span> <span class="fnc">Application</span> {\n    <span class="kw">public static void</span> <span class="fnc">main</span>(String[] args) {\n        System.out.println(<span class="str">"Enterprise Compiler Ready."</span>);\n        System.out.println(<span class="str">"Thread execution started..."</span>);\n    }\n}`,
+            
+            web: `<span class="cmt">&lt;!-- Live Web Dev Environment --&gt;</span>\n<span class="kw">&lt;!DOCTYPE html&gt;</span>\n<span class="kw">&lt;html&gt;</span>\n<span class="kw">&lt;style&gt;</span>\n    <span class="var">body</span> { font-family: sans-serif; background: #fafafa; }\n    <span class="var">.card</span> { padding: 20px; border-radius: 8px; }\n<span class="kw">&lt;/style&gt;</span>\n<span class="kw">&lt;body&gt;</span>\n    <span class="kw">&lt;div</span> <span class="var">class</span>=<span class="str">"card"</span><span class="kw">&gt;</span>\n        <span class="kw">&lt;h1&gt;</span>Live DOM Updates<span class="kw">&lt;/h1&gt;</span>\n    <span class="kw">&lt;/div&gt;</span>\n<span class="kw">&lt;/body&gt;</span>\n<span class="kw">&lt;/html&gt;</span>`,
+            
+            sql: `<span class="cmt">-- PostgreSQL Sandboxed DB</span>\n<span class="kw">CREATE TABLE</span> developers (\n    id <span class="kw">SERIAL PRIMARY KEY</span>,\n    username <span class="kw">VARCHAR</span>(50) <span class="kw">NOT NULL</span>,\n    role <span class="kw">VARCHAR</span>(50)\n);\n\n<span class="kw">INSERT INTO</span> developers (username, role)\n<span class="kw">VALUES</span> ('JeeSoft', 'Admin');\n\n<span class="kw">SELECT</span> * <span class="kw">FROM</span> developers;`
+        };
+
+        codeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                codeTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                codeDisplay.style.opacity = 0;
+                setTimeout(() => {
+                    codeDisplay.innerHTML = snippets[tab.dataset.lang];
+                    codeDisplay.style.opacity = 1;
+                }, 200);
+            });
+        });
+        codeDisplay.style.transition = "opacity 0.2s ease";
+    </script>
+</body>
+</html>

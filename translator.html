@@ -17,6 +17,37 @@
     <meta property="og:description" content="Enterprise-grade text translation between English and Hindi. Fast, free, and secure.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pycodes.in/translate">
+<style>
+    /* Text select na kar paaye */
+body {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+</style>
+<script>
+    // 1. Right-click disable karein
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// 2. Keyboard shortcuts disable karein (F12, Ctrl+Shift+I, Ctrl+U)
+document.addEventListener('keydown', function(e) {
+    // F12 key
+    if (e.keyCode == 123) return false;
+    
+    // Ctrl + Shift + I
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+    
+    // Ctrl + Shift + C
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+    
+    // Ctrl + Shift + J
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+    
+    // Ctrl + U (View Source)
+    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+});
+
+</script>
 
     <!-- JSON-LD Structured Data for AEO/GEO & Rich Snippets -->
     <script type="application/ld+json">

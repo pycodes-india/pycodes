@@ -131,6 +131,37 @@
   ]
 }
 </script>
+<style>
+    /* Text select na kar paaye */
+body {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+</style>
+<script>
+    // 1. Right-click disable karein
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// 2. Keyboard shortcuts disable karein (F12, Ctrl+Shift+I, Ctrl+U)
+document.addEventListener('keydown', function(e) {
+    // F12 key
+    if (e.keyCode == 123) return false;
+    
+    // Ctrl + Shift + I
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+    
+    // Ctrl + Shift + C
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+    
+    // Ctrl + Shift + J
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+    
+    // Ctrl + U (View Source)
+    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+});
+
+</script>
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111214'/%3E%3Crect x='5' y='5' width='9' height='9' fill='%23fff'/%3E%3Crect x='7.5' y='7.5' width='4' height='4' fill='%23111214'/%3E%3Crect x='18' y='5' width='9' height='9' fill='%23fff'/%3E%3Crect x='20.5' y='7.5' width='4' height='4' fill='%23111214'/%3E%3Crect x='5' y='18' width='9' height='9' fill='%23fff'/%3E%3Crect x='7.5' y='20.5' width='4' height='4' fill='%23111214'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">

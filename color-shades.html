@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ========================================== -->
+<!-- PRIMARY SEO META TAGS                      -->
+<!-- ========================================== -->
+<title>Color Shades by PyCodes | Advanced Color Palette & Tints Generator</title>
+<meta name="description" content="Explore built-in color families and instantly generate custom tints and shades. A free, responsive UI color tool for creators and developers by PyCodes.">
+<meta name="keywords" content="color shades, pycodes, color palette generator, tints and shades calculator, hex to rgb converter, UI design colors, web developer tools">
+<meta name="author" content="PyCodes">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="language" content="English">
+<!-- Update the href below if this tool is on your homepage (e.g., just "https://pycodes.in/") -->
+<link rel="canonical" href="https://pycodes.in/color-shades">
+
+<!-- ========================================== -->
+<!-- AEO & GEO SPECIFIC META TAGS               -->
+<!-- Designed for AI bots, LLMs, & Voice Search -->
+<!-- ========================================== -->
+<meta name="subject" content="Color Palette Generation and Conversion Tool">
+<meta name="abstract" content="A web-based utility on pycodes.in for UI designers and developers to explore color families, generate custom color variations, and convert between HEX, RGB, and HSL formats.">
+<meta name="topic" content="Web Design, UI/UX, Developer Tools, Color Theory">
+<meta name="rating" content="General">
+
+<!-- ========================================== -->
+<!-- OPEN GRAPH / FACEBOOK / LINKEDIN           -->
+<!-- ========================================== -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PyCodes">
+<meta property="og:url" content="https://pycodes.in/color-shades">
+<meta property="og:title" content="Color Shades by PyCodes | Generate UI Color Variations Instantly">
+<meta property="og:description" content="Easily create lighter tints and darker shades for any color. Copy HEX, RGB, and HSL values instantly with this free developer tool from PyCodes.">
+<meta property="og:image" content="https://pycodes.in/assets/color-shades-og.png"> <!-- Make sure to host a 1200x630 image at this path -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Preview of the Color Shades dashboard on PyCodes">
+
+<!-- ========================================== -->
+<!-- TWITTER CARDS                              -->
+<!-- ========================================== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@yourtwitterhandle"> <!-- Optional: Add your PyCodes Twitter handle if you have one -->
+<meta name="twitter:title" content="Color Shades by PyCodes | UI Color Palette Generator">
+<meta name="twitter:description" content="Explore color families and dynamically generate custom tints and shades for your next web project. Free and easy to use.">
+<meta name="twitter:image" content="https://pycodes.in/assets/color-shades-og.png">
+<meta name="twitter:image:alt" content="Color Shades Generator UI by PyCodes">
+
+<!-- ========================================== -->
+<!-- JSON-LD STRUCTURED DATA (GEO & AEO CRITICAL)-->
+<!-- ========================================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Color Shades",
+  "url": "https://pycodes.in/color-shades",
+  "description": "A web-based tool for designers and developers to explore predefined color families, generate custom tints and shades, and convert colors between HEX, RGB, and HSL formats.",
+  "applicationCategory": "DesignApplication, DeveloperApplication",
+  "operatingSystem": "All",
+  "publisher": {
+    "@type": "Organization",
+    "name": "PyCodes",
+    "url": "https://pycodes.in/"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "featureList": [
+    "Predefined Color Family Exploration",
+    "Dynamic Tints and Shades Generation",
+    "HEX, RGB, and HSL conversion",
+    "One-click copy to clipboard",
+    "Dark Mode Interface"
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Web Developers, UI/UX Designers, Graphic Designers"
+  }
+}
+</script>
+    <style>
+        /* --- Design Token Variables --- */
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --primary: #4f46e5;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --nav-border: rgba(226, 232, 240, 0.8);
+        }
+
+        /* --- Dark Mode Variables Overrides --- */
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --border-color: #334155;
+            --primary: #6366f1;
+            --nav-bg: rgba(15, 23, 42, 0.9);
+            --nav-border: rgba(51, 65, 85, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1rem 3rem 1rem;
+            flex: 1;
+        }
+
+        /* --- Navbar Component Styling --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--nav-border);
+            z-index: 100;
+            margin-bottom: 2.5rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .logo-accent {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        body.dark-mode .nav-links a {
+            color: #94a3b8;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .theme-btn:hover {
+            background: var(--border-color);
+        }
+
+        /* --- Typography Elements --- */
+        .main-intro {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .main-intro h1 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .main-intro h1,
+        body.dark-mode h2,
+        body.dark-mode th {
+            color: #ffffff;
+        }
+
+        .main-intro p {
+            color: #64748b;
+        }
+
+        body.dark-mode .main-intro p {
+            color: #94a3b8;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Google Ads Section Wrapper --- */
+        .ad-wrapper {
+            background: rgba(0, 0, 0, 0.02);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+        }
+        body.dark-mode .ad-wrapper {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* --- Predefined Palette Dashboard Section --- */
+        .palette-section {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-bottom: 2rem;
+        }
+
+        .palette-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 1rem;
+        }
+
+        .palette-btn {
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .palette-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-color: var(--primary);
+        }
+
+        .palette-btn.active {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.1);
+        }
+
+        .color-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* --- Dynamic Explorable Table Layout --- */
+        .table-container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: rgba(0,0,0,0.02);
+            color: #475569;
+            font-weight: 600;
+        }
+
+        body.dark-mode th {
+            background-color: #1e293b;
+            color: #cbd5e1;
+        }
+
+        .cell-color {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+
+        .large-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+        }
+
+        .value-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.01);
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-family: monospace;
+            font-size: 0.85rem;
+            min-width: 175px;
+        }
+
+        body.dark-mode .value-group {
+            background: #1e293b;
+        }
+
+        .copy-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+            font-family: sans-serif;
+            transition: all 0.15s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* --- Section Divider Rule --- */
+        .divider {
+            border: none;
+            border-top: 2px solid var(--border-color);
+            margin: 3rem 0;
+        }
+
+        /* --- Color Generation Panel Styles --- */
+        .control-panel {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .control-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        body.dark-mode .control-group label {
+            color: #94a3b8;
+        }
+
+        input[type="color"] {
+            border: none;
+            width: 100%;
+            height: 42px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: none;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        select, input[type="text"] {
+            padding: 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+        /* --- Shape Display Canvas --- */
+        .shape-preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            height: 100%;
+        }
+
+        .shape-preview-box svg {
+            width: 100px;
+            height: 100px;
+            transition: fill 0.3s ease;
+        }
+
+        /* --- Generated Variations Strip Grids --- */
+        .variants-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .variants-section { grid-template-columns: 1fr; }
+        }
+
+        .variant-block {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .variant-strip {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+
+        .variant-strip:hover {
+            transform: translateX(4px);
+            border-color: var(--primary);
+        }
+
+        .strip-preview {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+        }
+
+        .strip-info {
+            padding: 0.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            font-size: 0.8rem;
+        }
+
+        .strip-info strong { 
+            font-size: 0.9rem; 
+            color: var(--text-color);
+        }
+
+        .strip-info span {
+            color: #64748b;
+            font-family: monospace;
+        }
+
+        body.dark-mode .strip-info span {
+            color: #94a3b8;
+        }
+
+        /* --- Toast Status Box --- */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1e293b;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-size: 0.9rem;
+        }
+        body.dark-mode .toast {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        /* --- Sticky Footer System --- */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--nav-border);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            margin-top: 5rem;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        @media(min-width: 600px) {
+            .footer-content { flex-direction: row; }
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: #64748b;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-text">Color <span class="logo-accent">Shades</span></span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="">Home</a></li>
+                <li><a href="#palleteNav" class="active" id="lnkExplorer">Color</a></li>
+                <li><a href="#custom-generator" id="lnkGenerator">Picker</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-btn" aria-label="Toggle Dark/Light Interface Theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+<div class="text-container">
+        <h1 class="interactive-text" id="targetText">EXPERIENCE THE POWER OF COLORS</h1>
+    </div>
+
+    <div class="container">
+        <div class="ad-wrapper">
+            <div>Advertisement - Responsive Banner Unit</div>
+        </div>
+
+        <header class="main-intro">
+            <p>Explore built-in color families or generate customized variations effortlessly.</p>
+        </header>
+
+        <div class="palette-section">
+            <h2>1. Built-in Families</h2>
+            <div class="palette-buttons" id="paletteNav">
+                </div>
+        </div>
+
+        <div class="table-container">
+            <h2 id="tableTitle">Green Family Shades</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Color Family Specimen</th>
+                        <th>HEX</th>
+                        <th>RGB</th>
+                        <th>HSL</th>
+                    </tr>
+                </thead>
+                <tbody id="shadesTableBody">
+                    </tbody>
+            </table>
+        </div>
+
+        <hr class="divider">
+
+        <h2 id="custom-generator">2. Custom Variation Engine</h2>
+        <div class="control-panel">
+            <div class="control-group">
+                <label for="picker">Color Canvas Wheel</label>
+                <input type="color" id="picker" value="#10b981">
+            </div>
+
+            <div class="control-group">
+                <label for="mode">Dynamic Output Format</label>
+                <select id="mode">
+                    <option value="HEX">HEX</option>
+                    <option value="RGB">RGB</option>
+                    <option value="HSL">HSL</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label id="inputLabel" for="colorInput">Enter HEX Value</label>
+                <input type="text" id="colorInput" value="#10b981" placeholder="#10b981">
+            </div>
+
+            <div class="control-group">
+                <label>Shape Dynamic Fill</label>
+                <div class="shape-preview-box">
+                    <svg id="canvasShape" viewBox="0 0 24 24" fill="#10b981">
+                        <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.784 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="variants-section">
+            <div class="variant-block">
+                <h2>Tints (Lighter Steps)</h2>
+                <div class="grid" id="tintsGrid"></div>
+            </div>
+
+            <div class="variant-block">
+                <h2>Shades (Darker Steps)</h2>
+                <div class="grid" id="shadesGrid"></div>
+            </div>
+        </div>
+
+        <div class="ad-wrapper">
+            <div>Advertisement - Match Content Recommendation Unit</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Color Shades. Built for creators and developers.</p>
+          
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">Copied successfully!</div>
+
+    <script>
+        // --- PRE-DEFINED EXPANDED COLOR FAMILY DATA STORE ---
+        const colorDatabase = {
+            Green: [
+                { name: "Mint Sparkle", hex: "#a7f3d0", rgb: "rgb(167, 243, 208)", hsl: "hsl(152, 76%, 80%)" },
+                { name: "Emerald Light", hex: "#34d399", rgb: "rgb(52, 211, 153)", hsl: "hsl(158, 64%, 52%)" },
+                { name: "Classic Jade", hex: "#10b981", rgb: "rgb(16, 185, 129)", hsl: "hsl(160, 84%, 39%)" },
+                { name: "Forest Shade", hex: "#047857", rgb: "rgb(4, 120, 87)", hsl: "hsl(163, 94%, 24%)" },
+                { name: "Deep Obsidian", hex: "#064e3b", rgb: "rgb(6, 78, 59)", hsl: "hsl(164, 86%, 16%)" }
+            ],
+            Red: [
+                { name: "Rose Tint", hex: "#fecdd3", rgb: "rgb(254, 205, 211)", hsl: "hsl(353, 96%, 90%)" },
+                { name: "Coral Blush", hex: "#fb7185", rgb: "rgb(251, 113, 133)", hsl: "hsl(351, 95%, 71%)" },
+                { name: "Crimson Spark", hex: "#f43f5e", rgb: "rgb(244, 63, 94)", hsl: "hsl(350, 89%, 60%)" },
+                { name: "Ruby Classic", hex: "#be123c", rgb: "rgb(190, 18, 60)", hsl: "hsl(345, 83%, 41%)" },
+                { name: "Burgundy Wine", hex: "#881337", rgb: "rgb(136, 19, 55)", hsl: "hsl(342, 75%, 30%)" }
+            ],
+            Blue: [
+                { name: "Sky Mist", hex: "#bfdbfe", rgb: "rgb(191, 219, 254)", hsl: "hsl(214, 95%, 87%)" },
+                { name: "Ocean Splash", hex: "#60a5fa", rgb: "rgb(96, 165, 250)", hsl: "hsl(213, 93%, 68%)" },
+                { name: "Royal Standard", hex: "#3b82f6", rgb: "rgb(59, 130, 246)", hsl: "hsl(217, 91%, 60%)" },
+                { name: "Deep Navy", hex: "#1d4ed8", rgb: "rgb(29, 78, 216)", hsl: "hsl(224, 76%, 48%)" },
+                { name: "Midnight Void", hex: "#1e3a8a", rgb: "rgb(30, 58, 138)", hsl: "hsl(224, 64%, 33%)" }
+            ],
+            Yellow: [
+                { name: "Cream Chiffon", hex: "#fef08a", rgb: "rgb(254, 240, 138)", hsl: "hsl(53, 98%, 77%)" },
+                { name: "Canary Glow", hex: "#fde047", rgb: "rgb(253, 224, 71)", hsl: "hsl(50, 98%, 64%)" },
+                { name: "Amber Gold", hex: "#eab308", rgb: "rgb(234, 179, 8)", hsl: "hsl(45, 93%, 47%)" },
+                { name: "Mustard Field", hex: "#a16207", rgb: "rgb(161, 98, 7)", hsl: "hsl(35, 92%, 33%)" },
+                { name: "Burnt Toffee", hex: "#713f12", rgb: "rgb(113, 63, 18)", hsl: "hsl(29, 73%, 26%)" }
+            ],
+            Purple: [
+                { name: "Lavender Silk", hex: "#e9d5ff", rgb: "rgb(233, 213, 255)", hsl: "hsl(269, 100%, 92%)" },
+                { name: "Orchid Pop", hex: "#c084fc", rgb: "rgb(192, 132, 252)", hsl: "hsl(270, 95%, 75%)" },
+                { name: "Amethyst Power", hex: "#a855f7", rgb: "rgb(168, 85, 247)", hsl: "hsl(271, 92%, 65%)" },
+                { name: "Cosmic Indigo", hex: "#7e22ce", rgb: "rgb(126, 34, 206)", hsl: "hsl(272, 72%, 47%)" },
+                { name: "Plum Deep", hex: "#581c87", rgb: "rgb(88, 28, 135)", hsl: "hsl(274, 66%, 32%)" }
+            ],
+            Orange: [
+                { name: "Papaya Whip", hex: "#ffedd5", rgb: "rgb(255, 237, 213)", hsl: "hsl(34, 100%, 92%)" },
+                { name: "Peach Soft", hex: "#fdba74", rgb: "rgb(253, 186, 116)", hsl: "hsl(31, 97%, 72%)" },
+                { name: "Tangerine Core", hex: "#f97316", rgb: "rgb(249, 115, 22)", hsl: "hsl(25, 95%, 53%)" },
+                { name: "Rust Clay", hex: "#c2410c", rgb: "rgb(194, 65, 12)", hsl: "hsl(17, 88%, 40%)" },
+                { name: "Burnt Ochre", hex: "#7c2d12", rgb: "rgb(124, 45, 18)", hsl: "hsl(15, 75%, 28%)" }
+            ],
+            Pink: [
+                { name: "Cotton Candy", hex: "#fce7f3", rgb: "rgb(252, 231, 243)", hsl: "hsl(326, 78%, 95%)" },
+                { name: "Blush Pink", hex: "#f472b6", rgb: "rgb(244, 114, 182)", hsl: "hsl(328, 86%, 70%)" },
+                { name: "Hot Magenta", hex: "#ec4899", rgb: "rgb(236, 72, 153)", hsl: "hsl(330, 81%, 60%)" },
+                { name: "Deep Ruby", hex: "#be185d", rgb: "rgb(190, 24, 93)", hsl: "hsl(335, 78%, 42%)" },
+                { name: "Velvet Night", hex: "#831843", rgb: "rgb(131, 24, 67)", hsl: "hsl(336, 69%, 30%)" }
+            ],
+            Teal: [
+                { name: "Teal Vapor", hex: "#ccfbf1", rgb: "rgb(204, 251, 241)", hsl: "hsl(167, 85%, 89%)" },
+                { name: "Pale Aquamarine", hex: "#2dd4bf", rgb: "rgb(45, 212, 191)", hsl: "hsl(172, 66%, 50%)" },
+                { name: "Deep Turquoise", hex: "#14b8a6", rgb: "rgb(20, 184, 166)", hsl: "hsl(173, 80%, 40%)" },
+                { name: "Oceanic Pine", hex: "#0f766e", rgb: "rgb(15, 118, 110)", hsl: "hsl(175, 77%, 26%)" },
+                { name: "Abyss Blue", hex: "#115e59", rgb: "rgb(17, 94, 89)", hsl: "hsl(176, 69%, 22%)" }
+            ],
+            Cyan: [
+                { name: "Ice Drop", hex: "#e0f2fe", rgb: "rgb(224, 242, 254)", hsl: "hsl(203, 92%, 94%)" },
+                { name: "Glacier Stream", hex: "#38bdf8", rgb: "rgb(56, 189, 248)", hsl: "hsl(199, 93%, 60%)" },
+                { name: "Electric Cyan", hex: "#0ea5e9", rgb: "rgb(14, 165, 233)", hsl: "hsl(199, 89%, 48%)" },
+                { name: "Cobalt Light", hex: "#0369a1", rgb: "rgb(3, 105, 161)", hsl: "hsl(201, 96%, 32%)" },
+                { name: "Deep Mariana", hex: "#0c4a6e", rgb: "rgb(12, 74, 110)", hsl: "hsl(202, 80%, 24%)" }
+            ]
+        };
+
+        // --- DOM Bindings ---
+        const themeToggle = document.getElementById('themeToggle');
+        const paletteNav = document.getElementById('paletteNav');
+        const shadesTableBody = document.getElementById('shadesTableBody');
+        const tableTitle = document.getElementById('tableTitle');
+        const picker = document.getElementById('picker');
+        const modeSelect = document.getElementById('mode');
+        const colorInput = document.getElementById('colorInput');
+        const inputLabel = document.getElementById('inputLabel');
+        const tintsGrid = document.getElementById('tintsGrid');
+        const shadesGrid = document.getElementById('shadesGrid');
+        const toast = document.getElementById('toast');
+        const canvasShape = document.getElementById('canvasShape');
+        
+        const lnkExplorer = document.getElementById('lnkExplorer');
+        const lnkGenerator = document.getElementById('lnkGenerator');
+
+        // Dynamic State Storage Variables
+        let genH = 160, genS = 84, genL = 39; 
+        const initialSunIcon = themeToggle.innerHTML;
+        const crescentMoonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+        // --- Core Lifecycle Initialize Execution ---
+        function initApp() {
+            renderPaletteNavButtons();
+            loadCategoryExplorerTable("Green");
+            updateCustomWheelFromHex('#10b981');
+            setupNavbarInteractions();
+        }
+
+        // --- Interactive Navigation Highlights ---
+        function setupNavbarInteractions() {
+            window.addEventListener('scroll', () => {
+                const genSection = document.getElementById('custom-generator');
+                const scrollPos = window.scrollY + 150;
+                
+                if (scrollPos >= genSection.offsetTop) {
+                    lnkGenerator.classList.add('active');
+                    lnkExplorer.classList.remove('active');
+                } else {
+                    lnkExplorer.classList.add('active');
+                    lnkGenerator.classList.remove('active');
+                }
+            });
+        }
+
+        // --- Dark Theme Switch Handler ---
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = crescentMoonIcon;
+            } else {
+                themeToggle.innerHTML = initialSunIcon;
+            }
+        });
+
+        // --- Category Dashboard Builders ---
+        function renderPaletteNavButtons() {
+            paletteNav.innerHTML = '';
+            Object.keys(colorDatabase).forEach(category => {
+                const midToneHex = colorDatabase[category][2].hex; 
+
+                const btn = document.createElement('button');
+                btn.className = `palette-btn ${category === 'Green' ? 'active' : ''}`;
+                btn.innerHTML = `<span class="color-dot" style="background-color: ${midToneHex}"></span> ${category}`;
+                
+                btn.onclick = () => {
+                    document.querySelectorAll('.palette-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    loadCategoryExplorerTable(category);
+                };
+                paletteNav.appendChild(btn);
+            });
+        }
+
+        function loadCategoryExplorerTable(category) {
+            tableTitle.textContent = `${category} Family Exploration Table`;
+            shadesTableBody.innerHTML = '';
+            
+            colorDatabase[category].forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <div class="cell-color">
+                            <div class="large-dot" style="background-color: ${item.hex}"></div>
+                            <span>${item.name}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="value-group">
+                            <span>${item.hex}</span>
+                            <button class="copy-btn" onclick="copyToClipboard('${item.hex}')">Copy</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="value-group">
+                            <span>${item.rgb}</span>
+                            <button class="copy-btn" onclick="copyToClipboard('${item.rgb}')">Copy</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="value-group">
+                            <span>${item.hsl}</span>
+                            <button class="copy-btn" onclick="copyToClipboard('${item.hsl}')">Copy</button>
+                        </div>
+                    </td>
+                `;
+                shadesTableBody.appendChild(tr);
+            });
+        }
+
+        function copyToClipboard(valueStr) {
+            navigator.clipboard.writeText(valueStr);
+            toast.textContent = `Copied to Clipboard: ${valueStr}`;
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+        }
+
+        // --- Custom Variation Control Interactivity Logic ---
+        picker.addEventListener('input', (e) => {
+            updateCustomWheelFromHex(e.target.value);
+            syncInputFieldValue();
+        });
+
+        modeSelect.addEventListener('change', () => {
+            inputLabel.textContent = `Enter ${modeSelect.value} Value`;
+            if(modeSelect.value === 'HEX') colorInput.placeholder = '#10b981';
+            if(modeSelect.value === 'RGB') colorInput.placeholder = 'rgb(16, 185, 129)';
+            if(modeSelect.value === 'HSL') colorInput.placeholder = 'hsl(160, 84%, 39%)';
+            syncInputFieldValue();
+        });
+
+        colorInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            const mode = modeSelect.value;
+            
+            if (mode === 'HEX' && /^#[0-9A-F]{6}$/i.test(val)) {
+                updateCustomWheelFromHex(val);
+                picker.value = val;
+            } else if (mode === 'RGB') {
+                const match = val.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+                if (match) {
+                    const hO = rgbToHsl(parseInt(match[1]), parseInt(match[2]), parseInt(match[3]));
+                    setCustomWheelState(hO.h, hO.s, hO.l);
+                }
+            } else if (mode === 'HSL') {
+                const match = val.match(/^hsl\s*\(\s*(\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)$/i);
+                if (match) {
+                    setCustomWheelState(parseInt(match[1]), parseInt(match[2]), parseInt(match[3]));
+                }
+            }
+        });
+
+        function updateCustomWheelFromHex(hex) {
+            const rgb = hexToRgb(hex);
+            const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+            setCustomWheelState(hsl.h, hsl.s, hsl.l);
+        }
+
+        function setCustomWheelState(h, s, l) {
+            genH = h; genS = s; genL = l;
+            const computedHex = hslToHex(h, s, l);
+            picker.value = computedHex;
+            canvasShape.style.fill = computedHex; // Update preview shape geometry fill color
+            generateCustomVariants();
+        }
+
+        function syncInputFieldValue() {
+            const mode = modeSelect.value;
+            if (mode === 'HEX') colorInput.value = hslToHex(genH, genS, genL);
+            if (mode === 'RGB') {
+                const rgb = hslToRgb(genH, genS, genL);
+                colorInput.value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+            }
+            if (mode === 'HSL') colorInput.value = `hsl(${genH}, ${genS}%, ${genL}%)`;
+        }
+
+        function generateCustomVariants() {
+            tintsGrid.innerHTML = '';
+            shadesGrid.innerHTML = '';
+
+            for (let i = 1; i <= 4; i++) {
+                const tintL = genL + ((96 - genL) / 4) * i;
+                tintsGrid.appendChild(createStripCard(genH, genS, Math.round(tintL)));
+
+                const shadeL = genL - ((genL - 8) / 4) * i;
+                shadesGrid.appendChild(createStripCard(genH, genS, Math.round(shadeL)));
+            }
+        }
+
+        function createStripCard(h, s, l) {
+            const hex = hslToHex(h, s, l);
+            const rgbO = hslToRgb(h, s, l);
+            const rgb = `rgb(${rgbO.r}, ${rgbO.g}, ${rgbO.b})`;
+            const hsl = `hsl(${h}, ${s}%, ${l}%)`;
+
+            const el = document.createElement('div');
+            el.className = 'variant-strip';
+            el.innerHTML = `
+                <div class="strip-preview" style="background: ${hsl}"></div>
+                <div class="strip-info">
+                    <strong>${hex.toUpperCase()}</strong>
+                    <span>${rgb}</span>
+                    <span>${hsl}</span>
+                </div>
+            `;
+            el.onclick = () => {
+                const mode = modeSelect.value;
+                let copyStr = hex;
+                if(mode === 'RGB') copyStr = rgb;
+                if(mode === 'HSL') copyStr = hsl;
+                copyToClipboard(copyStr);
+            };
+            return el;
+        }
+
+        // --- Math Conversion Engines ---
+        function hexToRgb(hex) {
+            let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null;
+        }
+
+        document.getElementById('lnkGenerator').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('custom-generator').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('lnkExplorer').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function rgbToHsl(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+            if (max === min) { h = s = 0; } 
+            else {
+                const d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+                else if (max === g) h = (b - r) / d + 2;
+                else h = (r - g) / d + 4;
+                h /= 6;
+            }
+            return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+        }
+
+        function hslToRgb(h, s, l) {
+            s /= 100; l /= 100;
+            const k = n => (n + h / 30) % 12;
+            const a = s * Math.min(l, 1 - l);
+            const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+            return { r: Math.round(255 * f(0)), g: Math.round(255 * f(8)), b: Math.round(255 * f(4)) };
+        }
+
+        function hslToHex(h, s, l) {
+            const { r, g, b } = hslToRgb(h, s, l);
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+
+        // Trigger Execution
+        window.onload = initApp;
+    
+        const textElement = document.getElementById('targetText');
+        const strText = textElement.textContent;
+        
+        // Text ko characters mein split karke har letter ko span mein wrap karna
+        const splitText = strText.split("");
+        textElement.textContent = "";
+
+        // Theme-matched Colors Palette (Vibrant Indigo, Emerald, Pink, Cyan, Violet, Orange)
+        const themeColors = [
+            '#6366f1', '#10b981', '#ec4899', '#0ea5e9', 
+            '#a855f7', '#f97316', '#34d399', '#60a5fa', 
+            '#f43f5e', '#2dd4bf', '#c084fc', '#fdba74'
+        ];
+
+        // Last generated color ko track karne ke liye taaki lagatar same color na aaye
+        let lastColorIndex = -1;
+
+        splitText.forEach(char => {
+            const span = document.createElement('span');
+            
+            // Agar character space h to usko non-breaking space banayein taaki layout na toote
+            if (char === " ") {
+                span.innerHTML = "&nbsp;";
+            } else {
+                span.textContent = char;
+            }
+            
+            // Hover Event Listener
+            span.addEventListener('mouseover', function() {
+                let randomIndex;
+                
+                // Yeh loop ensure karega ki agla color pichle waale se alag ho
+                do {
+                    randomIndex = Math.floor(Math.random() * themeColors.length);
+                } while (randomIndex === lastColorIndex);
+                
+                lastColorIndex = randomIndex;
+                const randomColor = themeColors[randomIndex];
+                
+                // Color apply karna
+                this.style.color = randomColor;
+                // Text-shadow se ek halka sa neon glow effect aayega
+            });
+
+            // Mouse leave hone par color wapas normal slate grey ho jayega
+            span.addEventListener('mouseleave', function() {
+                // Halka sa delay taaki smooth transitional fade-out mile
+                setTimeout(() => {
+                    this.style.color = '';
+                    this.style.textShadow = 'none';
+                }, 150);
+            });
+
+            textElement.appendChild(span);
+        });
+    </script>
+<style>
+/* Large Text Container */
+.text-container {
+    text-align: center;
+    user-select: none;
+    width: 100%;
+    padding: 0 1.5rem;
+}
+
+.interactive-text {
+    font-size: 61px; /* Desktop default size */
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+    
+    /* Layout fix: letters ko aapas mein sahi se align rakhne ke liye */
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Individual Letter Styling */
+.interactive-text span {
+   
+    cursor: pointer;
+    transition: color 0.1s ease, transform 0.15s ease;
+    white-space: pre; /* Sapces aur letters ka breakdown smooth rakhne ke liye */
+}
+
+/* --- MEDIA QUERIES USING MAX-WIDTH --- */
+
+/* Tablets aur Chhoti Laptops ke liye (Screen size 992px se choti hone pr) */
+@media (max-width: 992px) {
+    .interactive-text {
+        font-size: 45px;
+    }
+}
+
+/* Standard Mobile Screens ke liye (Screen size 768px se choti hone pr) */
+@media (max-width: 768px) {
+    .interactive-text {
+        font-size:30px;
+        line-height: 1.3;
+    }
+}
+
+@media (max-width: 550px) {
+    .interactive-text {
+        font-size: 23px;
+       
+    }
+}
+
+@media (max-width: 400px) {
+    .interactive-text {
+        font-size: 22px;
+        letter-spacing: -0.01em;
+    }
+}
+/* Chhote Smartphones ke liye (Screen size 480px se choti hone pr) */
+@media (max-width: 280px) {
+    .interactive-text {
+        font-size: 20px;
+        letter-spacing: -0.01em;
+    }
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & AEO Meta Tags -->
+    <title>Convert VCF to Excel Online | Free vCard to XLSX Converter | PyCodes</title>
+    <meta name="description" content="Free, fast, and secure tool by PyCodes to convert VCF (vCard) contact files to Microsoft Excel (XLSX). 100% private - runs entirely in your browser.">
+    <meta name="keywords" content="vcf to excel, convert vcard to xlsx, export contacts to excel, online vcf converter, pycodes vcf converter, free contact converter">
+    <meta name="author" content="PyCodes">
+    <link rel="canonical" href="https://pycodes.in/vcf-contact-exporter">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="VCF to Excel Converter - Free & Private | PyCodes">
+    <meta property="og:description" content="Extract contacts from vCard (.vcf) files and export them to Excel instantly in your browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pycodes.in/vcf-contact-exporter">
+    <meta property="og:site_name" content="PyCodes">
+    
+    <!-- Include SheetJS from CDN for Excel generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <!-- JSON-LD WebApplication Schema for SEO & GEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PyCodes VCF to Excel Converter",
+      "url": "https://pycodes.in/vcf-contact-exporter",
+      "description": "A client-side browser tool to securely convert VCF (vCard) contact files into formatted Microsoft Excel (XLSX) spreadsheets without uploading data to any server.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "featureList": [
+        "Instant VCF parsing",
+        "Data preview before export",
+        "100% client-side privacy",
+        "Supports multiple contacts per file"
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD FAQ Schema for AEO (Answer Engines) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How do I convert a VCF file to Excel on PyCodes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Simply upload your .vcf file using our tool. The tool will instantly parse the file, show you a preview of your contacts, and allow you to download them as a formatted Excel (.xlsx) file."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is it safe to use this VCF converter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, it is 100% safe. This tool uses JavaScript to process the VCF file entirely inside your web browser. Your contact data is never uploaded to any server or database."
+        }
+      }]
+    }
+    </script>
+<style>
+    /* Text select na kar paaye */
+body {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+</style>
+<script>
+    // 1. Right-click disable karein
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// 2. Keyboard shortcuts disable karein (F12, Ctrl+Shift+I, Ctrl+U)
+document.addEventListener('keydown', function(e) {
+    // F12 key
+    if (e.keyCode == 123) return false;
+    
+    // Ctrl + Shift + I
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+    
+    // Ctrl + Shift + C
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+    
+    // Ctrl + Shift + J
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+    
+    // Ctrl + U (View Source)
+    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+});
+
+</script>
+
+    <style>
+        /* 2010 Web 2.0 Aesthetic */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #e2ecf5; 
+            background-image: linear-gradient(to bottom, #e2ecf5 0%, #d1dfea 100%);
+            background-attachment: fixed;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-container, .seo-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid #b5c4d2;
+            border-radius: 8px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+            color: #1c5280;
+            text-shadow: 1px 1px 0px #fff;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        h1 { font-size: 28px; }
+        h2 { font-size: 20px; margin-top: 20px; }
+
+        fieldset {
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding: 15px;
+            background: #f9f9f9;
+            margin-bottom: 20px;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #555;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+
+        input[type="file"] {
+            font-size: 14px;
+            padding: 5px;
+            background: #fff;
+            border: 1px inset #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Glossy Web 2.0 Button */
+        .glossy-btn {
+            display: inline-block;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            text-shadow: 0px -1px 0px rgba(0,0,0,0.4);
+            padding: 10px 20px;
+            border: 1px solid #0b85a8;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #4facfe;
+            background: linear-gradient(to bottom, #87e0fd 0%, #53cbf1 40%, #05abe0 100%);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 2px 2px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .glossy-btn:hover {
+            background: #05abe0;
+            background: linear-gradient(to bottom, #05abe0 0%, #53cbf1 60%, #87e0fd 100%);
+        }
+
+        .glossy-btn.excel-btn {
+            background: linear-gradient(to bottom, #a4e087 0%, #6ecf53 40%, #2ba805 100%);
+            border-color: #1e7a03;
+        }
+        
+        .glossy-btn.excel-btn:hover {
+            background: linear-gradient(to bottom, #2ba805 0%, #6ecf53 60%, #a4e087 100%);
+        }
+
+        /* Preview Table Styles */
+        #previewContainer {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .table-wrapper {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            background: #fff;
+            box-shadow: inset 0px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background: linear-gradient(to bottom, #f0f0f0 0%, #d4d4d4 100%);
+            color: #333;
+            border-bottom: 1px solid #999;
+            border-right: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            text-shadow: 1px 1px 0px #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        td {
+            border-bottom: 1px solid #e0e0e0;
+            border-right: 1px dotted #ccc;
+            padding: 6px 8px;
+        }
+
+        tr:nth-child(even) { background-color: #f6f8fa; }
+        tr:nth-child(odd) { background-color: #ffffff; }
+        tr:hover { background-color: #e8f4ff; }
+
+        #status {
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .success { background: #dff0d8; color: #3c763d; border: 1px solid #d6e9c6; }
+        .error { background: #f2dede; color: #a94442; border: 1px solid #ebccd1; }
+        
+        /* SEO Content Area */
+        .seo-content p, .seo-content li {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Tool Application -->
+    <main class="main-container">
+        <header>
+            <h1>PyCodes VCF to Excel Converter</h1>
+            <p style="font-size: 13px; color: #666;">Extract contacts from vCard files directly in your browser securely.</p>
+        </header>
+        
+        <section aria-label="File Upload Form">
+            <fieldset>
+                <legend>Step 1: Upload Contact File</legend>
+                <label for="vcfFileInput" style="display:none;">Select VCF File</label>
+                <input type="file" id="vcfFileInput" accept=".vcf,text/vcard" onchange="previewVCF()">
+            </fieldset>
+
+            <div id="status" aria-live="polite"></div>
+
+            <div id="previewContainer">
+                <fieldset>
+                    <legend>Step 2: Preview & Export</legend>
+                    
+                    <div class="table-wrapper" tabindex="0" aria-label="Contact Data Preview">
+                        <table id="previewTable">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Phone Numbers</th>
+                                    <th>Email Addresses</th>
+                                    <th>Company</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Rows injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button id="downloadBtn" class="glossy-btn excel-btn" onclick="downloadExcel()">Export to Microsoft Excel</button>
+                </fieldset>
+            </div>
+        </section>
+    </main>
+
+    <!-- SEO / AEO / GEO Content Section -->
+    <article class="seo-content">
+        <h2>How to Convert VCF to Excel (XLSX) Online</h2>
+        <p>Converting your mobile or email contacts into a spreadsheet format is simple. Follow these steps:</p>
+        <ol>
+            <li><strong>Export your contacts:</strong> Save your contacts as a .vcf (vCard) file from your Android, iPhone, Google Contacts, or Outlook.</li>
+            <li><strong>Upload the file:</strong> Click "Choose File" above and select your exported .vcf file.</li>
+            <li><strong>Preview the data:</strong> Verify your extracted names, phone numbers, and emails in the preview table.</li>
+            <li><strong>Export to Excel:</strong> Click the green "Export to Microsoft Excel" button to download your new spreadsheet.</li>
+        </ol>
+
+        <h2>Is this tool secure and private?</h2>
+        <p><strong>Yes, 100% secure.</strong> Unlike other online converters, this PyCodes tool utilizes client-side JavaScript. This means your contact data is processed entirely within your own web browser. No data is ever uploaded, stored, or transmitted to any external servers, ensuring maximum privacy for your sensitive contact information.</p>
+    </article>
+
+    <script>
+        let parsedContacts = [];
+        let uploadedFilename = "Contacts";
+
+        function previewVCF() {
+            const fileInput = document.getElementById('vcfFileInput');
+            const previewContainer = document.getElementById('previewContainer');
+            const tableBody = document.getElementById('tableBody');
+            
+            hideStatus();
+            parsedContacts = [];
+            tableBody.innerHTML = ''; 
+            previewContainer.style.display = 'none';
+
+            if (fileInput.files.length === 0) return;
+
+            const file = fileInput.files[0];
+            uploadedFilename = file.name.replace('.vcf', '');
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    const vcfData = e.target.result;
+                    parsedContacts = parseVCFData(vcfData);
+                    
+                    if (parsedContacts.length === 0) {
+                        showStatus('No valid contacts found in this file.', 'error');
+                        return;
+                    }
+
+                    let html = '';
+                    parsedContacts.forEach(contact => {
+                        html += `
+                            <tr>
+                                <td>${escapeHTML(contact['Full Name'] || '-')}</td>
+                                <td>${escapeHTML(contact['Phone Numbers'] || '-')}</td>
+                                <td>${escapeHTML(contact['Email Addresses'] || '-')}</td>
+                                <td>${escapeHTML(contact['Company'] || '-')}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableBody.innerHTML = html;
+                    previewContainer.style.display = 'block'; 
+                    showStatus(`Successfully loaded ${parsedContacts.length} contacts! Ready to export.`, 'success');
+                    
+                } catch (error) {
+                    console.error(error);
+                    showStatus('An error occurred while parsing the file.', 'error');
+                }
+            };
+
+            reader.onerror = function() {
+                showStatus('Failed to read the file.', 'error');
+            };
+
+            reader.readAsText(file);
+        }
+
+        function parseVCFData(vcfText) {
+            const contacts = [];
+            const cards = vcfText.split(/BEGIN:VCARD/i);
+
+            cards.forEach(card => {
+                if (card.trim() === '') return;
+                const contact = {};
+
+                const fnMatch = card.match(/^FN(?:;[^:]*)?:(.*)$/im);
+                contact['Full Name'] = fnMatch ? fnMatch[1].trim() : '';
+
+                const telMatches = [...card.matchAll(/^TEL(?:;[^:]*)?:(.*)$/gim)];
+                contact['Phone Numbers'] = telMatches.map(m => m[1].trim()).join(' | ');
+
+                const emailMatches = [...card.matchAll(/^EMAIL(?:;[^:]*)?:(.*)$/gim)];
+                contact['Email Addresses'] = emailMatches.map(m => m[1].trim()).join(' | ');
+
+                const orgMatch = card.match(/^ORG(?:;[^:]*)?:(.*)$/im);
+                contact['Company'] = orgMatch ? orgMatch[1].trim().replace(/;/g, ' - ') : '';
+
+                if (contact['Full Name'] || contact['Phone Numbers'] || contact['Email Addresses']) {
+                    contacts.push(contact);
+                }
+            });
+
+            return contacts;
+        }
+
+        function downloadExcel() {
+            if (parsedContacts.length === 0) {
+                showStatus("No data to export.", "error");
+                return;
+            }
+
+            try {
+                const worksheet = XLSX.utils.json_to_sheet(parsedContacts);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Contacts");
+                
+                XLSX.writeFile(workbook, uploadedFilename + '_Exported.xlsx');
+            } catch (error) {
+                console.error(error);
+                showStatus("Failed to generate Excel file.", "error");
+            }
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = type;
+            statusDiv.style.display = 'block';
+        }
+
+        function hideStatus() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- Browser Head Color for Mobile -->
+  <meta name="theme-color" content="#7e22ce">
+  
+  <title>JeetCompiler</title>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* --- Premium Purple Theme Variables --- */
+    :root {
+      --bg-main: #F3E8FF;       
+      --surface: #FFFFFF;       
+      
+      --purple-dark: #581C87;   
+      --purple-main: #7E22CE;   
+      --purple-light: #9333EA;  
+      --purple-hover: #A855F7;  
+      
+      --text-main: #1F2937;     
+      --text-muted: #D8B4FE;    
+      
+      --border: #E5E7EB;
+      --danger: #EF4444;
+      
+      --sidebar-width: 250px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      height: 100dvh; /* dynamic height for perfect mobile fit */
+      overflow: hidden;
+    }
+
+    /* --- Desktop Sidebar --- */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--purple-dark);
+      border-right: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      z-index: 100;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    }
+
+    .brand {
+      padding: 20px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.15);
+    }
+    .brand i { color: #FFFFFF; }
+
+    .nav-links {
+      flex: 1;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow-y: auto;
+    }
+
+    .nav-item {
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .nav-item i { width: 18px; text-align: center; color: inherit; }
+    .nav-item:hover { background: rgba(255,255,255,0.1); color: #FFFFFF; }
+    .nav-item.active { background: var(--purple-light); color: #FFFFFF; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    .nav-category {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.5);
+      margin: 16px 0 6px 12px;
+      font-weight: 700;
+    }
+
+    /* --- Main Workspace --- */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100dvh;
+    }
+
+    header {
+      background: var(--purple-main);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .header-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px;}
+    
+    .header-actions { display: flex; gap: 8px; }
+
+    .btn {
+      background: rgba(255,255,255,0.15);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .btn i { color: #FFFFFF; }
+    .btn:hover { background: rgba(255,255,255,0.25); }
+    
+    .btn-run { background: #FFFFFF; color: var(--purple-main); border: none; }
+    .btn-run i { color: var(--purple-main); }
+    .btn-run:hover { background: #F3F4F6; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+    .panels-container {
+      flex: 1;
+      position: relative;
+      padding: 12px;
+      overflow: hidden; /* Contains absolute panels */
+    }
+
+    .panel {
+      position: absolute;
+      top: 12px; left: 12px; right: 12px; bottom: 12px;
+      display: none;
+      flex-direction: column;
+    }
+    .panel.active { display: flex; }
+
+    /* For Library panel scrolling */
+    #library-panel { overflow-y: auto; padding-bottom: 20px; }
+
+    .editor-card {
+      flex: 1;
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(126, 34, 206, 0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .editor-toolbar {
+      padding: 10px 16px;
+      background: var(--purple-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+    .editor-toolbar i { color: #FFFFFF; margin-right: 6px; }
+
+    .btn-copy {
+      background: rgba(0,0,0,0.2); border: none; color: #FFFFFF;
+      padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: 0.2s;
+    }
+    .btn-copy:hover { background: rgba(0,0,0,0.4); }
+
+    textarea {
+      flex: 1;
+      width: 100%;
+      border: none;
+      resize: none;
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      background: var(--surface);
+      outline: none;
+      color: var(--text-main);
+      overflow-y: auto; /* Perfect scroll for text */
+    }
+    textarea:focus { box-shadow: inset 4px 0 0 var(--purple-light); }
+
+    iframe { width: 100%; height: 100%; border: none; background: #FFFFFF; flex: 1; }
+
+    /* --- Library (Snippets & Files) --- */
+    .section-title { font-size: 20px; margin: 10px 0 15px 0; color: var(--purple-dark); font-weight: 700; }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .item-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .item-card:hover { transform: translateY(-3px); border-color: var(--purple-light); box-shadow: 0 8px 20px rgba(126, 34, 206, 0.1); }
+    .item-card h4 { font-size: 16px; display: flex; align-items: center; gap: 8px; color: var(--text-main); }
+    .item-card h4 i { color: var(--purple-light); }
+    .item-card p { font-size: 13px; color: #4B5563; line-height: 1.5; flex: 1; }
+    
+    .card-actions { display: flex; gap: 8px; margin-top: 10px; }
+    
+    .card-btn {
+      background: var(--purple-light); color: #FFFFFF; border: none;
+      padding: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; flex: 1;
+    }
+    .card-btn:hover { background: var(--purple-hover); }
+    
+    .card-btn-danger { background: #FFFFFF; color: var(--danger); border: 1px solid var(--danger); flex: 0 0 auto; padding: 10px 14px;}
+    .card-btn-danger:hover { background: var(--danger); color: #FFFFFF; }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--purple-dark); color: #FFF; padding: 12px 24px; border-radius: 30px;
+      font-size: 13px; font-weight: 500; opacity: 0; pointer-events: none;
+      transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 200;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2); white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* --- Responsive Logic --- */
+
+    /* Desktop View */
+    @media (min-width: 850px) {
+      .mobile-nav { display: none !important; }
+      .mobile-only { display: none !important; }
+      
+      .panels-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .panel { position: relative; top: 0; left: 0; right: 0; bottom: 0; }
+      .panel:not(#output-panel):not(#library-panel) { grid-column: 1; }
+      #output-panel { display: flex !important; grid-column: 2; }
+      #library-panel { grid-column: 1 / span 2; }
+    }
+
+    /* Mobile View */
+    @media (max-width: 849px) {
+      .sidebar { display: none !important; }
+      .desktop-only { display: none !important; }
+
+      .header-title { font-size: 16px; }
+      .btn span { display: none; } /* Hide text on buttons to save space */
+      .btn { padding: 8px 12px; }
+
+      /* Mobile Bottom Navigation */
+      .mobile-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 12px 5px;
+        padding-bottom: calc(12px + env(safe-area-inset-bottom)); /* For iPhones */
+        flex-shrink: 0;
+        z-index: 100;
+      }
+
+      .nav-bottom-item {
+        display: flex; flex-direction: column; align-items: center; gap: 4px;
+        color: #9CA3AF; font-size: 11px; font-weight: 600; cursor: pointer;
+        transition: 0.2s; width: 60px;
+      }
+      .nav-bottom-item i { font-size: 20px; transition: 0.2s; }
+      .nav-bottom-item.active { color: var(--purple-main); }
+      .nav-bottom-item.active i { transform: translateY(-3px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Desktop Sidebar -->
+  <aside class="sidebar desktop-only" id="sidebar">
+    <div class="brand">
+      <i class="fa-solid fa-code"></i> JeetCompiler
+    </div>
+    <div class="nav-links">
+      <div class="nav-category">Workspace</div>
+      <div class="nav-item active tab-btn" data-target="html-panel">
+        <i class="fa-brands fa-html5"></i> HTML5
+      </div>
+      <div class="nav-item tab-btn" data-target="css-panel">
+        <i class="fa-brands fa-css3-alt"></i> CSS3
+      </div>
+      <div class="nav-item tab-btn" data-target="js-panel">
+        <i class="fa-brands fa-js"></i> JavaScript
+      </div>
+      
+      <div class="nav-category" style="margin-top: 20px;">Tools</div>
+      <div class="nav-item tab-btn" data-target="library-panel">
+        <i class="fa-solid fa-layer-group"></i> Library & Saved
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-wrapper">
+    <header>
+      <!-- Title changes dynamically on Mobile -->
+      <div class="header-title" id="header-title">
+        <i class="fa-solid fa-code mobile-only"></i> 
+        <span class="mobile-only">JeetCompiler</span>
+        <span class="desktop-only">Workspace</span>
+      </div>
+      
+      <div class="header-actions">
+        <button class="btn" onclick="saveProjectData()" title="Save Project">
+          <i class="fa-regular fa-bookmark"></i> <span>Save</span>
+        </button>
+        <button class="btn btn-run" id="run-btn" title="Run Code">
+          <i class="fa-solid fa-play"></i> <span>Run</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="panels-container">
+      
+      <!-- HTML Panel -->
+      <section class="panel active" id="html-panel">
+        <div class="editor-card">
+          <div class="editor-toolbar">
+            <span><i class="fa-brands fa-html5"></i> index.html</span>
+            <button class="btn-copy" onclick="copyCode('html')"><i class="fa-regular fa-copy"></i> Copy</button>
+          </div>
+          <textarea id="html-code" placeholder="HTML Code..." spellcheck="false"></textarea>
+        </div>
+      </section>
+
+      <!-- CSS Panel -->
+      <section class="panel" id="css-panel">
+        <div class="editor-card">
+          <div class="editor-toolbar">
+            <span><i class="fa-brands fa-css3-alt"></i> style.css</span>
+            <button class="btn-copy" onclick="copyCode('css')"><i class="fa-regular fa-copy"></i> Copy</button>
+          </div>
+          <textarea id="css-code" placeholder="// Css" spellcheck="false"></textarea>
+        </div>
+      </section>
+
+      <!-- JS Panel -->
+      <section class="panel" id="js-panel">
+        <div class="editor-card">
+          <div class="editor-toolbar">
+            <span><i class="fa-brands fa-js"></i> script.js</span>
+            <button class="btn-copy" onclick="copyCode('js')"><i class="fa-regular fa-copy"></i> Copy</button>
+          </div>
+          <textarea id="js-code" placeholder="// Javascript" spellcheck="false"></textarea>
+        </div>
+      </section>
+
+      <!-- Output Panel (Mobile Only View & Desktop Split) -->
+      <section class="panel" id="output-panel">
+        <div class="editor-card">
+          <div class="editor-toolbar" style="background: var(--purple-dark);">
+            <span><i class="fa-solid fa-desktop"></i> Live Result</span>
+            <button class="btn-copy" onclick="updatePreview()" title="Refresh"><i class="fa-solid fa-rotate-right" style="margin:0;"></i></button>
+          </div>
+          <iframe id="preview-frame"></iframe>
+        </div>
+      </section>
+
+      <!-- Combined Library Panel (Snippets + Saved Projects) -->
+      <section class="panel" id="library-panel">
+        
+        <h2 class="section-title">Saved Projects</h2>
+        <div id="saved-projects-container">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <h2 class="section-title" style="margin-top: 10px;">UI Components</h2>
+        <p style="color: #6B7280; font-size: 13px; margin-bottom: 16px;">
+          <i class="fa-solid fa-circle-info" style="color: var(--purple-light);"></i> Inserting a snippet creates a new workspace and clears current code.
+        </p>
+        <div class="cards-grid">
+          <div class="item-card">
+            <h4><i class="fa-solid fa-bars"></i> Responsive Navbar</h4>
+            <p>Clean modern navigation bar with logo, links & mobile hamburger menu logic.</p>
+            <button class="card-btn" onclick="openSnippetAsNew('navbar')">Insert Snippet</button>
+          </div>
+          <div class="item-card">
+            <h4><i class="fa-solid fa-share-nodes"></i> Social Icons</h4>
+            <p>Hover-animated social media links (Facebook, Twitter, Instagram, GitHub).</p>
+            <button class="card-btn" onclick="openSnippetAsNew('social')">Insert Snippet</button>
+          </div>
+          <div class="item-card">
+            <h4><i class="fa-solid fa-arrow-up"></i> Scroll To Top</h4>
+            <p>Smooth scroll to top button with JavaScript visibility trigger on scroll.</p>
+            <button class="card-btn" onclick="openSnippetAsNew('backtotop')">Insert Snippet</button>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+      <div class="nav-bottom-item active tab-btn" data-target="html-panel">
+        <i class="fa-brands fa-html5"></i> <span>HTML</span>
+      </div>
+      <div class="nav-bottom-item tab-btn" data-target="css-panel">
+        <i class="fa-brands fa-css3-alt"></i> <span>CSS</span>
+      </div>
+      <div class="nav-bottom-item tab-btn" data-target="js-panel">
+        <i class="fa-brands fa-js"></i> <span>JS</span>
+      </div>
+      <div class="nav-bottom-item tab-btn" data-target="output-panel">
+        <i class="fa-solid fa-play"></i> <span>Output</span>
+      </div>
+      <div class="nav-bottom-item tab-btn" data-target="library-panel">
+        <i class="fa-solid fa-layer-group"></i> <span>Library</span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">Action Successful!</div>
+
+  <script>
+    const htmlInput = document.getElementById('html-code');
+    const cssInput = document.getElementById('css-code');
+    const jsInput = document.getElementById('js-code');
+    const previewFrame = document.getElementById('preview-frame');
+    
+    // Select all tab buttons (both sidebar and bottom nav)
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.panel');
+
+    // Tab Switching Logic (Universal for Mobile & Desktop)
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+
+        // Remove active state from all buttons and panels
+        tabBtns.forEach(nav => nav.classList.remove('active'));
+        panels.forEach(panel => panel.classList.remove('active'));
+
+        // Add active state to clicked button's pair (Sidebar + Bottom Nav)
+        document.querySelectorAll(`[data-target="${targetId}"]`).forEach(el => el.classList.add('active'));
+        
+        // Show target panel
+        document.getElementById(targetId).classList.add('active');
+
+        // Optional: Update title on Mobile when in Library
+        const mobileTitle = document.querySelector('.mobile-only:not(i)');
+        if(window.innerWidth < 850) {
+           if (targetId === 'library-panel') mobileTitle.innerText = "Library";
+           else mobileTitle.innerText = "JeetCompiler";
+        }
+      });
+    });
+
+    // Run Code Logic
+    function updatePreview() {
+      const source = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+            <style>${cssInput.value}</style>
+          </head>
+          <body>
+            ${htmlInput.value}
+            <script>${jsInput.value}<\/script>
+          </body>
+        </html>
+      `;
+      previewFrame.srcdoc = source;
+    }
+
+    document.getElementById('run-btn').addEventListener('click', () => {
+      updatePreview();
+      showToast("▶ Executed Successfully");
+      
+      // Auto-switch to Output tab on Mobile
+      if(window.innerWidth < 850) {
+        document.querySelector('.nav-bottom-item[data-target="output-panel"]').click();
+      }
+    });
+
+    function copyCode(type) {
+      const code = type === 'html' ? htmlInput.value : (type === 'css' ? cssInput.value : jsInput.value);
+      navigator.clipboard.writeText(code);
+      showToast(`📋 Copied to clipboard!`);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    // ==========================================
+    //  SAVE & RETRIEVE LOGIC (Local Storage)
+    // ==========================================
+    function saveProjectData() {
+      const projectName = prompt("Enter a name for your project:", "New Project");
+      if (!projectName) return; 
+
+      const newProject = {
+        id: Date.now(), 
+        name: projectName,
+        date: new Date().toLocaleDateString(),
+        html: htmlInput.value,
+        css: cssInput.value,
+        js: jsInput.value
+      };
+
+      let projects = JSON.parse(localStorage.getItem('jeetcompiler_data') || '[]');
+      projects.push(newProject);
+      localStorage.setItem('jeetcompiler_data', JSON.stringify(projects));
+
+      showToast("Project Saved");
+      renderSavedProjects(); 
+    }
+
+    function renderSavedProjects() {
+      const container = document.getElementById('saved-projects-container');
+      let projects = JSON.parse(localStorage.getItem('jeetcompiler_data') || '[]');
+
+      if (projects.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 30px; background: var(--surface); border-radius: 12px; border: 1px dashed var(--purple-light); margin-bottom: 20px;">
+            <i class="fa-regular fa-folder-open" style="font-size: 30px; color: #D8B4FE; margin-bottom: 10px;"></i>
+            <p style="color: #6B7280; font-size: 13px;">No projects saved yet.</p>
+          </div>`;
+      } else {
+        let htmlContent = `<div class="cards-grid">`;
+        projects.forEach(p => {
+          htmlContent += `
+            <div class="item-card">
+              <h4><i class="fa-solid fa-file-code"></i> ${p.name}</h4>
+              <p>Saved on: ${p.date}</p>
+              <div class="card-actions">
+                <button class="card-btn" onclick="loadProject(${p.id})">Open</button>
+                <button class="card-btn-danger" onclick="deleteProject(${p.id})" title="Delete">
+                  <i class="fa-solid fa-trash-can" style="margin:0;"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        htmlContent += `</div>`;
+        container.innerHTML = htmlContent;
+      }
+    }
+
+    function loadProject(id) {
+      if(confirm("Loading this project will overwrite your current workspace. Proceed?")) {
+        let projects = JSON.parse(localStorage.getItem('jeetcompiler_data') || '[]');
+        let proj = projects.find(p => p.id === id); 
+        
+        if (proj) {
+          htmlInput.value = proj.html;
+          cssInput.value = proj.css;
+          jsInput.value = proj.js;
+          
+          updatePreview();
+          showToast(`Project "${proj.name}" Loaded!`);
+          
+          // Redirect back to HTML editor
+          document.querySelector('[data-target="html-panel"]').click(); 
+        }
+      }
+    }
+
+    function deleteProject(id) {
+      if(confirm("Are you sure you want to permanently delete this project?")) {
+        let projects = JSON.parse(localStorage.getItem('jeetcompiler_data') || '[]');
+        projects = projects.filter(p => p.id !== id);
+        localStorage.setItem('jeetcompiler_data', JSON.stringify(projects));
+        
+        renderSavedProjects(); 
+        showToast("Project Deleted!");
+      }
+    }
+
+    // ==========================================
+    //  SNIPPETS LOGIC
+    // ==========================================
+    const snippets = {
+      navbar: {
+        html: `<!-- Modern Navbar -->\n<nav class="navbar">\n  <div class="logo">Brand</div>\n  <ul class="nav-links" id="navLinks">\n    <li><a href="#">Home</a></li>\n    <li><a href="#">About</a></li>\n  </ul>\n  <button class="toggle-btn" id="toggleBtn"><i class="fa-solid fa-bars"></i></button>\n</nav>`,
+        css: `body { margin: 0; font-family: sans-serif; }\n.navbar { display: flex; justify-content: space-between; padding: 15px 30px; background: #7E22CE; color: white; align-items: center; } \n.logo { font-size: 20px; font-weight: bold; }\n.nav-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }\n.nav-links a { color: white; text-decoration: none; }\n.toggle-btn { display: none; background: none; border: none; color: white; font-size: 22px; cursor: pointer; }\n@media(max-width: 600px) {\n  .nav-links { display: none; }\n  .toggle-btn { display: block; }\n}`,
+        js: `document.getElementById('toggleBtn').addEventListener('click', () => {\n  alert('Menu Toggled!');\n});`
+      },
+      social: {
+        html: `<!-- Social Icons Bar -->\n<div class="social-container">\n  <a href="#" class="icon fb"><i class="fa-brands fa-facebook-f"></i></a>\n  <a href="#" class="icon tw"><i class="fa-brands fa-x-twitter"></i></a>\n  <a href="#" class="icon insta"><i class="fa-brands fa-instagram"></i></a>\n</div>`,
+        css: `body { display: grid; place-items: center; height: 100vh; margin: 0; background: #F3E8FF; }\n.social-container { display: flex; gap: 20px; }\n.icon { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 20px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }\n.icon:hover { transform: translateY(-5px); }\n.fb { background: #1877F2; }\n.tw { background: #000000; }\n.insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }`,
+        js: ``
+      },
+      backtotop: {
+        html: `<div style="height: 150vh; padding: 30px; font-family: sans-serif;">Scroll down to see the button! ⬇</div>\n<button id="backToTop" class="back-to-top"><i class="fa-solid fa-arrow-up"></i></button>`,
+        css: `.back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: #7E22CE; color: white; border: none; cursor: pointer; font-size: 20px; box-shadow: 0 4px 15px rgba(126, 34, 206, 0.4); transition: 0.3s; }\n.back-to-top:hover { background: #581C87; transform: scale(1.1); }`,
+        js: `document.getElementById('backToTop').addEventListener('click', () => {\n  window.scrollTo({ top: 0, behavior: 'smooth' });\n});`
+      }
+    };
+
+    function openSnippetAsNew(key) {
+      if(confirm("This snippet will load in a new workspace and replace current code. Proceed?")) {
+        const item = snippets[key];
+        
+        htmlInput.value = item.html;
+        cssInput.value = item.css;
+        jsInput.value = item.js || '';
+        
+        updatePreview();
+        showToast("Snippet Loaded Successfully!");
+        
+        // Return to HTML editor
+        document.querySelector('[data-target="html-panel"]').click();
+      }
+    }
+
+    // Default Code on Load
+    window.onload = () => {
+      if(htmlInput.value.trim() === '') {
+        htmlInput.value = "";
+      }
+      updatePreview();
+      renderSavedProjects();
+    };
+  </script>
+</body>
+</html>

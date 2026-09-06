@@ -1,36 +1,256 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Login Test</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #f4f4f9; padding: 20px; }
-        .box { background: white; padding: 30px; display: inline-block; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); max-width: 400px; width: 100%; }
-        button { background-color: #4285F4; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; }
-        button:hover { background-color: #357ae8; }
-        #successMsg { color: green; font-weight: bold; margin-top: 20px; font-size: 16px; word-break: break-all; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>pycodes.in - Google Login</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 400px;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 35px 28px;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 18px;
+      border-radius: 16px;
+      background: #111827;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    /* Google Login Button */
+    #loginBtn {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid #dadce0;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #202124;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: 0.2s ease;
+    }
+
+    #loginBtn:hover {
+      background: #f8f9fa;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .google-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* User Profile */
+    #userSection {
+      display: none;
+    }
+
+    .avatar {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid #f1f5f9;
+    }
+
+    .user-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .user-email {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 24px;
+      word-break: break-word;
+    }
+
+    #logoutBtn {
+      width: 100%;
+      min-height: 48px;
+      border: none;
+      border-radius: 10px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #logoutBtn:hover {
+      background: #dc2626;
+    }
+
+    /* Status */
+    #status {
+      display: none;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .error {
+      display: block !important;
+      color: #991b1b;
+      background: #fee2e2;
+    }
+
+    .success {
+      display: block !important;
+      color: #166534;
+      background: #dcfce7;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 23px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="box">
-        <h2>PosterPlus Google Login</h2>
-        <p>Click below to sign in with your Google account</p>
-        
-        <!-- Google Login Button -->
-        <button id="loginBtn">Sign in with Google</button>
+  <main class="card">
 
-        <!-- Success Message Area -->
-        <div id="successMsg">Loading...</div>
+    <div class="logo">PC</div>
+
+    <h1>Welcome to pycodes.in</h1>
+    <p class="subtitle">Sign in to continue</p>
+
+    <!-- LOGIN -->
+    <div id="loginSection">
+
+      <button id="loginBtn">
+        <svg class="google-icon"
+             viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill="#4285F4"
+            d="M21.35 12.27c0-.73-.06-1.43-.18-2.09H12v3.95h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.25z"/>
+          <path
+            fill="#34A853"
+            d="M12 21.82c2.63 0 4.84-.87 6.45-2.35l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.75 9.75 0 0 0 12 21.82z"/>
+          <path
+            fill="#FBBC05"
+            d="M6.54 13.91A5.86 5.86 0 0 1 6.23 12c0-.66.11-1.3.31-1.91V7.56H3.3A9.75 9.75 0 0 0 2.25 12c0 1.57.38 3.05 1.05 4.44l3.24-2.53z"/>
+          <path
+            fill="#EA4335"
+            d="M12 6.06c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.14 14.63 2.18 12 2.18a9.75 9.75 0 0 0-8.7 5.38l3.24 2.53C7.31 7.78 9.46 6.06 12 6.06z"/>
+        </svg>
+
+        Sign in with Google
+      </button>
+
     </div>
 
-    <!-- Firebase SDKs (Modular) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-         const firebaseConfig = {
+    <!-- USER PROFILE -->
+    <div id="userSection">
+
+      <img
+        id="userAvatar"
+        class="avatar"
+        src=""
+        alt="User Profile">
+
+      <div id="userName" class="user-name"></div>
+
+      <div id="userEmail" class="user-email"></div>
+
+      <button id="logoutBtn">
+        Logout
+      </button>
+
+    </div>
+
+
+    <!-- STATUS MESSAGE -->
+    <div id="status"></div>
+
+  </main>
+
+
+  <!-- Firebase v10 Modular SDK -->
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+
+    // ==========================================
+    // FIREBASE CONFIG
+    // ==========================================
+    // Replace these values with your Firebase
+    // project's actual configuration.
+    // ==========================================
+
+      const firebaseConfig = {
     apiKey: "AIzaSyAkBV0VxVU3Mn0paHqxU0Dgm-TuNRS6hEg",
     authDomain: "posterplus-84021.firebaseapp.com",
     projectId: "posterplus-84021",
@@ -39,46 +259,192 @@
     appId: "1:556835154127:web:a5c921e21d83ad8e1cafba",
     measurementId: "G-KJ3C5YVQ0S"
   };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
 
-        const loginBtn = document.getElementById('loginBtn');
-        const successMsg = document.getElementById('successMsg');
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
 
-        successMsg.innerText = ""; // Clear loading
+    // Initialize Authentication
+    const auth = getAuth(app);
 
-        // Login Click Event (Redirect Method for Mobile)
-        loginBtn.addEventListener('click', () => {
-            signInWithRedirect(auth, provider);
-        });
+    // Google Provider
+    const provider = new GoogleAuthProvider();
 
-        // Check Redirect Result when page reloads after login
-        getRedirectResult(auth)
-            .then((result) => {
-                if (result) {
-                    const user = result.user;
-                    successMsg.innerHTML = `✅ Successfully Logged In!<br><br>
-                                            Name: ${user.displayName}<br>
-                                            Email: ${user.email}`;
-                    loginBtn.style.display = 'none';
-                }
-            }).catch((error) => {
-                console.error(error);
-                successMsg.style.color = 'red';
-                successMsg.innerText = "❌ Login Failed: " + error.message;
-            });
 
-        // Keep track if already logged in
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                successMsg.innerHTML = `✅ Already Logged In!<br><br>
-                                        Name: ${user.displayName}<br>
-                                        Email: ${user.email}`;
-                loginBtn.style.display = 'none';
-            }
-        });
-    </script>
+    // ==========================================
+    // DOM ELEMENTS
+    // ==========================================
+
+    const loginSection = document.getElementById("loginSection");
+    const userSection = document.getElementById("userSection");
+
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const userAvatar = document.getElementById("userAvatar");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+
+    const status = document.getElementById("status");
+
+
+    // ==========================================
+    // STATUS MESSAGE
+    // ==========================================
+
+    function showStatus(message, type = "error") {
+
+      status.textContent = message;
+
+      status.className = type;
+
+    }
+
+
+    function hideStatus() {
+
+      status.textContent = "";
+
+      status.className = "";
+
+    }
+
+
+    // ==========================================
+    // GOOGLE LOGIN
+    // ==========================================
+
+    loginBtn.addEventListener("click", async () => {
+
+      hideStatus();
+
+      loginBtn.disabled = true;
+
+      loginBtn.style.opacity = "0.6";
+
+      try {
+
+        await signInWithPopup(auth, provider);
+
+        showStatus(
+          "Login successful!",
+          "success"
+        );
+
+      } catch (error) {
+
+        console.error("Login Error:", error);
+
+        let message = "Unable to sign in.";
+
+        if (error.code === "auth/popup-closed-by-user") {
+          message = "Login popup was closed.";
+        }
+
+        if (error.code === "auth/popup-blocked") {
+          message = "Please allow popups in your browser.";
+        }
+
+        if (error.code === "auth/unauthorized-domain") {
+          message = "This domain is not authorized in Firebase.";
+        }
+
+        showStatus(message, "error");
+
+      } finally {
+
+        loginBtn.disabled = false;
+
+        loginBtn.style.opacity = "1";
+
+      }
+
+    });
+
+
+    // ==========================================
+    // LOGOUT
+    // ==========================================
+
+    logoutBtn.addEventListener("click", async () => {
+
+      hideStatus();
+
+      logoutBtn.disabled = true;
+
+      try {
+
+        await signOut(auth);
+
+        showStatus(
+          "You have been logged out.",
+          "success"
+        );
+
+      } catch (error) {
+
+        console.error("Logout Error:", error);
+
+        showStatus(
+          "Unable to logout. Please try again.",
+          "error"
+        );
+
+      } finally {
+
+        logoutBtn.disabled = false;
+
+      }
+
+    });
+
+
+    // ==========================================
+    // AUTH STATE LISTENER
+    // ==========================================
+
+    onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+
+        // USER IS LOGGED IN
+
+        loginSection.style.display = "none";
+
+        userSection.style.display = "block";
+
+
+        // Profile information
+        userAvatar.src =
+          user.photoURL ||
+          "https://via.placeholder.com/85";
+
+        userName.textContent =
+          user.displayName || "User";
+
+        userEmail.textContent =
+          user.email || "";
+
+
+      } else {
+
+        // USER IS LOGGED OUT
+
+        loginSection.style.display = "block";
+
+        userSection.style.display = "none";
+
+
+        userAvatar.src = "";
+
+        userName.textContent = "";
+
+        userEmail.textContent = "";
+
+      }
+
+    });
+
+  </script>
 
 </body>
 </html>

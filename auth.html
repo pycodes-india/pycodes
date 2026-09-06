@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Login Test</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #f4f4f9; }
-        .box { background: white; padding: 30px; display: inline-block; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
-        button { background-color: #4285F4; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #f4f4f9; padding: 20px; }
+        .box { background: white; padding: 30px; display: inline-block; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); max-width: 400px; width: 100%; }
+        button { background-color: #4285F4; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; }
         button:hover { background-color: #357ae8; }
-        #successMsg { color: green; font-weight: bold; margin-top: 20px; font-size: 18px; }
+        #successMsg { color: green; font-weight: bold; margin-top: 20px; font-size: 16px; word-break: break-all; }
     </style>
 </head>
 <body>
@@ -22,17 +22,14 @@
         <button id="loginBtn">Sign in with Google</button>
 
         <!-- Success Message Area -->
-        <div id="successMsg"></div>
+        <div id="successMsg">Loading...</div>
     </div>
 
     <!-- Firebase SDKs (Modular) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // ==========================================
-        // यहाँ अपना Firebase Config पेस्ट करें
-        // ==========================================
          const firebaseConfig = {
     apiKey: "AIzaSyAkBV0VxVU3Mn0paHqxU0Dgm-TuNRS6hEg",
     authDomain: "posterplus-84021.firebaseapp.com",
@@ -42,8 +39,6 @@
     appId: "1:556835154127:web:a5c921e21d83ad8e1cafba",
     measurementId: "G-KJ3C5YVQ0S"
   };
-
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
@@ -51,21 +46,36 @@
         const loginBtn = document.getElementById('loginBtn');
         const successMsg = document.getElementById('successMsg');
 
-        // Login Click Event
-        loginBtn.addEventListener('click', async () => {
-            try {
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                
-                // Successful Login Message & User Info
-                successMsg.innerHTML = `✅ Successfully Logged In!<br><br>
-                                        Name: ${user.displayName}<br>
-                                        Email: ${user.email}`;
-                loginBtn.style.display = 'none'; // बटन छुपा दें
-            } catch (error) {
+        successMsg.innerText = ""; // Clear loading
+
+        // Login Click Event (Redirect Method for Mobile)
+        loginBtn.addEventListener('click', () => {
+            signInWithRedirect(auth, provider);
+        });
+
+        // Check Redirect Result when page reloads after login
+        getRedirectResult(auth)
+            .then((result) => {
+                if (result) {
+                    const user = result.user;
+                    successMsg.innerHTML = `✅ Successfully Logged In!<br><br>
+                                            Name: ${user.displayName}<br>
+                                            Email: ${user.email}`;
+                    loginBtn.style.display = 'none';
+                }
+            }).catch((error) => {
                 console.error(error);
                 successMsg.style.color = 'red';
                 successMsg.innerText = "❌ Login Failed: " + error.message;
+            });
+
+        // Keep track if already logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                successMsg.innerHTML = `✅ Already Logged In!<br><br>
+                                        Name: ${user.displayName}<br>
+                                        Email: ${user.email}`;
+                loginBtn.style.display = 'none';
             }
         });
     </script>

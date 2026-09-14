@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Online Typing Test | TypingWorld by PyCodes</title>
 <meta name="description" content="Improve your typing speed and accuracy with TypingWorld, a free dynamic typing trainer by PyCodes.">
-<meta name="author" content="PyCodes">
+<meta name="theme-color" content="#1d548e">
+    <meta name="color-scheme" content="light">
+    <meta name="author" content="PyCodes">
 <meta name="robots" content="index, follow">
 
 <!-- Tailwind CSS & Fonts -->
@@ -21,6 +23,348 @@
       -ms-user-select: none;
       user-select: none;
   }
+
+/* =========================================================
+   TypingWorld — Professional Gradient Skin
+   Keeps the classic Typing Master 10 visual language while
+   adding restrained modern gradients, depth and polish.
+   ========================================================= */
+
+:root{
+  --tw-blue-900:#123765;
+  --tw-blue-800:#17467e;
+  --tw-blue-700:#1f5d98;
+  --tw-blue-600:#2f79bd;
+  --tw-blue-500:#4c96d2;
+  --tw-sky:#76b8e8;
+  --tw-bg:#e7edf4;
+  --tw-panel:#ffffff;
+  --tw-border:#b9c9d9;
+  --tw-text:#17324d;
+  --tw-muted:#64778a;
+  --tw-shadow:0 10px 28px rgba(24,62,101,.13);
+  --tw-shadow-soft:0 4px 14px rgba(24,62,101,.10);
+}
+
+html{
+  scroll-behavior:smooth;
+  background:var(--tw-bg);
+}
+
+body{
+  background:
+    radial-gradient(circle at 10% 0%, rgba(118,184,232,.24), transparent 28%),
+    radial-gradient(circle at 90% 5%, rgba(31,93,152,.12), transparent 25%),
+    linear-gradient(180deg,#eef3f8 0%,#e3e9f0 48%,#dce5ee 100%);
+  color:var(--tw-text);
+}
+
+/* Classic header upgraded with a premium blue gradient */
+header,
+.tw-header,
+.site-header,
+.app-header{
+  background:
+    linear-gradient(135deg,#123765 0%,#1d548e 48%,#347fbd 100%) !important;
+  box-shadow:
+    0 3px 0 rgba(255,255,255,.12) inset,
+    0 7px 18px rgba(16,54,91,.22);
+  border-bottom:1px solid rgba(7,38,68,.45);
+}
+
+header::after,
+.tw-header::after,
+.site-header::after,
+.app-header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+  opacity:.65;
+}
+
+/* Main shell/panels */
+main,
+.app-shell,
+.container{
+  position:relative;
+}
+
+.card,
+.panel,
+.section,
+.chapter-card,
+.stat-card,
+.settings-card,
+.test-card,
+.modal-card,
+.dashboard-card{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.98),rgba(247,250,253,.98)) !important;
+  border:1px solid rgba(151,174,197,.78) !important;
+  box-shadow:var(--tw-shadow-soft), inset 0 1px 0 rgba(255,255,255,.95);
+  border-radius:10px !important;
+}
+
+/* Add a subtle top highlight without changing the classic feel */
+.card::before,
+.panel::before,
+.section::before,
+.chapter-card::before,
+.stat-card::before,
+.settings-card::before,
+.test-card::before{
+  content:"";
+  display:block;
+  height:2px;
+  margin:-1px -1px 10px;
+  border-radius:10px 10px 0 0;
+  background:linear-gradient(90deg,#17467e,#4c96d2,#8fc9ee);
+  opacity:.9;
+}
+
+/* Buttons */
+button,
+.btn,
+a.button,
+input[type="button"],
+input[type="submit"]{
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    filter .16s ease,
+    background .16s ease !important;
+}
+
+button:hover,
+.btn:hover,
+a.button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover{
+  transform:translateY(-1px);
+  filter:saturate(1.05);
+  box-shadow:0 7px 16px rgba(22,72,116,.18);
+}
+
+button:active,
+.btn:active,
+a.button:active,
+input[type="button"]:active,
+input[type="submit"]:active{
+  transform:translateY(0);
+  box-shadow:0 3px 8px rgba(22,72,116,.15);
+}
+
+/* Common primary action selectors */
+.primary,
+.btn-primary,
+button.primary,
+button[class*="primary"],
+.start-btn,
+.start-button{
+  background:linear-gradient(135deg,#17467e 0%,#276da9 55%,#4b96d0 100%) !important;
+  border:1px solid #123c6c !important;
+  color:#fff !important;
+  box-shadow:
+    0 4px 10px rgba(18,63,105,.22),
+    inset 0 1px 0 rgba(255,255,255,.22);
+}
+
+.primary:hover,
+.btn-primary:hover,
+button.primary:hover,
+button[class*="primary"]:hover,
+.start-btn:hover,
+.start-button:hover{
+  background:linear-gradient(135deg,#123b6b 0%,#23679f 55%,#3f8bc7 100%) !important;
+}
+
+/* Secondary controls */
+.secondary,
+.btn-secondary,
+button.secondary{
+  background:linear-gradient(180deg,#fff,#edf3f8) !important;
+  border-color:#aebfd0 !important;
+  color:#244a6e !important;
+}
+
+/* Stats / metric values */
+.stat,
+.stat-value,
+.metric,
+.metric-value,
+.score,
+.wpm,
+.accuracy{
+  text-shadow:0 1px 0 #fff;
+}
+
+/* Chapter tiles */
+.chapter-card,
+.chapter-item,
+.lesson-card{
+  background:
+    linear-gradient(145deg,#ffffff 0%,#f5f9fc 58%,#e8f1f8 100%) !important;
+}
+
+.chapter-card:hover,
+.chapter-item:hover,
+.lesson-card:hover{
+  border-color:#6fa6d1 !important;
+  box-shadow:
+    0 10px 24px rgba(28,81,126,.16),
+    inset 0 1px 0 #fff;
+}
+
+/* Inputs */
+input,
+select,
+textarea{
+  background:linear-gradient(180deg,#ffffff,#f5f8fb) !important;
+  border:1px solid #afc0d0 !important;
+  color:#17324d !important;
+  box-shadow:inset 0 1px 3px rgba(20,55,86,.06);
+  transition:border-color .16s ease, box-shadow .16s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  outline:none !important;
+  border-color:#4c96d2 !important;
+  box-shadow:
+    0 0 0 3px rgba(76,150,210,.15),
+    inset 0 1px 3px rgba(20,55,86,.05) !important;
+}
+
+/* Typing text area / test surface */
+.typing-area,
+#typingArea,
+.typing-box,
+.test-area{
+  background:
+    linear-gradient(180deg,#ffffff 0%,#f8fbfd 100%) !important;
+  border:1px solid #aebfd0 !important;
+  box-shadow:
+    inset 0 2px 8px rgba(24,62,101,.06),
+    0 5px 15px rgba(24,62,101,.08);
+}
+
+/* Progress / timer bars */
+.progress,
+.progress-bar,
+.timer-bar{
+  background:#d4e0eb !important;
+  border:1px solid #b6c7d7;
+  box-shadow:inset 0 1px 3px rgba(20,55,86,.10);
+  overflow:hidden;
+}
+
+.progress > *,
+.progress-bar > *,
+.timer-bar > *{
+  background:linear-gradient(90deg,#17467e,#347fbd,#76b8e8) !important;
+  box-shadow:0 0 8px rgba(76,150,210,.24);
+}
+
+/* Top-level title */
+h1,h2,h3{
+  color:#173b61;
+  letter-spacing:-.01em;
+}
+
+h1{
+  text-shadow:0 1px 0 #fff;
+}
+
+/* Links */
+a{
+  color:#1d5f96;
+  transition:color .15s ease, text-shadow .15s ease;
+}
+
+a:hover{
+  color:#123f70;
+  text-shadow:0 1px 0 rgba(255,255,255,.7);
+}
+
+/* Modal / popup surfaces */
+.modal,
+dialog,
+.popup,
+.overlay{
+  backdrop-filter:blur(4px);
+}
+
+.modal-content,
+.dialog-content,
+.popup-content{
+  background:
+    linear-gradient(145deg,#ffffff 0%,#f4f8fb 100%) !important;
+  border:1px solid #9eb4c8 !important;
+  box-shadow:
+    0 22px 55px rgba(13,48,82,.28),
+    0 2px 0 rgba(255,255,255,.9) inset !important;
+}
+
+/* Footer */
+footer,
+.tw-footer,
+.site-footer{
+  background:
+    linear-gradient(135deg,#123765 0%,#1b4e84 55%,#2c6fa8 100%) !important;
+  color:#eaf4fc;
+  box-shadow:0 -4px 14px rgba(20,57,92,.12);
+}
+
+footer a,
+.tw-footer a,
+.site-footer a{
+  color:#dceeff !important;
+}
+
+footer a:hover,
+.tw-footer a:hover,
+.site-footer a:hover{
+  color:#fff !important;
+}
+
+/* Small classic glossy details */
+.badge,
+.tag,
+.chip{
+  background:linear-gradient(180deg,#eef7ff,#d8e8f5) !important;
+  border:1px solid #a8bfd3 !important;
+  color:#28577e !important;
+  box-shadow:0 1px 2px rgba(20,55,86,.08);
+}
+
+/* Smooth appearance, but respect accessibility */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
+
+/* Mobile polish */
+@media (max-width:700px){
+  body{
+    background:
+      linear-gradient(180deg,#edf3f8 0%,#e1e8f0 100%);
+  }
+  .card,
+  .panel,
+  .section,
+  .chapter-card,
+  .stat-card{
+    border-radius:8px !important;
+  }
+}
+
 </style>
 <script>
   document.addEventListener('contextmenu', event => event.preventDefault());

@@ -3,260 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7406303288422612"
-     crossorigin="anonymous"></script>
-<!-- ========================================== -->
-<!-- SEO, AEO & GEO OPTIMIZATION TAGS START     -->
-<!-- ========================================== -->
-
-<!-- Primary Meta Tags -->
 <title>Free Online Typing Test & Trainer | TypingWorld by PyCodes</title>
-<meta name="title" content="Free Online Typing Test & Trainer | TypingWorld by PyCodes">
-<meta name="description" content="Improve your typing speed and accuracy with TypingWorld, a free dynamic typing trainer by PyCodes. Practice coding snippets, numbers, and paragraphs to boost your WPM.">
-<meta name="keywords" content="typing test, typing trainer, online typing practice, TypingWorld, pycodes, improve typing speed, wpm test, coding typing test">
+<meta name="description" content="Improve your typing speed and accuracy with TypingWorld, a free dynamic typing trainer by PyCodes.">
 <meta name="author" content="PyCodes">
 <meta name="robots" content="index, follow">
-<meta name="language" content="English">
 
-<!-- Canonical URL -->
-<link rel="canonical" href="https://pycodes.in/Typing-world.html" />
-
-<!-- Open Graph / Facebook (For Social Sharing) -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://pycodes.in/Typing-world.html">
-<meta property="og:title" content="Free Online Typing Test & Trainer | TypingWorld by PyCodes">
-<meta property="og:description" content="Improve your typing speed and accuracy with TypingWorld, a free dynamic typing trainer by PyCodes. Practice coding snippets and text drills today.">
-<meta property="og:site_name" content="PyCodes">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://pycodes.in/Typing-world.html">
-<meta property="twitter:title" content="Free Online Typing Test & Trainer | TypingWorld by PyCodes">
-<meta property="twitter:description" content="Improve your typing speed and accuracy with TypingWorld, a free dynamic typing trainer by PyCodes. Practice coding snippets and text drills today.">
-
-<!-- JSON-LD Structured Data for AEO/GEO (Answer Engines & AI) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "TypingWorld",
-  "operatingSystem": "Web Browser",
-  "applicationCategory": "EducationalApplication",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "INR"
-  },
-  "description": "TypingWorld is a free, vibrant, and dynamic online typing trainer built by PyCodes. It helps users improve their typing speed and accuracy through various data-driven chapters.",
-  "url": "https://pycodes.in/Typing-world.html",
-  "publisher": {
-    "@type": "Organization",
-    "name": "PyCodes",
-    "url": "https://pycodes.in"
-  },
-  "featureList": [
-    "Real-time WPM tracking",
-    "Accuracy monitoring",
-    "Dynamic chapters fetched via Google Sheets",
-    "Sudden death mode",
-    "Lifetime statistics tracking"
-  ]
-}
-</script>
-
-<!-- ========================================== -->
-<!-- SEO, AEO & GEO OPTIMIZATION TAGS END       -->
-<!-- ========================================== -->
-
+<!-- Tailwind CSS & Fonts -->
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
-<!-- Added PapaParse for Google Sheets Fetching -->
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=Consolas:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <style>
-    /* Text select na kar paaye */
-body {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
+
+<style>
+  /* Protection Scripts */
+  body {
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  }
 </style>
 <script>
-    // 1. Right-click disable karein
-document.addEventListener('contextmenu', event => event.preventDefault());
-
-// 2. Keyboard shortcuts disable karein (F12, Ctrl+Shift+I, Ctrl+U)
-document.addEventListener('keydown', function(e) {
-    if (e.keyCode == 123) return false;
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
-});
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.addEventListener('keydown', function(e) {
+      if (e.keyCode == 123) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+      if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+  });
 </script>
 
 <style>
-  /* Strict White Theme with Vibrant VIBGYOR Accents */
+  /* ========================================== */
+  /* TYPING MASTER 10 CLASSIC THEME VARIABLES   */
+  /* ========================================== */
   :root {
-    --bg: #F0F2F5;
-    --elev: #FFFFFF;
-    --elev-2: #F8FAFC; 
-    --border: #E5E7EB; 
-    --text: #111827; 
-    --text-dim: #6B7280; 
-    
-    /* VIBGYOR Solid Colors */
-    --v-violet: #8B5CF6;
-    --v-indigo: #6366F1;
-    --v-blue: #3B82F6;
-    --v-green: #10B981;
-    --v-yellow: #F59E0B;
-    --v-orange: #F97316;
-    --v-red: #EF4444;
+    --tm-header: #1C457D;      /* Classic Deep Blue */
+    --tm-header-light: #2A6099;
+    --tm-bg: #E3E9F0;          /* Light grayish blue background */
+    --tm-panel: #FFFFFF;
+    --tm-border: #B5C6DA;
+    --tm-text: #333333;
+    --tm-text-dim: #666666;
+    --tm-accent: #E89A3C;      /* Orange accent for warnings/highlights */
+    --tm-green: #388E3C;
+    --tm-red: #D32F2F;
+    --tm-blue: #2A6099;
   }
   
   body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--tm-bg);
+    color: var(--tm-text);
   }
 
   .font-mono {
-    font-family: 'Fira Code', monospace;
+    font-family: 'Consolas', 'Courier New', monospace;
   }
 
   /* Custom Scrollbar */
-  * { scrollbar-width: thin; scrollbar-color: #CBD5E1 transparent; }
+  * { scrollbar-width: thin; scrollbar-color: #B5C6DA transparent; }
   *::-webkit-scrollbar { width: 8px; height: 8px; }
-  *::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+  *::-webkit-scrollbar-thumb { background: #B5C6DA; border-radius: 4px; }
 
-  /* UI Elements */
-  .color-card {
-    border-radius: 16px;
-    color: #FFFFFF;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .color-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* App Containers */
+  .tm-window {
+    background: var(--tm-panel);
+    border: 1px solid var(--tm-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
-  .white-card {
-    background: var(--elev);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  .tm-card {
+    background: #F8FAFC;
+    border: 1px solid var(--tm-border);
+    border-radius: 4px;
   }
-
-  .rainbow-bar {
-    height: 6px;
-    background: linear-gradient(90deg, var(--v-violet), var(--v-indigo), var(--v-blue), var(--v-green), var(--v-yellow), var(--v-orange), var(--v-red));
-  }
-  
-  .chapter-row { transition: all 0.2s ease; border-radius: 12px; margin-bottom: 4px; border: 1px solid transparent; }
-  .chapter-row:not(.locked):hover { background: var(--elev-2); border-color: var(--border); cursor: pointer; transform: translateX(4px); }
-  .chapter-row.selected { background: var(--v-indigo); color: white; box-shadow: 0 4px 10px rgba(99,102,241,0.3); }
-  .chapter-row.selected .text-dim-target { color: rgba(255,255,255,0.8) !important; }
-  .chapter-row.locked { opacity: 0.5; cursor: not-allowed; }
 
   /* Buttons */
-  .solid-btn {
-    border-radius: 12px;
-    font-weight: 700;
-    transition: all 0.2s ease;
-    border: none;
+  .tm-btn {
+    background: linear-gradient(180deg, #FAFAFA 0%, #E4E4E4 100%);
+    border: 1px solid #A0A0A0;
+    color: #333;
+    padding: 6px 16px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
+    transition: all 0.1s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,1);
   }
-  .solid-btn:active:not(:disabled) { transform: scale(0.96); }
-  
-  .timer-btn {
-    background: var(--elev-2);
-    border: 1px solid var(--border);
-    color: var(--text-dim);
+  .tm-btn:hover:not(:disabled) {
+    background: linear-gradient(180deg, #FFFFFF 0%, #EAEAEA 100%);
+    border-color: #888;
   }
-  .timer-btn:hover { background: #E2E8F0; color: var(--text); }
-  .timer-btn.active { background: var(--v-blue); color: white; border-color: var(--v-blue); box-shadow: 0 4px 10px rgba(59,130,246,0.3); }
+  .tm-btn:active:not(:disabled) {
+    background: #D4D4D4;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
 
-  .btn-primary {
-    background: var(--v-violet);
-    color: white;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  .tm-btn-primary {
+    background: linear-gradient(180deg, #3A78B8 0%, #2A6099 100%);
+    border: 1px solid #1C457D;
+    color: #FFFFFF;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
   }
-  .btn-primary:hover:not(:disabled) { background: #7C3AED; box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5); }
-  .btn-primary:disabled { background: #D1D5DB; box-shadow: none; cursor: not-allowed; }
+  .tm-btn-primary:hover:not(:disabled) {
+    background: linear-gradient(180deg, #4A88C8 0%, #3A78B8 100%);
+  }
+  .tm-btn-primary:active:not(:disabled) {
+    background: #1C457D;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .tm-btn-primary:disabled {
+    background: #CCCCCC;
+    border-color: #AAAAAA;
+    color: #888888;
+    cursor: not-allowed;
+  }
+
+  .tm-row {
+    border-bottom: 1px solid #EAEAEA;
+    transition: background 0.2s;
+  }
+  .tm-row:hover { background: #F0F4F8; }
+  .tm-row:last-child { border-bottom: none; }
+  
+  .timer-btn.active {
+    background: #2A6099;
+    color: white;
+    border-color: #1C457D;
+  }
 </style>
 </head>
 
-<!-- FULL SCREEN APP LAYOUT: h-screen overflow-hidden -->
 <body class="h-screen overflow-hidden flex flex-col">
 
 <div id="app" class="flex flex-col h-full w-full overflow-hidden">
   
-  <div class="rainbow-bar w-full flex-shrink-0"></div>
-
-  <!-- Header -->
-  <header class="flex-shrink-0 z-30 bg-[var(--elev)] border-b border-[var(--border)] shadow-sm" aria-label="Main Navigation">
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <button id="sidebarToggle" class="lg:hidden p-2 text-[var(--text-dim)] bg-[var(--elev-2)] rounded-lg" aria-label="Toggle Sidebar">
-          <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
-        </button>
-        <div class="w-10 h-10 flex items-center justify-center text-white text-xl font-bold rounded-xl shadow-lg" style="background-color: var(--v-indigo);">
-          <i class="fa-solid fa-keyboard" aria-hidden="true"></i>
+  <!-- Typing Master Style Header -->
+  <header class="flex-shrink-0 z-30 shadow-md" style="background: linear-gradient(90deg, var(--tm-header) 0%, var(--tm-header-light) 100%);">
+    <div class="max-w-[1200px] mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 flex items-center justify-center text-white text-xl bg-white/20 rounded shadow-inner border border-white/30">
+          <i class="fa-solid fa-keyboard"></i>
         </div>
-        <div>
-          <h1 class="text-lg font-bold tracking-tight text-[var(--text)] leading-tight">TypingWorld</h1>
-          <p class="text-[10px] font-bold text-[var(--v-orange)] uppercase tracking-wider leading-none">by PyCodes</p>
+        <div class="text-white">
+          <h1 class="text-xl font-semibold tracking-wide leading-tight text-shadow">TypingWorld</h1>
+          <p class="text-[11px] text-blue-200 tracking-wider leading-none">TRAINER BY PYCODES</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-3">
-        <button id="soundToggle" class="solid-btn w-9 h-9 flex items-center justify-center text-white" style="background-color: var(--v-green);" title="Toggle Sound" aria-label="Toggle Sound"></button>
-        <button id="resetBtn" class="solid-btn w-9 h-9 flex items-center justify-center text-white" style="background-color: var(--v-red);" title="Reset Progress" aria-label="Reset Progress">
-          <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+      <div class="flex items-center gap-2">
+        <button id="soundToggle" class="tm-btn !px-3 !py-1 flex items-center justify-center" title="Toggle Sound"></button>
+        <button id="resetBtn" class="tm-btn !px-3 !py-1 flex items-center justify-center text-red-600" title="Reset Progress">
+          <i class="fa-solid fa-rotate-left mr-1"></i> Reset
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Solid Colored Lifetime Stats -->
-  <section class="max-w-[1400px] mx-auto px-4 sm:px-6 pt-4 w-full flex-shrink-0" aria-label="Lifetime Statistics">
-    <h2 class="sr-only">Your Lifetime Typing Statistics</h2>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="lifetimeStats"></div>
-  </section>
-
-  <!-- Main Layout (Restricted Height, Inner Scrolling) -->
-  <div class="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 flex flex-col lg:flex-row gap-6 relative w-full flex-1 min-h-0 overflow-hidden">
+  <!-- Main Container -->
+  <div class="max-w-[1200px] mx-auto px-4 py-6 flex flex-col w-full flex-1 min-h-0 overflow-hidden">
     
-    <div id="sidebarBackdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden backdrop-blur-sm" aria-hidden="true"></div>
-
-    <!-- Sidebar (Scrollable internally) -->
-    <aside id="sidebar" aria-label="Typing Chapters" class="fixed lg:relative top-0 left-0 h-full w-[320px] -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-0 bg-[var(--elev)] lg:bg-transparent lg:border-none border-r border-[var(--border)] shadow-2xl lg:shadow-none flex-shrink-0 flex flex-col rounded-r-2xl lg:rounded-none min-h-0">
-      <div class="p-5 lg:p-0 flex-1 flex flex-col min-h-0">
-        <div class="flex items-center justify-between mb-4 lg:hidden pb-4 border-b border-[var(--border)] flex-shrink-0">
-          <span class="font-bold text-[var(--text)] text-lg">Chapters</span>
-          <button id="sidebarClose" class="w-8 h-8 rounded-full flex items-center justify-center bg-[var(--v-red)] text-white shadow-md" aria-label="Close Sidebar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    <!-- White Window Container -->
+    <div class="tm-window flex flex-col flex-1 min-h-0 rounded-md">
+      
+      <!-- Top Stats Bar -->
+      <div class="bg-gray-100 border-b border-[var(--tm-border)] p-3 px-6 flex justify-between items-center text-sm">
+        <div class="text-[var(--tm-text-dim)] font-semibold flex items-center gap-2">
+           <i class="fa-solid fa-user-graduate text-[var(--tm-blue)]"></i> User Status
         </div>
-        <!-- Chapter Box that fills remaining height and scrolls inside -->
-        <div class="bg-white p-4 rounded-2xl border border-[var(--border)] shadow-sm flex flex-col flex-1 min-h-0">
-          <div id="chapterList" class="space-y-2 overflow-y-auto pr-2 flex-1"></div>
+        <div class="flex gap-6 font-semibold" id="topStatsBar">
+          <!-- Populated by JS -->
         </div>
       </div>
-    </aside>
 
-    <!-- Main Panel (Scrollable entirely for mobile stacking, fixed for large screens) -->
-    <main class="flex-1 min-w-0 flex flex-col gap-6 overflow-y-auto pr-2 pb-2" id="mainPanel" aria-label="Typing Area">
-        <div class="white-card p-10 text-center flex flex-col items-center justify-center">
-            <i class="fa-solid fa-circle-notch fa-spin text-4xl text-[var(--v-indigo)] mb-4" aria-hidden="true"></i>
-            <h2 class="text-xl font-bold text-[var(--text)]">Loading Chapters from Google Sheets...</h2>
-            <p class="text-sm text-[var(--text-dim)] mt-2">Please ensure your CSV link is correct and published.</p>
-        </div>
-    </main>
+      <!-- Dynamic Content Area (Dashboard OR Chapter Detail) -->
+      <main class="flex-1 min-w-0 flex flex-col overflow-y-auto p-6" id="mainPanel">
+          <div class="p-10 text-center flex flex-col items-center justify-center h-full text-[var(--tm-text-dim)]">
+              <i class="fa-solid fa-hourglass-half fa-spin text-4xl mb-4"></i>
+              <h2 class="text-xl">Loading Data...</h2>
+          </div>
+      </main>
+
+    </div>
   </div>
 
-  <footer class="flex-shrink-0 py-3 bg-white border-t border-[var(--border)] text-center text-sm font-bold text-[var(--text-dim)] shadow-sm">
-    <a href="https://pycodes.in" class="hover:underline" style="color:var(--v-indigo)">TypingWorld by PyCodes</a> &copy; 2026
+  <footer class="flex-shrink-0 py-2 bg-[var(--tm-header)] text-center text-xs text-white/80 border-t border-white/10">
+    <a href="https://pycodes.in" class="hover:text-white transition-colors">TypingWorld by PyCodes</a> &copy; 2026
   </footer>
 
 </div>
@@ -268,11 +202,11 @@ document.addEventListener('keydown', function(e) {
   var SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTTpRaHoIqCMFwkZVjprUwo1Do032kP6Nx7R0ILNZm3Lkb_MpWceUoIqv-6ciuTxJn86sY2-huuYMXn/pub?output=csv';
 
   var CHAPTERS = [];
-  var STORAGE_KEY = 'TypingWorld_vibrant_v1';
+  var STORAGE_KEY = 'TypingWorld_TM_v1';
   var state = loadState();
-  var selectedChapterId = 1;
+  var currentView = 'dashboard'; // 'dashboard' | 'chapter'
+  var selectedChapterId = null;
   var activePopup = null;
-  var liveData = null;
   var popupWatcherInterval = null;
 
   function defaultState(){
@@ -300,189 +234,189 @@ document.addEventListener('keydown', function(e) {
 
   function applySoundIcon(){
     var btn = document.getElementById('soundToggle');
-    btn.innerHTML = state.settings.soundEnabled ? '<i class="fa-solid fa-volume-high"></i>' : '<i class="fa-solid fa-volume-xmark"></i>';
-    btn.style.backgroundColor = state.settings.soundEnabled ? 'var(--v-green)' : 'var(--v-orange)';
+    btn.innerHTML = state.settings.soundEnabled 
+      ? '<i class="fa-solid fa-volume-high text-green-600 mr-1"></i> Sound On' 
+      : '<i class="fa-solid fa-volume-xmark text-gray-500 mr-1"></i> Muted';
   }
 
-  function renderLifetimeStats(){
+  function renderTopStats(){
     var completedCount = Object.keys(state.completed).length;
     var allWpm = state.history.map(function(h){ return h.wpm; });
     var bestWpm = allWpm.length ? Math.max.apply(null, allWpm) : 0;
     var avgAcc = state.history.length ? Math.round(state.history.reduce(function(a,h){ return a+h.accuracy; },0) / state.history.length) : 0;
-    var totalSessions = state.history.length;
-
-    var items = [
-      {label:'Completed', value: completedCount + '/' + Math.max(1, CHAPTERS.length), color: 'var(--v-violet)', icon:'fa-book-open'},
-      {label:'Top Speed', value: bestWpm, suffix:'WPM', color: 'var(--v-blue)', icon:'fa-bolt'},
-      {label:'Avg Accuracy', value: avgAcc+'%', color: 'var(--v-green)', icon:'fa-crosshairs'},
-      {label:'Total Sessions', value: totalSessions, color: 'var(--v-orange)', icon:'fa-stopwatch'}
-    ];
-
-    document.getElementById('lifetimeStats').innerHTML = items.map(function(it){
-      return '<div class="color-card p-4 flex items-center gap-4" style="background-color: '+it.color+';">' +
-        '<div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shadow-inner">' +
-          '<i class="fa-solid '+it.icon+'"></i>' +
-        '</div>' +
-        '<div>' +
-          '<div class="text-[10px] font-bold uppercase tracking-widest text-white/80 mb-1">'+it.label+'</div>' +
-          '<div class="text-2xl font-black font-mono leading-none">'+it.value+' <span class="text-xs font-bold text-white/70">'+(it.suffix||'')+'</span></div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
+    
+    document.getElementById('topStatsBar').innerHTML = 
+      '<div class="flex items-center gap-1"><span class="text-gray-500 font-normal">Completed:</span> <span class="text-[var(--tm-blue)]">'+completedCount+'/'+Math.max(1, CHAPTERS.length)+'</span></div>' +
+      '<div class="flex items-center gap-1"><span class="text-gray-500 font-normal">Top Speed:</span> <span class="text-[var(--tm-green)]">'+bestWpm+' WPM</span></div>' +
+      '<div class="flex items-center gap-1"><span class="text-gray-500 font-normal">Avg Accuracy:</span> <span class="text-[var(--tm-accent)]">'+avgAcc+'%</span></div>';
   }
 
-  function renderSidebar(){
-    var html = CHAPTERS.map(renderChapterRow).join('');
-    document.getElementById('chapterList').innerHTML = html;
+  // ================= VIEW MANAGER =================
+  function renderApp() {
+    renderTopStats();
+    if(currentView === 'dashboard') {
+      renderDashboard();
+    } else if (currentView === 'chapter' && selectedChapterId) {
+      renderChapterDetail();
+    }
+  }
 
-    document.querySelectorAll('.chapter-row').forEach(function(row){
-      row.addEventListener('click', function(){
-        var id = parseInt(row.dataset.id, 10);
-        if(!isUnlocked(id)) return;
-        selectedChapterId = id;
-        renderSidebar();
-        renderMainPanel();
-        closeSidebarMobile();
-      });
+  // ================= 1. DASHBOARD VIEW =================
+  function renderDashboard(){
+    var html = '';
+    html += '<div class="flex justify-between items-end mb-4">';
+    html += '<div><h2 class="text-2xl font-semibold text-[var(--tm-blue)]">Typing Courses & Drills</h2><p class="text-sm text-[var(--tm-text-dim)]">Select a chapter below to begin your training session.</p></div>';
+    html += '</div>';
+
+    html += '<div class="border border-[var(--tm-border)] bg-white rounded flex-1 flex flex-col min-h-0">';
+    
+    // Table Header
+    html += '<div class="flex bg-[#F0F4F8] border-b border-[var(--tm-border)] p-3 text-sm font-semibold text-[var(--tm-text-dim)]">';
+    html += '<div class="w-12 text-center">Status</div>';
+    html += '<div class="flex-1">Chapter Name</div>';
+    html += '<div class="w-32 text-center">Best WPM</div>';
+    html += '<div class="w-32 text-center">Accuracy</div>';
+    html += '<div class="w-24 text-center">Action</div>';
+    html += '</div>';
+
+    // Table Body (Scrollable)
+    html += '<div class="overflow-y-auto flex-1">';
+    
+    CHAPTERS.forEach(function(c){
+      var unlocked = isUnlocked(c.id);
+      var done = state.completed[c.id];
+      
+      var icon = !unlocked ? '<i class="fa-solid fa-lock text-gray-400"></i>' : (done ? '<i class="fa-solid fa-check text-[var(--tm-green)]"></i>' : '<i class="fa-solid fa-star text-[var(--tm-accent)]"></i>');
+      var wpmText = done ? done.bestWpm + ' WPM' : '-';
+      var accText = done ? done.bestAccuracy + '%' : '-';
+
+      html += '<div class="flex items-center p-3 text-sm tm-row '+(unlocked ? '' : 'opacity-60 bg-gray-50')+'">';
+      html += '<div class="w-12 text-center text-lg">'+icon+'</div>';
+      html += '<div class="flex-1 font-semibold text-[var(--tm-text)]">'+c.id+'. '+escapeHtml(c.title)+'</div>';
+      html += '<div class="w-32 text-center text-[var(--tm-text-dim)]">'+wpmText+'</div>';
+      html += '<div class="w-32 text-center text-[var(--tm-text-dim)]">'+accText+'</div>';
+      html += '<div class="w-24 text-center">';
+      if(unlocked){
+        html += '<button onclick="window.selectChapter('+c.id+')" class="tm-btn-primary w-full py-1 text-xs">Start <i class="fa-solid fa-caret-right ml-1"></i></button>';
+      } else {
+        html += '<button disabled class="tm-btn w-full py-1 text-xs text-gray-500">Locked</button>';
+      }
+      html += '</div>';
+      html += '</div>';
     });
-  }
-
-  function renderChapterRow(c){
-    var unlocked = isUnlocked(c.id);
-    var done = state.completed[c.id];
-    var selected = c.id === selectedChapterId;
     
-    var icon = unlocked ? (done ? '<i class="fa-solid fa-check-circle text-white"></i>' : '<i class="fa-solid fa-play-circle text-white"></i>') : '<i class="fa-solid fa-lock text-[var(--text-dim)]"></i>';
-    var iconBg = unlocked ? (done ? 'var(--v-green)' : 'var(--v-blue)') : 'var(--elev-2)';
-
-    return '<div data-id="'+c.id+'" class="chapter-row '+(selected?'selected ':'')+(!unlocked?'locked ':'')+'flex items-center gap-3 p-2.5" role="button" tabindex="0">' +
-      '<div class="w-8 h-8 rounded-full flex items-center justify-center shadow-sm flex-shrink-0" style="background-color:'+iconBg+';">' + icon + '</div>' +
-      '<div class="flex-1 min-w-0">' +
-        '<div class="text-sm font-bold truncate '+(selected?'text-white':'text-[var(--text)]')+'">'+c.id+'. '+escapeHtml(c.title)+'</div>' +
-        (done
-          ? '<div class="text-[11px] font-bold text-dim-target '+(selected?'text-white':'text-[var(--v-green)]')+'">Best: '+done.bestWpm+' WPM</div>'
-          : '<div class="text-[11px] font-semibold text-dim-target text-[var(--text-dim)]">'+wordCount(c.text)+' words</div>') +
-      '</div>' +
-    '</div>';
+    html += '</div></div>';
+    
+    document.getElementById('mainPanel').innerHTML = html;
   }
 
-  function renderMainPanel(){
+  // Global function for onclick
+  window.selectChapter = function(id) {
+    selectedChapterId = id;
+    currentView = 'chapter';
+    renderApp();
+  };
+
+  // ================= 2. CHAPTER DETAIL VIEW =================
+  function renderChapterDetail(){
     var c = CHAPTERS.find(function(x){ return x.id===selectedChapterId; });
-    if(!c) return;
-    
-    var unlocked = isUnlocked(c.id);
+    if(!c) { currentView = 'dashboard'; renderApp(); return; }
     var done = state.completed[c.id];
 
     var html = '';
-
-    html += '<section class="white-card p-6 relative overflow-hidden flex-shrink-0">';
-    html += '<div class="absolute top-0 left-0 w-full h-2" style="background-color: var(--v-indigo);"></div>';
     
-    html += '<div class="flex items-center justify-between mb-4">';
-    html += '<span class="inline-block px-3 py-1 rounded-full text-white text-[11px] font-bold uppercase shadow-sm" style="background-color: var(--v-indigo);">Typing Drill</span>';
-    if(!unlocked) html += '<span class="text-[11px] px-3 py-1 rounded-full bg-[var(--v-red)] text-white font-bold shadow-sm"><i class="fa-solid fa-lock"></i> Locked</span>';
-    html += '</div>';
-    
-    html += '<h2 class="text-2xl font-black mb-4 text-[var(--text)]">'+escapeHtml(c.title)+'</h2>';
-    
-    html += '<div class="bg-[var(--elev-2)] border border-[var(--border)] rounded-2xl p-5 font-mono text-[15px] leading-relaxed text-[var(--text-dim)] max-h-[140px] overflow-y-auto shadow-inner">';
-    html += escapeHtml(c.text);
-    html += '</div>';
-    
-    html += '<div class="flex gap-4 mt-4">';
-    if(done){
-      html += '<div class="color-card flex-1 p-3 text-center" style="background-color: var(--v-blue);"><div class="text-xl font-black">'+done.bestWpm+'</div><div class="text-[10px] uppercase font-bold text-white/80">Best WPM</div></div>';
-      html += '<div class="color-card flex-1 p-3 text-center" style="background-color: var(--v-indigo);"><div class="text-xl font-black">'+done.bestNet+'</div><div class="text-[10px] uppercase font-bold text-white/80">Net WPM</div></div>';
-      html += '<div class="color-card flex-1 p-3 text-center" style="background-color: var(--v-green);"><div class="text-xl font-black">'+done.bestAccuracy+'%</div><div class="text-[10px] uppercase font-bold text-white/80">Accuracy</div></div>';
-    } else {
-      html += '<div class="bg-[var(--elev-2)] border border-[var(--border)] rounded-xl px-4 py-2 text-xs font-bold text-[var(--text-dim)]"><i class="fa-solid fa-align-left text-[var(--v-blue)] mr-1"></i> '+wordCount(c.text)+' words</div>';
-      html += '<div class="bg-[var(--elev-2)] border border-[var(--border)] rounded-xl px-4 py-2 text-xs font-bold text-[var(--text-dim)]"><i class="fa-solid fa-font text-[var(--v-violet)] mr-1"></i> '+c.text.length+' chars</div>';
-    }
-    html += '</div></section>';
-
-    // Grid layout for Session Setup and Recent Runs
-    html += '<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">';
-    
-    html += '<div class="lg:col-span-2 flex flex-col gap-6 flex-shrink-0">';
-    html += '<section class="white-card p-6">';
-    html += '<h3 class="text-base font-black text-[var(--text)] mb-3">Session Setup</h3>';
-    html += '<div class="flex flex-wrap items-center gap-3 mb-5" role="group" aria-label="Select Timer Duration">';
-    [30, 60, 120, 'sudden'].forEach(function(d){
-      var active = state.settings.timerDuration === d;
-      var label = d==='sudden' ? '<i class="fa-solid fa-skull text-[var(--v-red)]"></i> Sudden' : d+'s';
-      html += '<button data-duration="'+d+'" class="solid-btn timer-btn px-4 py-2 text-sm '+(active?'active':'')+'">'+label+'</button>';
-    });
-    html += '</div>';
-    html += '<button id="startSessionBtn" class="solid-btn btn-primary w-full py-3 text-base flex items-center justify-center gap-2" '+(!unlocked?'disabled':'')+'>' +
-      '<i class="fa-solid fa-play" aria-hidden="true"></i> '+(unlocked ? 'Start Typing Session' : 'Locked')+'</button>';
-    html += '</section>';
-    html += '<section id="liveMonitorCard" class="white-card p-6 hidden" aria-label="Live Typing Monitor"></section>';
+    // Back Button & Header
+    html += '<div class="flex items-center gap-4 mb-4 pb-4 border-b border-[var(--tm-border)]">';
+    html += '<button onclick="window.goBack()" class="tm-btn text-sm"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Courses</button>';
+    html += '<div><h2 class="text-xl font-bold text-[var(--tm-blue)]">'+c.id+'. '+escapeHtml(c.title)+'</h2><p class="text-xs text-[var(--tm-text-dim)]">Practice Drill Setup</p></div>';
     html += '</div>';
 
-    // Recent runs box setup for proper inner scrolling
-    html += '<section class="white-card p-5 flex flex-col h-full min-h-[250px]" aria-label="Recent Session History">';
-    html += '<h3 class="text-base font-black text-[var(--text)] mb-3 pb-2 border-b border-[var(--border)] flex-shrink-0">Recent Runs</h3>';
-    html += '<div id="historyList" class="flex-1 overflow-y-auto pr-2"></div>';
-    html += '</section></div>';
+    html += '<div class="flex gap-6 h-full min-h-0">';
+    
+    // Left Column: Drill Preview & Run
+    html += '<div class="flex-1 flex flex-col gap-4 min-w-0">';
+      
+      // Text Preview Box
+      html += '<div class="tm-card flex flex-col h-[200px] shadow-sm">';
+      html += '<div class="bg-[var(--tm-header)] text-white px-3 py-1.5 text-sm font-semibold rounded-t flex justify-between"><span class="tracking-wide">Text Preview</span> <span class="font-normal opacity-80">'+wordCount(c.text)+' words</span></div>';
+      html += '<div class="p-4 font-mono text-[15px] leading-relaxed text-[var(--tm-text-dim)] overflow-y-auto bg-white flex-1 rounded-b select-none">';
+      html += escapeHtml(c.text);
+      html += '</div></div>';
+      
+      // Settings Box
+      html += '<div class="tm-card p-4 shadow-sm">';
+      html += '<div class="text-sm font-bold text-[var(--tm-text)] mb-3">Duration Setup</div>';
+      html += '<div class="flex flex-wrap gap-2 mb-4">';
+      [30, 60, 120, 'sudden'].forEach(function(d){
+        var active = state.settings.timerDuration === d;
+        var label = d==='sudden' ? '<i class="fa-solid fa-skull mr-1"></i> Sudden Death' : d+' Seconds';
+        html += '<button onclick="window.setDuration(\''+d+'\')" class="tm-btn timer-btn px-4 py-1.5 text-sm '+(active?'active':'')+'">'+label+'</button>';
+      });
+      html += '</div>';
+      html += '<div class="border-t border-[var(--tm-border)] pt-4 mt-2">';
+      html += '<button onclick="window.startCurrentDrill()" class="tm-btn-primary px-8 py-3 text-lg font-bold shadow-md"><i class="fa-solid fa-play-circle mr-2"></i> Begin Drill</button>';
+      html += '</div>';
+      html += '</div>';
+
+    html += '</div>'; // End Left Col
+
+    // Right Column: Stats & Recent Runs
+    html += '<div class="w-[300px] flex flex-col gap-4 flex-shrink-0">';
+      
+      // Best Stats Card
+      if(done){
+        html += '<div class="tm-card shadow-sm">';
+        html += '<div class="bg-[#F0F4F8] border-b border-[var(--tm-border)] px-3 py-2 text-sm font-bold text-[var(--tm-text)]">Your Best Performance</div>';
+        html += '<div class="p-3 grid grid-cols-2 gap-2 text-center">';
+        html += '<div class="border border-[var(--tm-border)] bg-white p-2 rounded"><div class="text-lg font-bold text-[var(--tm-blue)]">'+done.bestWpm+'</div><div class="text-[10px] uppercase text-gray-500">WPM</div></div>';
+        html += '<div class="border border-[var(--tm-border)] bg-white p-2 rounded"><div class="text-lg font-bold text-[var(--tm-green)]">'+done.bestAccuracy+'%</div><div class="text-[10px] uppercase text-gray-500">Accuracy</div></div>';
+        html += '</div></div>';
+      }
+
+      // Recent History for this chapter (or global)
+      html += '<div class="tm-card shadow-sm flex flex-col flex-1 min-h-0">';
+      html += '<div class="bg-[#F0F4F8] border-b border-[var(--tm-border)] px-3 py-2 text-sm font-bold text-[var(--tm-text)]">Recent Runs</div>';
+      html += '<div class="p-2 overflow-y-auto flex-1">';
+      
+      var recent = state.history.filter(function(h){ return h.chapterId === c.id; }).slice(-6).reverse();
+      if(recent.length === 0){
+        html += '<div class="text-center text-gray-400 text-sm mt-4 italic">No attempts yet.</div>';
+      } else {
+        recent.forEach(function(h){
+          var date = new Date(h.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+          html += '<div class="mb-2 pb-2 border-b border-gray-200 last:border-0">';
+          html += '<div class="flex justify-between text-xs text-gray-500 mb-1"><span>'+date+'</span> <span class="'+(h.completed?'text-[var(--tm-green)]':'text-[var(--tm-red)]')+'">'+(h.completed?'Completed':'Failed')+'</span></div>';
+          html += '<div class="flex justify-between font-mono text-sm"><span>Speed: <b class="text-[var(--tm-blue)]">'+h.wpm+'</b> wpm</span> <span>Acc: <b class="text-[var(--tm-green)]">'+h.accuracy+'%</b></span></div>';
+          html += '</div>';
+        });
+      }
+
+      html += '</div></div>';
+
+    html += '</div>'; // End Right Col
+    html += '</div>'; // End Flex Row
 
     document.getElementById('mainPanel').innerHTML = html;
-
-    document.querySelectorAll('.timer-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var v = btn.dataset.duration;
-        state.settings.timerDuration = (v==='sudden') ? 'sudden' : parseInt(v,10);
-        saveState(); renderMainPanel();
-      });
-    });
-    document.getElementById('startSessionBtn').addEventListener('click', function(){
-      if(unlocked) openTypingSession(c.id);
-    });
-
-    renderHistory();
   }
 
-  function renderHistory(){
-    var list = document.getElementById('historyList');
-    if(!list) return;
-    var recent = state.history.slice(-15).reverse();
-    if(recent.length===0){
-      list.innerHTML = '<div class="text-center text-[var(--text-dim)] text-sm py-8 font-medium">No sessions yet.</div>';
-      return;
-    }
-    list.innerHTML = recent.map(function(h){
-      var date = new Date(h.timestamp);
-      var timeStr = date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-      var badge = h.completed 
-        ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[var(--v-green)] text-white shadow-sm">PASS</span>' 
-        : '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[var(--v-red)] text-white shadow-sm">FAIL</span>';
-      
-      return '<div class="py-2.5 border-b border-[var(--border)] last:border-0 hover:bg-[var(--elev-2)] transition-colors rounded-lg px-2 -mx-2">' +
-        '<div class="flex items-center justify-between mb-1">' +
-          '<div class="font-bold text-sm text-[var(--text)] truncate max-w-[150px]">' + escapeHtml(h.chapterTitle) + '</div>' +
-          badge +
-        '</div>' +
-        '<div class="flex items-center justify-between text-xs font-semibold text-[var(--text-dim)]">' +
-          '<span>' + timeStr + '</span>' +
-          '<div class="flex gap-2">' +
-            '<span class="text-[var(--v-blue)]">' + h.wpm + ' WPM</span>' +
-            '<span class="text-[var(--v-green)]">' + h.accuracy + '%</span>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-  }
+  window.goBack = function() {
+    currentView = 'dashboard';
+    selectedChapterId = null;
+    renderApp();
+  };
 
-  function openSidebarMobile(){
-    document.getElementById('sidebar').classList.remove('-translate-x-full');
-    document.getElementById('sidebarBackdrop').classList.remove('hidden');
-  }
-  function closeSidebarMobile(){
-    document.getElementById('sidebar').classList.add('-translate-x-full');
-    document.getElementById('sidebarBackdrop').classList.add('hidden');
-  }
+  window.setDuration = function(val) {
+    state.settings.timerDuration = (val==='sudden') ? 'sudden' : parseInt(val,10);
+    saveState();
+    renderApp();
+  };
 
-  /* ===================== Popup Logic omitted for brevity but intact functionally ===================== */
-  var POPUP_CSS = ':root { --bg:#F0F2F5; --elev:#FFFFFF; --elev-2:#F8FAFC; --border:#E5E7EB; --text:#111827; --text-dim:#6B7280; --v-violet:#8B5CF6; --v-indigo:#6366F1; --v-blue:#3B82F6; --v-green:#10B981; --v-yellow:#F59E0B; --v-orange:#F97316; --v-red:#EF4444; }*{box-sizing:border-box;margin:0;padding:0;}html,body{height:100%;}body{background:var(--bg);color:var(--text);font-family:"Inter",system-ui,sans-serif;display:flex;flex-direction:column;}.font-mono{font-family:"Fira Code",monospace;}#root{flex:1;display:flex;flex-direction:column;height:100%;}.rainbow-line{height:6px;width:100%;background:linear-gradient(90deg,var(--v-violet),var(--v-indigo),var(--v-blue),var(--v-green),var(--v-yellow),var(--v-orange),var(--v-red));}.wrap{flex:1;display:flex;flex-direction:column;padding:32px;gap:24px;max-width:1100px;margin:0 auto;width:100%;}.topbar{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border);padding-bottom:16px;}.chapter-name{font-size:24px;font-weight:900;color:var(--text);}.mode-badge{font-size:12px;padding:6px 16px;background:var(--v-indigo);color:white;font-weight:800;border-radius:999px;text-transform:uppercase;letter-spacing:1px;box-shadow:0 4px 6px rgba(99,102,241,0.3);}.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}.stat{border-radius:16px;padding:16px 20px;box-shadow:0 4px 6px rgba(0,0,0,0.1);color:white;text-align:center;}.stat-val{font-size:32px;font-weight:900;font-family:"Fira Code",monospace;}.stat-label{font-size:11px;color:rgba(255,255,255,0.8);margin-top:4px;text-transform:uppercase;font-weight:800;letter-spacing:1px;}.text-stage{flex:1;background:var(--elev);border:1px solid var(--border);border-radius:20px;padding:40px;font-size:28px;line-height:1.7;white-space:pre-wrap;word-break:break-word;overflow-y:auto;box-shadow:0 4px 6px rgba(0,0,0,0.02);font-family:"Fira Code",monospace;}.text-stage span.pending{color:var(--text-dim);opacity:0.6;}.text-stage span.correct{color:var(--text);font-weight:700;}.text-stage span.incorrect{color:white;background:var(--v-red);border-radius:4px;padding:0 2px;}.text-stage span.current{border-bottom:4px solid var(--v-blue);animation:blink 1s step-end infinite;color:var(--v-blue);font-weight:700;}@keyframes blink{50%{border-color:transparent;}}.hint{text-align:center;font-size:14px;color:var(--text-dim);font-weight:700;text-transform:uppercase;letter-spacing:1px;}.hidden-input{position:absolute;opacity:0;height:1px;width:1px;pointer-events:none;}.summary-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;gap:24px;text-align:center;overflow-y:auto;}.summary-title{font-size:42px;font-weight:900;letter-spacing:-1px;}.summary-sub{color:var(--text-dim);font-size:16px;font-weight:600;}.summary-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;width:100%;max-width:800px;}.chart-card{width:100%;max-width:800px;background:var(--elev);border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:0 4px 6px rgba(0,0,0,0.05);}.chart-card h4{font-size:14px;color:var(--text-dim);text-transform:uppercase;font-weight:800;letter-spacing:1px;margin-bottom:16px;text-align:left;}.chart-svg{width:100%;height:220px;display:block;}.chart-line{fill:none;stroke:var(--v-blue);stroke-width:4;stroke-linejoin:round;stroke-linecap:round;}.chart-area{fill:url(#areaGrad);}.grid-line{stroke:var(--border);stroke-width:1;stroke-dasharray:4,4;}.grid-label{fill:var(--text-dim);font-size:12px;font-family:inherit;font-weight:700;}.btn-row{display:flex;gap:16px;margin-top:24px;}.btn{padding:16px 32px;font-size:16px;font-weight:800;border-radius:12px;cursor:pointer;border:none;transition:all 0.2s;box-shadow:0 4px 6px rgba(0,0,0,0.1);}.btn:active{transform:scale(0.96);}.btn-default{background:var(--elev);color:var(--text);border:1px solid var(--border);}.btn-default:hover{background:var(--elev-2);}.btn-accent{background:var(--v-violet);color:white;box-shadow:0 4px 12px rgba(139,92,246,0.4);}.btn-accent:hover{background:#7C3AED;box-shadow:0 6px 16px rgba(139,92,246,0.5);}.fail-icon{color:var(--v-red);}.success-icon{color:var(--v-green);}';
+  window.startCurrentDrill = function() {
+    openTypingSession(selectedChapterId);
+  };
+
+  /* ===================== Popup Session Logic (Themed for TM10) ===================== */
+  var POPUP_CSS = ':root { --tm-header: #1C457D; --tm-bg: #E3E9F0; --tm-panel: #FFFFFF; --tm-border: #B5C6DA; --tm-text: #333333; --tm-blue: #2A6099; --tm-green: #388E3C; --tm-red: #D32F2F; --tm-accent: #E89A3C;}*{box-sizing:border-box;margin:0;padding:0;}html,body{height:100%;}body{background:var(--tm-bg);color:var(--tm-text);font-family:"Segoe UI",Tahoma,sans-serif;display:flex;flex-direction:column;}.font-mono{font-family:"Consolas",monospace;}#root{flex:1;display:flex;flex-direction:column;height:100%;padding:16px;}.wrap{flex:1;display:flex;flex-direction:column;background:var(--tm-panel);border:1px solid var(--tm-border);border-radius:4px;box-shadow:0 4px 10px rgba(0,0,0,0.1);max-width:1100px;margin:0 auto;width:100%;}.topbar{background:var(--tm-header);color:white;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;border-top-left-radius:3px;border-top-right-radius:3px;}.chapter-name{font-size:20px;font-weight:600;}.mode-badge{font-size:12px;padding:4px 12px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);border-radius:3px;}.stats-row{display:grid;grid-template-columns:repeat(5,1fr);background:#F0F4F8;border-bottom:1px solid var(--tm-border);}.stat{padding:12px;text-align:center;border-right:1px solid var(--tm-border);}.stat:last-child{border-right:none;}.stat-val{font-size:28px;font-weight:700;font-family:"Consolas",monospace;color:var(--tm-blue);}.stat-label{font-size:11px;color:var(--tm-text);margin-top:4px;text-transform:uppercase;font-weight:600;}.text-stage{flex:1;padding:32px;font-size:26px;line-height:1.6;white-space:pre-wrap;word-break:break-word;overflow-y:auto;font-family:"Consolas",monospace;background:white;}.text-stage span.pending{color:#888;} .text-stage span.correct{color:#000;font-weight:bold;background:#E8F0FE;}.text-stage span.incorrect{color:white;background:var(--tm-red);}.text-stage span.current{border-bottom:3px solid var(--tm-blue);background:#FFF9C4;color:#000;}.hint{text-align:center;font-size:12px;color:var(--tm-text);padding:8px;background:#F8FAFC;border-top:1px solid var(--tm-border);}.hidden-input{position:absolute;opacity:0;height:1px;width:1px;pointer-events:none;}.summary-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;gap:24px;text-align:center;overflow-y:auto;background:white;}.summary-title{font-size:36px;font-weight:700;}.summary-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;width:100%;max-width:700px;margin-top:20px;}.stat-box{border:1px solid var(--tm-border);padding:20px;background:#F8FAFC;border-radius:4px;}.btn-row{display:flex;gap:16px;margin-top:24px;}.btn{padding:10px 24px;font-size:14px;font-weight:600;border-radius:3px;cursor:pointer;border:1px solid #A0A0A0;background:linear-gradient(180deg,#FAFAFA 0%,#E4E4E4 100%);color:#333;}.btn-accent{background:linear-gradient(180deg,#3A78B8 0%,#2A6099 100%);color:white;border-color:#1C457D;}';
 
   function popupMain(CONFIG){
     var text = CONFIG.text; var duration = CONFIG.duration; var soundOn = CONFIG.soundEnabled; var chapterId = CONFIG.chapterId; var chapterTitle = CONFIG.chapterTitle;
@@ -496,7 +430,7 @@ document.addEventListener('keydown', function(e) {
     }
 
     function renderShell(){
-      root.innerHTML = '<div class="rainbow-line"></div><div class="wrap"><div class="topbar"><div class="chapter-name">'+chapterTitle+'</div><div class="mode-badge">'+(duration==='sudden' ? 'Sudden Death' : duration+'s Mode')+'</div></div><div class="stats-row"><div class="stat" style="background:var(--v-yellow); color:#111827;"><div class="stat-val" id="statTime">'+(duration==='sudden'?'0s':duration+'s')+'</div><div class="stat-label" style="color:rgba(0,0,0,0.6);">'+(duration==='sudden'?'Elapsed':'Time Left')+'</div></div><div class="stat" style="background:var(--v-blue);"><div class="stat-val" id="statWpm">0</div><div class="stat-label">WPM</div></div><div class="stat" style="background:var(--v-indigo);"><div class="stat-val" id="statNet">0</div><div class="stat-label">Net WPM</div></div><div class="stat" style="background:var(--v-green);"><div class="stat-val" id="statAcc">100%</div><div class="stat-label">Accuracy</div></div><div class="stat" style="background:var(--v-red);"><div class="stat-val" id="statErr">0</div><div class="stat-label">Errors</div></div></div><div class="text-stage" id="textStage" aria-live="polite"></div><div class="hint">Type to begin &middot; Press [ESC] to Abort</div><input id="hiddenInput" class="hidden-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Hidden typing input box" /></div>';
+      root.innerHTML = '<div class="wrap"><div class="topbar"><div class="chapter-name">'+chapterTitle+'</div><div class="mode-badge">'+(duration==='sudden' ? 'Sudden Death Mode' : duration+' Seconds')+'</div></div><div class="stats-row"><div class="stat"><div class="stat-val" id="statTime" style="color:var(--tm-accent);">'+(duration==='sudden'?'0s':duration+'s')+'</div><div class="stat-label">'+(duration==='sudden'?'Time':'Time Left')+'</div></div><div class="stat"><div class="stat-val" id="statWpm">0</div><div class="stat-label">WPM</div></div><div class="stat"><div class="stat-val" id="statNet">0</div><div class="stat-label">Net WPM</div></div><div class="stat"><div class="stat-val" id="statAcc" style="color:var(--tm-green);">100%</div><div class="stat-label">Accuracy</div></div><div class="stat"><div class="stat-val" id="statErr" style="color:var(--tm-red);">0</div><div class="stat-label">Errors</div></div></div><div class="text-stage" id="textStage" aria-live="polite"></div><div class="hint">Start typing to begin the drill &middot; Press [ESC] to Abort</div><input id="hiddenInput" class="hidden-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" /></div>';
       buildCharSpans(); if(charSpans.length){ charSpans[0].classList.add('current'); }
       var inp = document.getElementById('hiddenInput'); inp.value = ''; inp.addEventListener('input', onInput); inp.focus(); root.addEventListener('click', function(){ if(!ended) inp.focus(); });
     }
@@ -533,19 +467,11 @@ document.addEventListener('keydown', function(e) {
       try{ if(window.opener && !window.opener.closed && window.opener.__typingApp){ window.opener.__typingApp.receiveSessionResult(result); } }catch(e){} renderSummary(result);
     }
 
-    function buildChartSVG(history){
-      var data = history.length ? history : [{t:0,wpm:0}]; var w=800,h=220,padL=50,padR=10,padT=10,padB=20; var innerW = w-padL-padR, innerH = h-padT-padB; var maxT = data[data.length-1].t || 1; var maxWpmRaw = 10; for(var k=0;k<data.length;k++){ if(data[k].wpm>maxWpmRaw) maxWpmRaw = data[k].wpm; } var maxWpm = Math.ceil((maxWpmRaw*1.2)/10)*10;
-      function X(t){ return padL + (t/maxT)*innerW; } function Y(v){ return padT + innerH - (v/maxWpm)*innerH; }
-      var pts = data.map(function(p){ return X(p.t).toFixed(1)+','+Y(p.wpm).toFixed(1); }).join(' '); var areaPts = pts+' '+X(data[data.length-1].t).toFixed(1)+','+Y(0).toFixed(1)+' '+X(data[0].t).toFixed(1)+','+Y(0).toFixed(1);
-      var grid = ''; for(var i=0;i<=4;i++){ var v = Math.round(maxWpm*i/4); var y = Y(v); grid += '<line class="grid-line" x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(w-padR)+'" y2="'+y.toFixed(1)+'"/>'; grid += '<text class="grid-label" x="10" y="'+(y+4).toFixed(1)+'">'+v+'</text>'; }
-      return '<svg viewBox="0 0 '+w+' '+h+'" class="chart-svg" xmlns="http://www.w3.org/2000/svg" aria-label="WPM Progression Chart"><defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3B82F6" stop-opacity="0.25"/><stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/></linearGradient></defs>'+grid+'<polygon class="chart-area" points="'+areaPts+'"/><polyline class="chart-line" points="'+pts+'"/></svg>';
-    }
-
     function renderSummary(result){
-      var success = result.completed; var titleText = success ? 'Mission Accomplished' : (duration==='sudden' ? 'Sudden Death' : "Time Expired");
-      root.innerHTML = '<div class="rainbow-line"></div><div class="summary-wrap"><div class="'+(success?'success-icon':'fail-icon')+'" style="font-size:72px;">'+(success?'<i class="fa-solid fa-circle-check"></i>':'<i class="fa-solid fa-triangle-exclamation"></i>')+'</div><div><div class="summary-title" style="color:var('+(success?'--v-green':'--v-red')+');">'+titleText+'</div><div class="summary-sub">Your results have been synced to the dashboard</div></div><div class="summary-stats"><div class="stat" style="background:var(--v-blue);"><div class="stat-val">'+result.wpm+'</div><div class="stat-label">WPM</div></div><div class="stat" style="background:var(--v-indigo);"><div class="stat-val">'+result.netWpm+'</div><div class="stat-label">Net WPM</div></div><div class="stat" style="background:var(--v-green);"><div class="stat-val">'+result.accuracy+'%</div><div class="stat-label">Accuracy</div></div><div class="stat" style="background:var(--v-red);"><div class="stat-val">'+result.errors+'</div><div class="stat-label">Errors</div></div></div><div class="chart-card"><h4>Performance Curve</h4><div id="chartHolder"></div></div><div class="btn-row"><button id="retryBtn" class="btn btn-default">Try Again</button><button id="closeBtn" class="btn btn-accent">Close Window</button></div></div>';
+      var success = result.completed; var titleText = success ? 'Exercise Completed Successfully' : (duration==='sudden' ? 'Sudden Death: Error Made' : "Time Expired");
+      root.innerHTML = '<div class="wrap"><div class="topbar"><div>Exercise Results</div></div><div class="summary-wrap"><div style="font-size:60px; color:var('+(success?'--tm-green':'--tm-red')+');"><i class="fa-solid '+(success?'fa-award':'fa-triangle-exclamation')+'"></i></div><div class="summary-title" style="color:var('+(success?'--tm-blue':'--tm-red')+');">'+titleText+'</div><div class="summary-stats"><div class="stat-box"><div class="stat-val">'+result.wpm+'</div><div class="stat-label">Gross WPM</div></div><div class="stat-box"><div class="stat-val">'+result.netWpm+'</div><div class="stat-label">Net Speed</div></div><div class="stat-box"><div class="stat-val" style="color:var(--tm-green);">'+result.accuracy+'%</div><div class="stat-label">Accuracy</div></div><div class="stat-box"><div class="stat-val" style="color:var(--tm-red);">'+result.errors+'</div><div class="stat-label">Errors Made</div></div></div><div class="btn-row"><button id="retryBtn" class="btn">Restart Drill</button><button id="closeBtn" class="btn btn-accent">Return to Main Menu</button></div></div></div>';
       var fa = document.createElement('link'); fa.rel='stylesheet'; fa.href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'; document.head.appendChild(fa);
-      document.getElementById('chartHolder').innerHTML = buildChartSVG(wpmHistory); document.getElementById('retryBtn').addEventListener('click', resetAndRestart); document.getElementById('closeBtn').addEventListener('click', function(){ window.close(); });
+      document.getElementById('retryBtn').addEventListener('click', resetAndRestart); document.getElementById('closeBtn').addEventListener('click', function(){ window.close(); });
     }
 
     function resetAndRestart(){ typed=''; totalKeystrokes=0; errorCount=0; startTime=null; ended=false; elapsedSeconds=0; timeLeft=(typeof duration==='number')?duration:0; wpmHistory=[]; if(timerInterval) clearInterval(timerInterval); renderShell(); }
@@ -558,10 +484,10 @@ document.addEventListener('keydown', function(e) {
     var chapter = CHAPTERS.find(function(c){ return c.id===chapterId; });
     if(!chapter) return;
 
-    var popup = window.open('', 'TypingWorld_vibrant_session', 'width=1100,height=750,resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no,status=no');
+    var popup = window.open('', 'TypingWorld_TM_Session', 'width=1000,height=650,resizable=yes,scrollbars=no,toolbar=no,menubar=no,location=no,status=no');
     if(!popup){ alert('Please allow pop-ups to start the session.'); return; }
 
-    var shellHtml = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+escapeHtml(chapter.title)+' - TypingWorld Practice Session</title><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet"><style>'+POPUP_CSS+'</style></head><body><div id="root"></div></body></html>';
+    var shellHtml = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>'+escapeHtml(chapter.title)+' - Typing Drill</title><style>'+POPUP_CSS+'</style></head><body><div id="root"></div></body></html>';
     popup.document.open(); popup.document.write(shellHtml); popup.document.close();
 
     var cfg = { chapterId: chapter.id, chapterTitle: chapter.title, text: chapter.text, duration: state.settings.timerDuration, soundEnabled: state.settings.soundEnabled };
@@ -570,29 +496,18 @@ document.addEventListener('keydown', function(e) {
     popup.document.body.appendChild(scriptEl);
 
     activePopup = popup;
-    renderLiveMonitor(); watchPopup();
+    watchPopup();
   }
 
   function watchPopup(){
     if(popupWatcherInterval) clearInterval(popupWatcherInterval);
     popupWatcherInterval = setInterval(function(){
-      if(activePopup && activePopup.closed){ clearInterval(popupWatcherInterval); activePopup = null; liveData = null; renderLiveMonitor(); }
+      if(activePopup && activePopup.closed){ clearInterval(popupWatcherInterval); activePopup = null; }
     }, 800);
   }
 
-  function renderLiveMonitor() {
-      // Stub function to prevent error since it was referenced but missing in previous snippet
-      var monitorCard = document.getElementById('liveMonitorCard');
-      if(liveData) {
-          monitorCard.classList.remove('hidden');
-          monitorCard.innerHTML = '<h3 class="text-base font-black text-[var(--text)] mb-3">Live Progress</h3><div class="flex gap-4"><div class="flex-1 bg-[var(--elev-2)] p-3 rounded-lg"><div class="text-xl font-bold">' + liveData.wpm + '</div><div class="text-[10px] text-[var(--text-dim)] uppercase">WPM</div></div></div>';
-      } else {
-          monitorCard.classList.add('hidden');
-      }
-  }
-
   window.__typingApp = {
-    receiveLiveUpdate: function(data){ liveData = data; renderLiveMonitor(); },
+    receiveLiveUpdate: function(data){ /* Could show live status if needed */ },
     receiveSessionResult: function(result){
       state.history.push(result);
       if(state.history.length>200) state.history = state.history.slice(-200);
@@ -606,10 +521,12 @@ document.addEventListener('keydown', function(e) {
           attempts: prev ? prev.attempts+1 : 1, completedAt: result.timestamp
         };
       }
-      saveState(); liveData = null; renderLifetimeStats(); renderSidebar(); renderMainPanel();
+      saveState(); 
+      renderApp(); // Auto refresh UI behind the popup
     }
   };
 
+  // ================= DATA FETCHING =================
   function loadChaptersFromSheet() {
     Papa.parse(SHEET_CSV_URL, {
       download: true,
@@ -617,43 +534,33 @@ document.addEventListener('keydown', function(e) {
       skipEmptyLines: true,
       complete: function(results) {
         CHAPTERS = results.data.map(function(row) {
-          return {
-            id: parseInt(row.id, 10) || 0,
-            title: row.title || 'Untitled Chapter',
-            text: row.text || ''
-          };
+          return { id: parseInt(row.id, 10) || 0, title: row.title || 'Untitled', text: row.text || '' };
         });
-        
         if (CHAPTERS.length > 0) {
-          selectedChapterId = CHAPTERS[0].id; 
           init();
         } else {
-          document.getElementById('mainPanel').innerHTML = '<div class="white-card p-10 text-center text-red-500 font-bold"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><h2>No chapters found in the Google Sheet.</h2></div>';
+          document.getElementById('mainPanel').innerHTML = '<div class="p-10 text-center text-red-500 font-bold"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><h2>No chapters found.</h2></div>';
         }
       },
       error: function(error) {
-        console.error("Sheet load error:", error);
-        document.getElementById('mainPanel').innerHTML = '<div class="white-card p-10 text-center text-red-500 font-bold"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><h2>Chapters load nahi ho paaye. Internet connection ya CSV link check karein.</h2></div>';
+        document.getElementById('mainPanel').innerHTML = '<div class="p-10 text-center text-red-500 font-bold"><i class="fa-solid fa-triangle-exclamation text-3xl mb-4"></i><h2>Failed to load chapters. Check CSV link.</h2></div>';
       }
     });
   }
 
   function init(){
     applySoundIcon();
-    renderLifetimeStats(); renderSidebar(); renderMainPanel();
+    renderApp();
     
     document.getElementById('soundToggle').addEventListener('click', function(){
       state.settings.soundEnabled = !state.settings.soundEnabled; saveState(); applySoundIcon();
     });
+    
     document.getElementById('resetBtn').addEventListener('click', function(){
-      if(confirm('Reset all your typing data? This action cannot be undone.')){
-        state = defaultState(); saveState(); selectedChapterId = CHAPTERS.length > 0 ? CHAPTERS[0].id : 1;
-        applySoundIcon(); renderLifetimeStats(); renderSidebar(); renderMainPanel();
+      if(confirm('Are you sure you want to reset all your progress and history?')){
+        state = defaultState(); saveState(); currentView = 'dashboard'; renderApp();
       }
     });
-    document.getElementById('sidebarToggle').addEventListener('click', openSidebarMobile);
-    document.getElementById('sidebarClose').addEventListener('click', closeSidebarMobile);
-    document.getElementById('sidebarBackdrop').addEventListener('click', closeSidebarMobile);
   }
 
   loadChaptersFromSheet();

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7406303288422612"
      crossorigin="anonymous"></script>
@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     
 <style>
     /* Text select na kar paaye */
@@ -26,7 +26,7 @@ body {
     // 1. Right-click disable karein
 document.addEventListener('contextmenu', event => event.preventDefault());
 
-// 2. Keyboard shortcuts disable karein (F12, Ctrl+Shift+I, Ctrl+U)
+// 2. Keyboard shortcuts disable karein
 document.addEventListener('keydown', function(e) {
     if (e.keyCode == 123) return false;
     if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
@@ -44,7 +44,6 @@ document.addEventListener('keydown', function(e) {
             --text-main: #111827;
             --text-muted: #6b7280;
             --primary: #2563eb;
-            --primary-hover: #1d4ed8;
             --gradient: linear-gradient(135deg, #2563eb, #3b82f6);
         }
 
@@ -87,12 +86,8 @@ document.addEventListener('keydown', function(e) {
             letter-spacing: -0.5px;
         }
 
-        .logo i {
-            font-size: 1.8rem;
-        }
-
        header img{
-            height:45px;
+            height: 45px;
        }
        
         /* === HERO SECTION === */
@@ -118,11 +113,14 @@ document.addEventListener('keydown', function(e) {
 
         /* === SEARCH BAR === */
         .search-container {
-            max-width: 480px;
+            max-width: 500px;
             margin: 0 auto;
             position: relative;
-            transition:0.3s;
+            transition: 0.3s;
         }
+       .search-container:hover {
+            transform: scale(1.05);
+       }
 
         .search-container i {
             position: absolute;
@@ -143,15 +141,11 @@ document.addEventListener('keydown', function(e) {
             transition: all 0.3s ease;
         }
 
-        #searchInput:focus {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
         /* === TOOLS GRID === */
         .tools-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
             padding: 50px 5%;
             max-width: 1300px;
             margin: 0 auto;
@@ -159,26 +153,29 @@ document.addEventListener('keydown', function(e) {
             width: 100%;
         }
 
-        /* === TOOL CARDS === */
+        /* === TOOL HORIZONTAL CARDS === */
         .card {
             position: relative;
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 30px 20px 25px;
-            text-align: center;
+            padding: 20px 25px;
+            text-align: left;
             border: 1px solid #e5e7eb;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
             transition: all 0.3s ease;
             overflow: hidden;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row; /* Horizontal layout */
+            align-items: center; /* Vertically center aligned */
+            justify-content: space-between;
+            gap: 15px;
             z-index: 1;
         }
 
         .card-icon {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
+            font-size: 2.2rem;
+            margin: 0;
+            flex-shrink: 0;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -186,8 +183,8 @@ document.addEventListener('keydown', function(e) {
             position: absolute;
             top: -20px;
             right: -20px;
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             opacity: 0.05;
             z-index: -1;
@@ -195,31 +192,27 @@ document.addEventListener('keydown', function(e) {
         }
 
         .card h2 {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: var(--text-main);
             font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .card > p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 20px;
+            margin: 0;
             flex-grow: 1;
+            line-height: 1.3;
         }
 
         /* === TOOL BUTTON === */
         .tool-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
+            display: inline-block;
+            width: auto;
+            padding: 10px 20px;
             color: white;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.95rem;
             border-radius: 8px;
             transition: opacity 0.3s ease, transform 0.2s ease;
-            margin-top: auto;
+            margin: 0;
+            flex-shrink: 0;
         }
 
         .tool-btn:hover {
@@ -228,7 +221,7 @@ document.addEventListener('keydown', function(e) {
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: transparent;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
@@ -238,7 +231,7 @@ document.addEventListener('keydown', function(e) {
         }
 
         .card:hover .card-icon-bg {
-            transform: scale(3.5);
+            transform: scale(2.5);
             opacity: 0.1;
         }
 
@@ -266,21 +259,6 @@ document.addEventListener('keydown', function(e) {
             gap: 15px;
         }
 
-        .footer-content p {
-            margin: 0;
-        }
-
-        footer a { 
-            color: #60a5fa; 
-            text-decoration: none; 
-            transition: color 0.3s ease;
-        }
-
-        footer a:hover { 
-            color: #93c5fd;
-            text-decoration: underline; 
-        }
-
         .footer-nav {
             display: flex;
             gap: 25px;
@@ -289,12 +267,8 @@ document.addEventListener('keydown', function(e) {
 
         .footer-nav a {
             color: #d1d5db; 
-            font-weight: 500;
-        }
-
-        .footer-nav a:hover {
-            color: #ffffff;
             text-decoration: none;
+            font-weight: 500;
         }
 
         /* === RESPONSIVE === */
@@ -302,31 +276,27 @@ document.addEventListener('keydown', function(e) {
             .hero { padding: 40px 15px; }
             .hero h1 { font-size: 2rem; }
             
-            /* CSS updated to show 2 cards per row */
+            /* 2 cards per row setup */
             .tools-container { 
-                gap: 15px; 
-                padding: 30px 10px; 
+                gap: 12px; 
+                padding: 25px 10px; 
                 grid-template-columns: repeat(2, 1fr); 
             }
             
-            /* Card sizes adjusted for mobile to prevent overlapping */
+            /* Tight horizontal layout for mobile 2 columns */
             .card {
-                padding: 20px 15px;
+                padding: 12px 10px;
+                gap: 8px;
             }
             .card-icon {
-                font-size: 2rem;
-                margin-bottom: 15px;
+                font-size: 1.5rem;
             }
             .card h2 {
-                font-size: 1rem;
-            }
-            .card > p {
-                font-size: 0.8rem;
-                margin-bottom: 15px;
+                font-size: 0.85rem;
             }
             .tool-btn {
-                padding: 10px;
-                font-size: 0.9rem;
+                padding: 8px 12px;
+                font-size: 0.8rem;
             }
 
             header { padding: 15px 20px; }
@@ -340,7 +310,16 @@ document.addEventListener('keydown', function(e) {
                 flex-wrap: wrap;
             }
         }
-   
+        @media (max-width: 480px) {
+            /* Extremely small screens adjustment */
+            .tool-btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            .card h2 {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -350,7 +329,7 @@ document.addEventListener('keydown', function(e) {
             <img src="pycodes.gif" alt="PyCodes Logo">
         </a>
        <a href="https://www.pycodes.in/about.html">
-          <button style="background:white; border:2px solid #2563eb; padding:10px; color:#2563eb; border-radius:50px; cursor:pointer;">About Us</button>
+          <button style="background:white; border:2px solid #2563eb; padding:8px 15px; color:#2563eb; border-radius:50px; cursor:pointer; font-weight:600;">About Us</button>
        </a>
     </header>
 
@@ -381,27 +360,12 @@ document.addEventListener('keydown', function(e) {
 
     <script>
         const toolsData = [
-            { 
-                name: "Online Compilers", desc: "Run Python, JS, C++ programs in-browser.", icon: "fa-solid fa-code", color: "#3b82f6"
-            }, 
-            { 
-                name: "SoftBox", desc: "Explore custom GUI tools & setups.", icon: "fa-solid fa-laptop-code", color: "#8b5cf6"
-            },
-             { 
-                name: "QR Generator", desc: "Create and scan dynamic QR codes.", icon: "fa-solid fa-qrcode", color: "#64748b"
-            },
-    
-            { 
-                name: "Pics Gallery", desc: "Download premium high-contrast images.", icon: "fa-solid fa-images", color: "#ec4899"
-            },
- 
-            { 
-                name: "Typing Test", desc: "Track and speed up typing WPM accurately.", icon: "fa-solid fa-keyboard", color: "limegreen"
-            },
-     
-            { 
-                name: "Tutorials", desc: "Stay updated with Coding Techniques.", icon: "fa-solid fa-blog", color: "crimson"
-            }
+            { name: "Online Compilers", icon: "fa-solid fa-code", color: "#3b82f6" }, 
+            { name: "SoftBox", icon: "fa-solid fa-laptop-code", color: "#8b5cf6" },
+            { name: "QR Generator", icon: "fa-solid fa-qrcode", color: "#64748b" },
+            { name: "Pics Gallery", icon: "fa-solid fa-images", color: "#ec4899" },
+            { name: "Typing Test", icon: "fa-solid fa-keyboard", color: "limegreen" },
+            { name: "Tutorials", icon: "fa-solid fa-blog", color: "crimson" }
         ];
 
         const toolsGrid = document.getElementById('toolsGrid');
@@ -422,15 +386,13 @@ document.addEventListener('keydown', function(e) {
                     card.style.boxShadow = '';
                 });
 
-                // How to use section removed from here
+                // Layout: Icon -> Name -> Launch Tool Button (Horizontal)
                 card.innerHTML = `
                     <div class="card-icon-bg" style="background-color: ${tool.color};"></div>
                     <i class="${tool.icon} card-icon" style="color: ${tool.color};"></i>
                     <h2>${tool.name}</h2>
-                    <p>${tool.desc}</p>
-                    
                     <a href="${toolURL}" class="tool-btn" style="background-color: ${tool.color};" title="Go to ${tool.name}">
-                        Launch Tool
+                        Launch
                     </a>
                 `;
                 toolsGrid.appendChild(card);

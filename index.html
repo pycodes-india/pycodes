@@ -7,18 +7,6 @@
      crossorigin="anonymous"></script>
     <title>PyCodes Tools Hub | Free Online Utility & Developer Tools</title>
     <meta name="description" content="Explore PyCodes.in free online tools. Use our Age Calculator, Resume Maker, YT Thumbnail Downloader, Image Converter, Online Compilers, and more.">
-    <meta name="keywords" content="PyCodes tools, online calculator, resume maker, image converter, online compiler, utility tools, free developer tools, free online tools, pycodes tools, developer tools online, all in one utility tools, free web utilities, pycodes in, age calculator online, exact age calculator, months and days calculator, date of birth calculator, youtube thumbnail downloader, hd thumbnail downloader, download yt thumbnails, video thumbnail grabber, free resume maker, ats friendly resume builder, cv maker online, professional resume generator, passport photo maker, online passport photo cropper, passport photo dimensions, software GUI tools, free software download website, high resolution photo downloader, premium image downloader, royalty free images downloader, music downloader free, high quality mp3 downloader, online audio downloader, simple interest calculator, compound interest calculator online, financial calculator online, online python compiler, javascript compiler online, c++ online compiler, run code in browser, browser based ide, trending hashtag generator, social media tag generator, instagram hashtag creator, image converter online, merge signatures online, image extension converter, jpeg to png converter, ai image enhancer, upscale image resolution, photo noise cleaner online, image clearer, qr code generator, dynamic qr code creator, free qr scanner, online typing software, typing speed tracker, wpm calculator online, fast typing test, online mock test, mca entrance mock test, up police exam mock test, police exam preparation online, english to hindi translator, seamless language translator, online dictionary, tech news blog, latest tech trends, developer news, daily utilities online, student tools online, free online tools for developers, best online utility website 2026">
-    <meta name="author" content="PyCodes.in">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.pycodes.in">
-
-    <meta property="og:title" content="PyCodes Tools Hub - Free Online Utility Tools">
-    <meta property="og:description" content="Access free online tools including Age Calculator, Resume Maker, and Image Converters at PyCodes.in.">
-    <meta property="og:url" content="https://www.pycodes.in">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://www.pycodes.in/assets/tools-banner.jpg"> <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="PyCodes Tools Hub">
-    <meta name="twitter:description" content="Access free online utility and developer tools at PyCodes.in.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,20 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
      <link rel="icon" type="image/png" href="favicon.png">
     
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "PyCodes Tools Hub",
-      "url": "https://www.pycodes.in",
-      "description": "Collection of free online utility and developer tools provided by PyCodes.in",
-      "publisher": {
-        "@type": "Organization",
-        "name": "PyCodes",
-        "url": "https://www.pycodes.in"
-      }
-    }
-    </script>
 <style>
     /* Text select na kar paaye */
 body {
@@ -54,22 +28,12 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 
 // 2. Keyboard shortcuts disable karein (F12, Ctrl+Shift+I, Ctrl+U)
 document.addEventListener('keydown', function(e) {
-    // F12 key
     if (e.keyCode == 123) return false;
-    
-    // Ctrl + Shift + I
     if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-    
-    // Ctrl + Shift + C
     if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
-    
-    // Ctrl + Shift + J
     if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
-    
-    // Ctrl + U (View Source)
     if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
 });
-
 </script>
 
     <style>
@@ -98,12 +62,7 @@ document.addEventListener('keydown', function(e) {
             flex-direction: column;
             min-height: 100vh;
         }
-/* Text select na kar paaye */
-body {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
+
         /* === HEADER === */
         header {
             display: flex;
@@ -134,8 +93,8 @@ body {
 
        header img{
             height:45px;
-           
        }
+       
         /* === HERO SECTION === */
         .hero {
             text-align: center;
@@ -249,27 +208,8 @@ body {
             font-size: 0.95rem;
             color: var(--text-muted);
             line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        /* === HOW TO USE SECTION === */
-        .how-to-use {
-            background-color: #f8fafc;
-            border: 1px solid #f1f5f9;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: #475569;
-            text-align: left;
-            width: 100%;
             margin-bottom: 20px;
-            flex-grow: 1; /* Pushes the button to the bottom evenly */
-        }
-
-        .how-to-use strong {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
+            flex-grow: 1;
         }
 
         /* === TOOL BUTTON === */
@@ -364,7 +304,34 @@ body {
         @media (max-width: 768px) {
             .hero { padding: 40px 15px; }
             .hero h1 { font-size: 2rem; }
-            .tools-container { gap: 15px; padding: 30px 5%; grid-template-columns: 1fr; }
+            
+            /* CSS updated to show 2 cards per row */
+            .tools-container { 
+                gap: 15px; 
+                padding: 30px 10px; 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            
+            /* Card sizes adjusted for mobile to prevent overlapping */
+            .card {
+                padding: 20px 15px;
+            }
+            .card-icon {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+            .card h2 {
+                font-size: 1rem;
+            }
+            .card > p {
+                font-size: 0.8rem;
+                margin-bottom: 15px;
+            }
+            .tool-btn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
             header { padding: 15px 20px; }
             .footer-content {
                 flex-direction: column; 
@@ -383,15 +350,14 @@ body {
 
     <header>
         <a href="https://www.pycodes.in" class="logo" aria-label="PyCodes Home">
-            <img src="pycodes.gif">
+            <img src="pycodes.gif" alt="PyCodes Logo">
         </a>
        <a href="https://www.pycodes.in/about.html">
-          <button style="background:white; border:2px solid #2563eb; padding:10px; color:#2563eb; border-radius:50px;">About Us</button>
+          <button style="background:white; border:2px solid #2563eb; padding:10px; color:#2563eb; border-radius:50px; cursor:pointer;">About Us</button>
        </a>
     </header>
 
     <section class="hero">
-
         <h1>Free Online Developer & Utility Tools</h1>
         <p>Boost your productivity with our collection of fast, free, and secure online tools. Search below to get started.</p>
         
@@ -399,14 +365,11 @@ body {
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" id="searchInput" aria-label="Search tools" placeholder="Search for tools">
         </div>
-  
     </section>
  
     <main class="tools-container" id="toolsGrid">
-           
-        </main>
-
-
+            
+    </main>
 
     <footer>
         <div class="footer-content">
@@ -420,53 +383,27 @@ body {
     </footer>
 
     <script>
-        // 1. Right-click disable karein
-document.addEventListener('contextmenu', event => event.preventDefault());
-
-// 2. Keyboard shortcuts disable karein (F12, Ctrl+Shift+I, Ctrl+U)
-document.addEventListener('keydown', function(e) {
-    // F12 key
-    if (e.keyCode == 123) return false;
-    
-    // Ctrl + Shift + I
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-    
-    // Ctrl + Shift + C
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
-    
-    // Ctrl + Shift + J
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
-    
-    // Ctrl + U (View Source)
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
-});
         const toolsData = [
             { 
-                name: "Online Compilers", desc: "Run Python, JS, C++ programs in-browser.", icon: "fa-solid fa-code", color: "#3b82f6",
-                howTo: "Select your programming language, type or paste your code into the editor, and hit 'Run' to see the output."
+                name: "Online Compilers", desc: "Run Python, JS, C++ programs in-browser.", icon: "fa-solid fa-code", color: "#3b82f6"
             }, 
             { 
-                name: "SoftBox", desc: "Explore custom GUI tools & setups.", icon: "fa-solid fa-laptop-code", color: "#8b5cf6",
-                howTo: "Browse our software catalog, select the utility you need, and click download for your operating system."
+                name: "SoftBox", desc: "Explore custom GUI tools & setups.", icon: "fa-solid fa-laptop-code", color: "#8b5cf6"
             },
              { 
-                name: "QR Generator", desc: "Create and scan dynamic QR codes.", icon: "fa-solid fa-qrcode", color: "#64748b",
-                howTo: "Enter any text or website URL in the box, and download the automatically generated QR code image."
+                name: "QR Generator", desc: "Create and scan dynamic QR codes.", icon: "fa-solid fa-qrcode", color: "#64748b"
             },
     
             { 
-                name: "Pics Gallery", desc: "Download premium high-contrast images.", icon: "fa-solid fa-images", color: "#ec4899",
-                howTo: "Search for a keyword, browse the high-resolution images, and click on any image to download it for free."
+                name: "Pics Gallery", desc: "Download premium high-contrast images.", icon: "fa-solid fa-images", color: "#ec4899"
             },
  
             { 
-                name: "Typing Test", desc: "Track and speed up typing WPM accurately.", icon: "fa-solid fa-keyboard", color: "limegreen",
-                howTo: "Start typing the given paragraph. The timer tracks your speed automatically and calculates your final Words Per Minute (WPM)."
+                name: "Typing Test", desc: "Track and speed up typing WPM accurately.", icon: "fa-solid fa-keyboard", color: "limegreen"
             },
      
             { 
-                name: "Tutorials", desc: "Stay updated with Coding Techniques.", icon: "fa-solid fa-blog", color: "crimson",
-                howTo: "Browse categories, select a tutorial topic, and follow our step-by-step programming guides to learn easily."
+                name: "Tutorials", desc: "Stay updated with Coding Techniques.", icon: "fa-solid fa-blog", color: "crimson"
             }
         ];
 
@@ -474,7 +411,6 @@ document.addEventListener('keydown', function(e) {
 
         function initTools() {
             toolsData.forEach(tool => {
-                // Generate SEO-friendly URLs (e.g., "Age Calculator" -> "age-calculator.html")
                 const toolSlug = tool.name.toLowerCase().replace(/ /g, '-');
                 const toolURL = `https://www.pycodes.in/${toolSlug}`;
 
@@ -482,7 +418,6 @@ document.addEventListener('keydown', function(e) {
                 card.className = 'card';
                 card.setAttribute('data-name', tool.name.toLowerCase());
 
-                // Hover Effects via JS for shadow
                 card.addEventListener('mouseenter', () => {
                     card.style.boxShadow = `0 15px 30px ${tool.color}33`; 
                 });
@@ -490,16 +425,12 @@ document.addEventListener('keydown', function(e) {
                     card.style.boxShadow = '';
                 });
 
+                // How to use section removed from here
                 card.innerHTML = `
                     <div class="card-icon-bg" style="background-color: ${tool.color};"></div>
                     <i class="${tool.icon} card-icon" style="color: ${tool.color};"></i>
                     <h2>${tool.name}</h2>
                     <p>${tool.desc}</p>
-                    
-                    <div class="how-to-use" style="border-left: 3px solid ${tool.color};">
-                        <strong style="color: ${tool.color};"><i class="fa-solid fa-circle-info"></i> How to use:</strong> 
-                        ${tool.howTo}
-                    </div>
                     
                     <a href="${toolURL}" class="tool-btn" style="background-color: ${tool.color};" title="Go to ${tool.name}">
                         Launch Tool

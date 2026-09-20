@@ -39,15 +39,16 @@ document.addEventListener('keydown', function(e) {
 <style>
 /* ---------- Tokens ---------- */
 :root {
-  --bg: #f5f5f7;
-  --surface: #ffffff;
-  --surface-hover: #fafafc;
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --surface-hover: #ececf1;
   --text: #1d1d1f;
   --text-2: #6e6e73;
   --hairline: rgba(0, 0, 0, .1);
   --accent: #2563eb;
   --accent-text: #1d4ed8;
-  --nav-bg: rgba(245, 245, 247, .8);
+  --nav-bg: rgba(255, 255, 255, .8);
 
   /* Tool colours (carried over from your current site) */
   --blue:   #3b82f6;
@@ -61,27 +62,6 @@ document.addEventListener('keydown', function(e) {
   --ease: cubic-bezier(.2, .8, .2, 1);
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
           "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000000;
-    --surface: #1c1c1e;
-    --surface-hover: #242426;
-    --text: #f5f5f7;
-    --text-2: #a1a1a6;
-    --hairline: rgba(255, 255, 255, .14);
-    --accent: #4f8dff;
-    --accent-text: #7fb0ff;
-    --nav-bg: rgba(0, 0, 0, .72);
-
-    --blue:   #4f8dff;
-    --violet: #a07bff;
-    --slate:  #7b8aa0;
-    --pink:   #f0619f;
-    --green:  #34c759;
-    --red:    #ef4444;
-  }
 }
 
 /* ---------- Base ---------- */
@@ -203,7 +183,7 @@ main { flex: 1 0 auto; padding-bottom: 72px; }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin: 0;
   padding: 0;
@@ -221,7 +201,7 @@ main { flex: 1 0 auto; padding-bottom: 72px; }
   background: var(--surface);
   transition: background-color .2s var(--ease), transform .15s var(--ease);
 }
-.card:hover { background: var(--surface-hover); }
+@media (hover: hover) { .card:hover { background: var(--surface-hover); } }
 .card:active { transform: scale(.98); }
 
 .tile {
@@ -275,7 +255,7 @@ main { flex: 1 0 auto; padding-bottom: 72px; }
   stroke-linejoin: round;
   transition: transform .2s var(--ease);
 }
-.card:hover .open svg { transform: translateX(3px); }
+@media (hover: hover) { .card:hover .open svg { transform: translateX(3px); } }
 
 .t-blue   { --tint: var(--blue); }
 .t-violet { --tint: var(--violet); }
@@ -303,9 +283,43 @@ footer nav { display: flex; gap: 20px; }
 footer a { display: inline-flex; align-items: center; min-height: 44px; }
 footer a:hover { color: var(--text); text-decoration: underline; }
 
+/* ---------- Responsive ---------- */
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card { min-height: 190px; }
+}
+
+/* Phone: 1 column, compact horizontal rows */
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .card {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    grid-template-rows: auto auto;
+    align-content: center;
+    column-gap: 16px;
+    row-gap: 2px;
+    min-height: 88px;
+    padding: 16px;
+    border-radius: 18px;
+  }
+  .tile { grid-row: 1 / span 2; margin: 0; align-self: center; }
+  .card strong { font-size: 1.125rem; align-self: end; }
+  .card .desc { font-size: .9375rem; align-self: start; }
+  .card .open { display: none; }   /* whole card is tappable */
+
+  .hero h1 { max-width: 12ch; }
+  footer .wrap { flex-direction: column; align-items: flex-start; }
+}
+
+/* Small phones: logo is the Home link, so hide the duplicate */
 @media (max-width: 480px) {
   .nav ul a { padding: 0 10px; }
-  .card { min-height: 0; }
+  .nav li.home { display: none; }
+  .brand img { height: 32px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -330,7 +344,7 @@ footer a:hover { color: var(--text); text-decoration: underline; }
     </a>
     <nav aria-label="Primary">
       <ul>
-        <li><a href="https://www.pycodes.in" aria-current="page">Home</a></li>
+        <li class="home"><a href="https://www.pycodes.in" aria-current="page">Home</a></li>
         <li><a href="https://www.pycodes.in/tutorials">Tutorials</a></li>
         <li><a href="https://www.pycodes.in/about.html">About us</a></li>
       </ul>

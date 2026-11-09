@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
     <!-- Anti-Cache Headers -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="icon" type="image/png" href="favicon.png?v=3.0">
+    <link rel="icon" type="image/png" href="favicon.png?v=4.0">
     
 <style>
     /* Text select na kar paaye */
@@ -45,7 +45,7 @@ document.addEventListener('keydown', function(e) {
 
 <style>
 /* ==========================================================================
-   3D CANDY CLAY + DEEP NAVY THEME
+   FLUID RESPONSIVE SYSTEM & 3D CLAY TOKENS
    ========================================================================== */
 :root {
   --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -81,7 +81,11 @@ document.addEventListener('keydown', function(e) {
   --c-orange-shadow: rgba(207, 98, 4, 0.45);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0;
+  padding: 0;
+}
 
 html {
   scroll-behavior: smooth;
@@ -89,7 +93,6 @@ html {
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -97,6 +100,7 @@ body {
   background-image: 
     radial-gradient(ellipse at 50% 0%, #152655 0%, transparent 65%),
     radial-gradient(ellipse at 80% 80%, #0e1e46 0%, transparent 50%);
+  background-attachment: fixed;
   color: #ffffff;
   font-family: var(--font-main);
   font-size: 15px;
@@ -107,15 +111,15 @@ body {
 
 .wrap {
   width: 100%;
-  max-width: 1140px;
+  max-width: 1200px;
   margin-inline: auto;
-  padding-inline: 20px;
+  padding-inline: clamp(14px, 4vw, 28px);
 }
 
 .skip {
   position: absolute;
   left: 20px;
-  top: -80px;
+  top: -100px;
   z-index: 999;
   padding: 10px 20px;
   border-radius: 999px;
@@ -123,49 +127,44 @@ body {
   color: #0b142e;
   font-weight: 800;
   text-decoration: none;
+  transition: top 0.2s ease;
 }
 .skip:focus { top: 20px; }
 
-/* ---------- 3D Capsule Navigation ---------- */
+/* ---------- Navigation ---------- */
 .nav {
   position: sticky;
-  top: 16px;
+  top: clamp(8px, 2vw, 16px);
   z-index: 100;
-  margin-bottom: 24px;
+  margin-bottom: clamp(16px, 3vw, 28px);
 }
 
 .nav .wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 64px;
-  background: rgba(13, 24, 54, 0.85);
+  min-height: clamp(54px, 7vw, 66px);
+  background: rgba(13, 24, 54, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-  padding: 8px 16px;
+  padding: 6px clamp(10px, 2vw, 20px);
 }
 
-/* 3D Stylized Brand Text (Replaced GIF) */
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
   text-decoration: none;
-  padding: 4px 10px;
   border-radius: 14px;
   transition: transform 0.15s ease;
 }
-
-.brand:hover {
-  transform: translateY(-2px);
-}
+.brand:hover { transform: translateY(-2px); }
 
 .brand-text {
   font-family: var(--font-main);
-  font-size: 1.6rem;
+  font-size: clamp(1.3rem, 2.5vw, 1.65rem);
   font-weight: 900;
   letter-spacing: -0.02em;
   color: #ffffff;
@@ -180,24 +179,23 @@ body {
 .nav ul {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
+  gap: clamp(4px, 1vw, 10px);
   list-style: none;
 }
 
 .nav ul a {
   display: inline-flex;
   align-items: center;
-  padding: 8px 18px;
+  padding: clamp(6px, 1.2vw, 8px) clamp(10px, 1.8vw, 18px);
   border-radius: 999px;
-  font-size: 0.88rem;
+  font-size: clamp(0.78rem, 1.2vw, 0.88rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: #d8e5ff;
   text-decoration: none;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .nav ul a:hover {
@@ -208,13 +206,13 @@ body {
 .nav ul a[aria-current="page"] {
   background: var(--c-purple-top);
   color: #ffffff;
-  box-shadow: 0 5px 0 var(--c-purple-base), 0 8px 16px var(--c-purple-shadow);
+  box-shadow: 0 4px 0 var(--c-purple-base), 0 6px 14px var(--c-purple-shadow);
   transform: translateY(-2px);
 }
 
 /* ---------- Hero Section ---------- */
 .hero {
-  padding: 40px 0 24px;
+  padding: clamp(24px, 5vw, 44px) 0 clamp(16px, 3vw, 24px);
   text-align: center;
 }
 
@@ -222,22 +220,22 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 18px;
+  padding: 6px 16px;
   border-radius: 999px;
   background: var(--c-cyan-top);
   color: #07353b;
   font-weight: 900;
-  font-size: 0.82rem;
+  font-size: clamp(0.74rem, 1.2vw, 0.82rem);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  box-shadow: 0 5px 0 var(--c-cyan-base), 0 10px 20px var(--c-cyan-shadow);
-  margin-bottom: 22px;
+  box-shadow: 0 4px 0 var(--c-cyan-base), 0 8px 16px var(--c-cyan-shadow);
+  margin-bottom: clamp(14px, 3vw, 22px);
 }
 
 .hero h1 {
   margin: 0 auto;
-  max-width: 18ch;
-  font-size: clamp(2.2rem, 1.8rem + 3.2vw, 3.8rem);
+  max-width: 22ch;
+  font-size: clamp(1.8rem, 4.5vw, 3.6rem);
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -246,20 +244,21 @@ body {
 }
 
 .hero p {
-  margin: 16px auto 0;
-  max-width: 580px;
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.2rem);
+  margin: 14px auto 0;
+  max-width: 600px;
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
   color: #9cb3db;
   font-weight: 500;
+  line-height: 1.6;
 }
 
-/* ---------- 3D Search & Filter Pill Controls ---------- */
+/* ---------- 3D Search & Filter Toolbar ---------- */
 .filter-toolbar {
-  max-width: 700px;
-  margin: 34px auto 0;
+  max-width: 680px;
+  margin: clamp(24px, 4vw, 36px) auto 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   align-items: center;
 }
 
@@ -272,25 +271,25 @@ body {
 
 .search-box svg {
   position: absolute;
-  left: 20px;
-  width: 20px;
-  height: 20px;
+  left: 18px;
+  width: 18px;
+  height: 18px;
   color: #5d75a8;
   pointer-events: none;
 }
 
 .search-input {
   width: 100%;
-  padding: 16px 20px 16px 52px;
+  padding: clamp(12px, 2.2vw, 15px) 18px clamp(12px, 2.2vw, 15px) 48px;
   font-family: inherit;
-  font-size: 0.96rem;
+  font-size: clamp(0.88rem, 1.4vw, 0.96rem);
   font-weight: 600;
   border-radius: 999px;
   border: 2px solid rgba(255, 255, 255, 0.12);
   background: #081026;
   color: #ffffff;
   outline: none;
-  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.5), 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.5), 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
 }
 
@@ -305,59 +304,62 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 8px clamp(8px, 1.5vw, 12px);
+  width: 100%;
 }
 
 .chip-btn {
   background: #14234b;
   border: none;
-  padding: 9px 20px;
+  padding: 8px clamp(14px, 2vw, 20px);
   border-radius: 999px;
   font-family: var(--font-main);
-  font-size: 0.82rem;
+  font-size: clamp(0.74rem, 1.2vw, 0.82rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #9cb3db;
   cursor: pointer;
-  box-shadow: 0 5px 0 #09132e, 0 8px 14px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 0 #09132e, 0 6px 12px rgba(0, 0, 0, 0.3);
   transition: all 0.12s ease;
-  position: relative;
-  top: 0;
+  white-space: nowrap;
 }
 
 .chip-btn:hover {
   color: #ffffff;
   background: #1c3065;
   transform: translateY(-2px);
-  box-shadow: 0 7px 0 #09132e, 0 10px 18px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 0 #09132e, 0 8px 16px rgba(0, 0, 0, 0.35);
 }
 
 .chip-btn:active {
-  top: 4px;
-  box-shadow: 0 1px 0 #09132e, 0 2px 6px rgba(0, 0, 0, 0.4);
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #09132e, 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .chip-btn.active {
   background: var(--c-green-top);
   color: #053b1b;
-  box-shadow: 0 5px 0 var(--c-green-base), 0 8px 18px var(--c-green-shadow);
+  box-shadow: 0 4px 0 var(--c-green-base), 0 6px 14px var(--c-green-shadow);
 }
 
 /* ==========================================================================
-   3D CANDY CLAY CARDS
+   RESPONSIVE 3D BENTO GRID (Laptop / Tablet / Mobile)
    ========================================================================== */
-main { flex: 1 0 auto; padding-bottom: 60px; }
+main { 
+  flex: 1 0 auto; 
+  padding-bottom: clamp(36px, 6vw, 64px); 
+}
 
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 24px;
+  gap: clamp(14px, 2.2vw, 24px);
   list-style: none;
-  padding: 0;
-  margin: 36px 0 0;
+  margin-top: clamp(24px, 4vw, 36px);
 }
 
+/* PC / Laptop Spans (12-column Bento) */
 .bento-grid li:nth-child(1) { grid-column: span 7; }
 .bento-grid li:nth-child(2) { grid-column: span 5; }
 .bento-grid li:nth-child(3) { grid-column: span 4; }
@@ -365,57 +367,60 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 .bento-grid li:nth-child(5) { grid-column: span 4; }
 .bento-grid li:nth-child(6) { grid-column: span 12; }
 
+/* 3D Clay Card Architecture */
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 240px;
-  padding: 28px;
-  border-radius: 28px;
+  min-height: 220px;
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: clamp(20px, 3vw, 28px);
   background: var(--card-top);
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 
-    0 12px 0 var(--card-base),
-    0 22px 30px var(--card-shadow);
+    0 10px 0 var(--card-base),
+    0 18px 26px var(--card-shadow);
   text-decoration: none;
   color: #ffffff;
   overflow: hidden;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  top: 0;
 }
 
 .card::after {
   content: "";
   position: absolute;
-  top: 6px;
-  left: 14px;
-  right: 14px;
-  height: 38%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 100%);
-  border-radius: 22px 22px 100px 100px;
+  top: 5px;
+  left: 12px;
+  right: 12px;
+  height: 36%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border-radius: 18px 18px 90px 90px;
   pointer-events: none;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 
-    0 16px 0 var(--card-base),
-    0 28px 36px var(--card-shadow);
+/* Hover only on non-touch screens */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 14px 0 var(--card-base),
+      0 24px 32px var(--card-shadow);
+  }
 }
 
 .card:active {
-  transform: translateY(8px);
+  transform: translateY(6px);
   box-shadow: 
     0 4px 0 var(--card-base),
-    0 10px 16px var(--card-shadow);
+    0 8px 14px var(--card-shadow);
 }
 
 .card-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   position: relative;
   z-index: 2;
 }
@@ -423,9 +428,9 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 .tile {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 18px;
+  width: clamp(44px, 5.5vw, 52px);
+  height: clamp(44px, 5.5vw, 52px);
+  border-radius: clamp(14px, 2vw, 18px);
   background: rgba(0, 0, 0, 0.18);
   border-top: 1px solid rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid rgba(255, 255, 255, 0.35);
@@ -434,8 +439,8 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 }
 
 .tile svg {
-  width: 26px;
-  height: 26px;
+  width: clamp(22px, 3vw, 26px);
+  height: clamp(22px, 3vw, 26px);
   stroke-width: 2.3;
   stroke: currentColor;
   fill: none;
@@ -446,14 +451,15 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 
 .badge {
   font-family: var(--font-code);
-  font-size: 0.74rem;
+  font-size: clamp(0.68rem, 1vw, 0.74rem);
   font-weight: 700;
-  padding: 5px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.22);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
 }
 
 .card-body {
@@ -464,7 +470,7 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 
 .card strong {
   display: block;
-  font-size: 1.45rem;
+  font-size: clamp(1.2rem, 2.2vw, 1.45rem);
   font-weight: 900;
   letter-spacing: -0.02em;
   color: #ffffff;
@@ -473,9 +479,9 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 }
 
 .card .desc {
-  font-size: 0.95rem;
+  font-size: clamp(0.88rem, 1.3vw, 0.95rem);
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.94);
   font-weight: 500;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
@@ -484,73 +490,77 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 24px;
-  padding-top: 16px;
+  margin-top: clamp(16px, 2.5vw, 24px);
+  padding-top: clamp(12px, 2vw, 16px);
   border-top: 2px solid rgba(255, 255, 255, 0.2);
   position: relative;
   z-index: 2;
+  gap: 10px;
 }
 
 .card .category-label {
-  font-size: 0.78rem;
+  font-size: clamp(0.7rem, 1vw, 0.78rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
 }
 
-/* 3D "Open" Action Buttons */
+/* 3D Action Buttons */
 .card .btn-3d {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 24px;
+  gap: 6px;
+  padding: 8px clamp(16px, 2.5vw, 24px);
   border-radius: 999px;
-  font-size: 0.88rem;
+  font-size: clamp(0.8rem, 1.2vw, 0.88rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #ffffff;
   background: var(--btn-top);
-  box-shadow: 0 5px 0 var(--btn-base), 0 8px 14px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 0 var(--btn-base), 0 6px 12px rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.3);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   transition: all 0.12s ease;
-  position: relative;
+  white-space: nowrap;
 }
 
-.card:hover .btn-3d {
-  transform: translateY(-2px);
-  box-shadow: 0 7px 0 var(--btn-base), 0 10px 18px rgba(0, 0, 0, 0.4);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .btn-3d {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--btn-base), 0 8px 16px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .card:active .btn-3d {
-  transform: translateY(4px);
-  box-shadow: 0 1px 0 var(--btn-base), 0 3px 6px rgba(0, 0, 0, 0.45);
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--btn-base), 0 2px 4px rgba(0, 0, 0, 0.45);
 }
 
 .btn-3d svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   stroke-width: 3;
   stroke: currentColor;
   fill: none;
 }
 
-/* Bento Item 6 */
+/* Bento Horizontal Row Item (Item 6) */
 .bento-grid li:nth-child(6) .card {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  min-height: 130px;
-  padding: 24px 34px;
+  min-height: 120px;
+  padding: 22px clamp(20px, 3vw, 34px);
 }
 
 .bento-grid li:nth-child(6) .card-header-group {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: clamp(14px, 2.5vw, 22px);
   position: relative;
   z-index: 2;
 }
@@ -560,10 +570,11 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   margin: 0;
   padding: 0;
   border: none;
-  gap: 18px;
+  gap: 16px;
+  flex-shrink: 0;
 }
 
-/* Color Palette Assignment */
+/* Theme Palettes */
 .theme-blue {
   --card-top: var(--c-blue-top);
   --card-base: var(--c-blue-base);
@@ -571,7 +582,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-top: #1555ab;
   --btn-base: #0d3873;
 }
-
 .theme-purple {
   --card-top: var(--c-purple-top);
   --card-base: var(--c-purple-base);
@@ -579,7 +589,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-top: #4812a6;
   --btn-base: #300a74;
 }
-
 .theme-orange {
   --card-top: var(--c-orange-top);
   --card-base: var(--c-orange-base);
@@ -587,7 +596,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-top: #a64c00;
   --btn-base: #733400;
 }
-
 .theme-pink {
   --card-top: var(--c-red-top);
   --card-base: var(--c-red-base);
@@ -595,7 +603,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-top: #9c0f33;
   --btn-base: #690820;
 }
-
 .theme-green {
   --card-top: var(--c-green-top);
   --card-base: var(--c-green-base);
@@ -603,7 +610,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-top: #0a733a;
   --btn-base: #054f26;
 }
-
 .theme-cyan {
   --card-top: var(--c-cyan-top);
   --card-base: var(--c-cyan-base);
@@ -613,46 +619,43 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 }
 
 /* ==========================================================================
-   3D CHUNKY AD SECTION (Extruded Clay Frame)
+   RESPONSIVE AD SECTION (Horizontal Scroll Protection)
    ========================================================================== */
 .ad-section {
   position: relative;
   background: #14244f;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 28px;
-  padding: 20px;
-  max-width: 1140px;
-  margin: 30px auto 46px;
+  border-radius: clamp(20px, 3vw, 28px);
+  padding: clamp(14px, 2.5vw, 20px);
+  max-width: 1200px;
+  margin: clamp(20px, 3vw, 30px) auto clamp(24px, 4vw, 40px);
   box-shadow: 
-    0 10px 0 #09132e,
-    0 18px 28px rgba(0, 0, 0, 0.45);
+    0 8px 0 #09132e,
+    0 16px 24px rgba(0, 0, 0, 0.45);
   text-align: center;
   overflow: hidden;
 }
 
-.ad-section::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 20px;
-  right: 20px;
-  height: 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 100%);
-  border-radius: 18px 18px 60px 60px;
-  pointer-events: none;
+.ad-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .ad-badge {
   display: inline-block;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-family: var(--font-code);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #7991be;
   background: rgba(0, 0, 0, 0.25);
-  padding: 3px 12px;
+  padding: 2px 10px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -661,8 +664,8 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 footer {
   border-top: 2px solid rgba(255, 255, 255, 0.08);
   background: var(--bg-darker);
-  padding: 32px 0;
-  font-size: 0.9rem;
+  padding: clamp(20px, 4vw, 32px) 0;
+  font-size: clamp(0.82rem, 1.2vw, 0.9rem);
   color: #7991be;
 }
 
@@ -682,18 +685,49 @@ footer a {
   transition: color 0.2s ease;
 }
 footer a:hover { color: var(--c-cyan-top); }
-footer nav { display: flex; gap: 20px; }
+footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
 
-/* ---------- Responsive Adjustments ---------- */
-@media (max-width: 992px) {
-  .bento-grid li:nth-child(n) { grid-column: span 6; }
-  .bento-grid li:nth-child(6) { grid-column: span 12; }
+/* ==========================================================================
+   BREAKPOINTS: LAPTOP, TABLET & MOBILE MEDIA QUERIES
+   ========================================================================== */
+
+/* 1. Laptops & Small Desktops (992px to 1180px) */
+@media (max-width: 1180px) {
+  .bento-grid li:nth-child(1) { grid-column: span 7; }
+  .bento-grid li:nth-child(2) { grid-column: span 5; }
+  .bento-grid li:nth-child(3),
+  .bento-grid li:nth-child(4),
+  .bento-grid li:nth-child(5) { grid-column: span 4; }
 }
 
+/* 2. Tablets & iPads (768px to 992px) */
+@media (max-width: 992px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-grid li:nth-child(1),
+  .bento-grid li:nth-child(2),
+  .bento-grid li:nth-child(3),
+  .bento-grid li:nth-child(4),
+  .bento-grid li:nth-child(5) {
+    grid-column: span 1;
+  }
+  .bento-grid li:nth-child(6) {
+    grid-column: span 2;
+  }
+}
+
+/* 3. Phablets & Large Mobiles (540px to 768px) */
 @media (max-width: 768px) {
-  .bento-grid { grid-template-columns: 1fr; gap: 20px; }
-  .bento-grid li:nth-child(n) { grid-column: span 1; }
-  
+  .bento-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .bento-grid li:nth-child(n) {
+    grid-column: span 1 !important;
+  }
+
+  /* Transform Item 6 from horizontal to vertical card on smaller screens */
   .bento-grid li:nth-child(6) .card {
     flex-direction: column;
     align-items: flex-start;
@@ -702,18 +736,88 @@ footer nav { display: flex; gap: 20px; }
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
+    width: 100%;
   }
   .bento-grid li:nth-child(6) .card-foot {
     width: 100%;
-    margin-top: 20px;
-    padding-top: 16px;
+    margin-top: 18px;
+    padding-top: 14px;
     border-top: 2px solid rgba(255, 255, 255, 0.2);
   }
 
-  .hero h1 { font-size: 2.1rem; }
-  .nav { top: 8px; }
-  .nav .wrap { border-radius: 24px; }
-  footer .wrap { flex-direction: column; align-items: center; text-align: center; }
+  .nav .wrap {
+    padding-inline: 12px;
+  }
+
+  footer .wrap {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+}
+
+/* 4. Standard & Small Mobiles (Below 540px) */
+@media (max-width: 540px) {
+  .nav {
+    top: 6px;
+    margin-bottom: 16px;
+  }
+  .nav ul a {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+
+  .card {
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .card-top {
+    margin-bottom: 12px;
+  }
+
+  .card-foot {
+    margin-top: 14px;
+    padding-top: 12px;
+  }
+
+  /* Touch-friendly full-width action button on small devices */
+  .card .btn-3d {
+    width: 100%;
+    padding: 10px 16px;
+    justify-content: center;
+  }
+
+  .card-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .card .category-label {
+    align-self: flex-start;
+  }
+
+  .category-chips {
+    gap: 6px;
+  }
+
+  .chip-btn {
+    padding: 6px 12px;
+    font-size: 0.72rem;
+  }
+}
+
+/* 5. Ultra-small Mobiles (360px and below) */
+@media (max-width: 380px) {
+  .brand-text {
+    font-size: 1.2rem;
+  }
+  .nav ul a {
+    padding: 5px 8px;
+    font-size: 0.7rem;
+  }
 }
 </style>
 </head>
@@ -898,19 +1002,21 @@ footer nav { display: flex; gap: 20px; }
   </ul>
 </main>
 
-<!-- 3D Chunky Styled Ad Section -->
+<!-- Responsive 3D Ad Section with Scroll Shield -->
 <div class="ad-section">
-  <div class="ad-badge">Sponsored</div>
-  <script>
-    atOptions = {
-      'key' : '106debe0cf308ecf70013bfb995d1c64',
-      'format' : 'iframe',
-      'height' : 90,
-      'width' : 728,
-      'params' : {}
-    };
-  </script>
-  <script src="https://www.highrevenueformat.com/106debe0cf308ecf70013bfb995d1c64/invoke.js"></script>
+ 
+  <div class="ad-wrapper">
+    <script>
+      atOptions = {
+        'key' : '106debe0cf308ecf70013bfb995d1c64',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highrevenueformat.com/106debe0cf308ecf70013bfb995d1c64/invoke.js"></script>
+  </div>
 </div>
 
 <footer>

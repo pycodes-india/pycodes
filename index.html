@@ -45,44 +45,37 @@ document.addEventListener('keydown', function(e) {
 
 <style>
 /* ==========================================================================
-   3D CANDY CLAY + DEEP NAVY GAMIFIED THEME
-   (Derived from 3D pill reference images)
+   3D CANDY CLAY + DEEP NAVY THEME
    ========================================================================== */
 :root {
   --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-code: 'JetBrains Mono', monospace;
 
-  /* Deep Matte Navy Backdrop from Reference 2 */
+  /* Deep Matte Navy Backdrop */
   --bg-deep-blue: #0b142e;
   --bg-darker: #070d1f;
 
-  /* 3D Candy Color Palettes (Top color, Darker extruded base color, Glow) */
-  /* Blue */
+  /* 3D Candy Color Palettes */
   --c-blue-top: #3ea2ff;
   --c-blue-base: #1d6ed8;
   --c-blue-shadow: rgba(29, 110, 216, 0.45);
 
-  /* Purple */
   --c-purple-top: #8b3dff;
   --c-purple-base: #5a1ec4;
   --c-purple-shadow: rgba(90, 30, 196, 0.45);
 
-  /* Cyan / Teal */
   --c-cyan-top: #38c8d8;
   --c-cyan-base: #1a8f9c;
   --c-cyan-shadow: rgba(26, 143, 156, 0.45);
 
-  /* Green */
   --c-green-top: #1dd173;
   --c-green-base: #0ea654;
   --c-green-shadow: rgba(14, 166, 84, 0.45);
 
-  /* Red / Rose */
   --c-red-top: #ff3366;
   --c-red-base: #c71642;
   --c-red-shadow: rgba(199, 22, 66, 0.45);
 
-  /* Orange */
   --c-orange-top: #ff8c26;
   --c-orange-base: #cf6204;
   --c-orange-shadow: rgba(207, 98, 4, 0.45);
@@ -155,18 +148,33 @@ body {
   padding: 8px 16px;
 }
 
+/* 3D Stylized Brand Text (Replaced GIF) */
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
   text-decoration: none;
-  padding-left: 6px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  transition: transform 0.15s ease;
 }
-.brand img {
-  display: block;
-  height: 34px;
-  width: auto;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+
+.brand:hover {
+  transform: translateY(-2px);
+}
+
+.brand-text {
+  font-family: var(--font-main);
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 3px 0 #122147, 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.brand-text span {
+  color: var(--c-cyan-top);
+  text-shadow: 0 3px 0 var(--c-cyan-base), 0 6px 12px var(--c-cyan-shadow);
 }
 
 .nav ul {
@@ -178,7 +186,6 @@ body {
   list-style: none;
 }
 
-/* 3D Pill Nav Button */
 .nav ul a {
   display: inline-flex;
   align-items: center;
@@ -301,7 +308,6 @@ body {
   gap: 12px;
 }
 
-/* 3D Chunky Capsule Button from Image 2 */
 .chip-btn {
   background: #14234b;
   border: none;
@@ -339,7 +345,7 @@ body {
 }
 
 /* ==========================================================================
-   3D CANDY CLAY CARDS (Derived from Reference 1)
+   3D CANDY CLAY CARDS
    ========================================================================== */
 main { flex: 1 0 auto; padding-bottom: 60px; }
 
@@ -359,7 +365,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
 .bento-grid li:nth-child(5) { grid-column: span 4; }
 .bento-grid li:nth-child(6) { grid-column: span 12; }
 
-/* The 3D Clay Body */
 .card {
   position: relative;
   display: flex;
@@ -380,7 +385,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   top: 0;
 }
 
-/* Glossy Surface Reflection Highlight from Image 1 */
 .card::after {
   content: "";
   position: absolute;
@@ -393,7 +397,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   pointer-events: none;
 }
 
-/* 3D Push & Press interaction */
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 
@@ -417,7 +420,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   z-index: 2;
 }
 
-/* 3D Inset Icon Plate */
 .tile {
   display: grid;
   place-items: center;
@@ -497,17 +499,15 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* ==========================================================================
-   3D CHUNKY ACTION BUTTONS (Exact Match of Reference 2)
-   ========================================================================== */
+/* 3D "Open" Action Buttons */
 .card .btn-3d {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 22px;
+  padding: 10px 24px;
   border-radius: 999px;
-  font-size: 0.86rem;
+  font-size: 0.88rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -538,7 +538,7 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   fill: none;
 }
 
-/* Bento Horizontal Wide Bar (Item 6) */
+/* Bento Item 6 */
 .bento-grid li:nth-child(6) .card {
   flex-direction: row;
   align-items: center;
@@ -563,10 +563,7 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   gap: 18px;
 }
 
-/* ==========================================================================
-   COLOR ASSIGNMENTS (Vibrant Jelly Palette from Reference 1)
-   ========================================================================== */
-/* 1. Compilers -> Cyan / Blue Candy */
+/* Color Palette Assignment */
 .theme-blue {
   --card-top: var(--c-blue-top);
   --card-base: var(--c-blue-base);
@@ -575,7 +572,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-base: #0d3873;
 }
 
-/* 2. SoftBox -> Purple Candy */
 .theme-purple {
   --card-top: var(--c-purple-top);
   --card-base: var(--c-purple-base);
@@ -584,7 +580,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-base: #300a74;
 }
 
-/* 3. QR Gen -> Orange Candy */
 .theme-orange {
   --card-top: var(--c-orange-top);
   --card-base: var(--c-orange-base);
@@ -593,7 +588,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-base: #733400;
 }
 
-/* 4. Pics Gallery -> Pink / Red Candy */
 .theme-pink {
   --card-top: var(--c-red-top);
   --card-base: var(--c-red-base);
@@ -602,7 +596,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-base: #690820;
 }
 
-/* 5. Typing Test -> Green Candy */
 .theme-green {
   --card-top: var(--c-green-top);
   --card-base: var(--c-green-base);
@@ -611,7 +604,6 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-base: #054f26;
 }
 
-/* 6. Tutorials -> Cyan / Teal Candy */
 .theme-cyan {
   --card-top: var(--c-cyan-top);
   --card-base: var(--c-cyan-base);
@@ -620,17 +612,49 @@ main { flex: 1 0 auto; padding-bottom: 60px; }
   --btn-base: #0a464d;
 }
 
-/* ---------- Ad Container Card ---------- */
+/* ==========================================================================
+   3D CHUNKY AD SECTION (Extruded Clay Frame)
+   ========================================================================== */
 .ad-section {
-  background: rgba(13, 24, 54, 0.85);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 16px;
+  position: relative;
+  background: #14244f;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 28px;
+  padding: 20px;
   max-width: 1140px;
-  margin: 20px auto 40px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  margin: 30px auto 46px;
+  box-shadow: 
+    0 10px 0 #09132e,
+    0 18px 28px rgba(0, 0, 0, 0.45);
   text-align: center;
-  overflow-x: auto;
+  overflow: hidden;
+}
+
+.ad-section::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 20px;
+  right: 20px;
+  height: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 18px 18px 60px 60px;
+  pointer-events: none;
+}
+
+.ad-badge {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7991be;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* ---------- Footer ---------- */
@@ -700,7 +724,7 @@ footer nav { display: flex; gap: 20px; }
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="https://www.pycodes.in" aria-label="PyCodes home">
-      <img src="pycodes.gif?v=3.0" alt="PyCodes" width="120" height="36">
+      <div class="brand-text">Py<span>Codes</span></div>
     </a>
     <nav aria-label="Primary">
       <ul>
@@ -738,7 +762,7 @@ footer nav { display: flex; gap: 20px; }
   <!-- 3D Candy Bento Grid -->
   <ul class="bento-grid" id="toolsList" aria-label="Tools">
 
-    <!-- Card 1: Compilers (Cyan/Blue Candy) -->
+    <!-- Card 1: Compilers -->
     <li data-category="dev" data-name="online compilers code python run browser">
       <a class="card theme-blue" href="https://www.pycodes.in/online-compilers">
         <div class="card-top">
@@ -753,14 +777,14 @@ footer nav { display: flex; gap: 20px; }
         </div>
         <div class="card-foot">
           <span class="category-label">Development</span>
-          <span class="btn-3d">Run Code
+          <span class="btn-3d">Open
             <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
           </span>
         </div>
       </a>
     </li>
 
-    <!-- Card 2: SoftBox (Purple Candy) -->
+    <!-- Card 2: SoftBox -->
     <li data-category="utility" data-name="softbox software pc download utilities apps">
       <a class="card theme-purple" href="https://www.pycodes.in/softbox">
         <div class="card-top">
@@ -775,14 +799,14 @@ footer nav { display: flex; gap: 20px; }
         </div>
         <div class="card-foot">
           <span class="category-label">Software Hub</span>
-          <span class="btn-3d">Download
+          <span class="btn-3d">Open
             <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
           </span>
         </div>
       </a>
     </li>
 
-    <!-- Card 3: QR Generator (Orange Candy) -->
+    <!-- Card 3: QR Generator -->
     <li data-category="utility" data-name="qr generator code link text scanner bar">
       <a class="card theme-orange" href="https://www.pycodes.in/qr-generator">
         <div class="card-top">
@@ -797,14 +821,14 @@ footer nav { display: flex; gap: 20px; }
         </div>
         <div class="card-foot">
           <span class="category-label">Generator</span>
-          <span class="btn-3d">Create
+          <span class="btn-3d">Open
             <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
           </span>
         </div>
       </a>
     </li>
 
-    <!-- Card 4: Pics Gallery (Pink / Red Candy) -->
+    <!-- Card 4: Pics Gallery -->
     <li data-category="media" data-name="pics gallery photos wallpapers images pycodes">
       <a class="card theme-pink" href="https://www.pycodes.in/pics-gallery">
         <div class="card-top">
@@ -819,14 +843,14 @@ footer nav { display: flex; gap: 20px; }
         </div>
         <div class="card-foot">
           <span class="category-label">Media</span>
-          <span class="btn-3d">Explore
+          <span class="btn-3d">Open
             <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
           </span>
         </div>
       </a>
     </li>
 
-    <!-- Card 5: Typing Test (Green Candy) -->
+    <!-- Card 5: Typing Test -->
     <li data-category="utility" data-name="typing test wpm speed test accuracy words">
       <a class="card theme-green" href="https://www.pycodes.in/typing-test">
         <div class="card-top">
@@ -841,14 +865,14 @@ footer nav { display: flex; gap: 20px; }
         </div>
         <div class="card-foot">
           <span class="category-label">Assessment</span>
-          <span class="btn-3d">Start
+          <span class="btn-3d">Open
             <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
           </span>
         </div>
       </a>
     </li>
 
-    <!-- Card 6: Tutorials (Teal/Cyan Candy Horizon Bar) -->
+    <!-- Card 6: Tutorials -->
     <li data-category="media" data-name="tutorials learn programming coding guides articles">
       <a class="card theme-cyan" href="https://www.pycodes.in/tutorials">
         <div class="card-header-group">
@@ -864,7 +888,7 @@ footer nav { display: flex; gap: 20px; }
         </div>
         <div class="card-foot">
           <span class="badge">Articles & Docs</span>
-          <span class="btn-3d">Read Guides
+          <span class="btn-3d">Open
             <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
           </span>
         </div>
@@ -874,17 +898,19 @@ footer nav { display: flex; gap: 20px; }
   </ul>
 </main>
 
+<!-- 3D Chunky Styled Ad Section -->
 <div class="ad-section">
-<script>
-  atOptions = {
-    'key' : '106debe0cf308ecf70013bfb995d1c64',
-    'format' : 'iframe',
-    'height' : 90,
-    'width' : 728,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highrevenueformat.com/106debe0cf308ecf70013bfb995d1c64/invoke.js"></script>
+  <div class="ad-badge">Sponsored</div>
+  <script>
+    atOptions = {
+      'key' : '106debe0cf308ecf70013bfb995d1c64',
+      'format' : 'iframe',
+      'height' : 90,
+      'width' : 728,
+      'params' : {}
+    };
+  </script>
+  <script src="https://www.highrevenueformat.com/106debe0cf308ecf70013bfb995d1c64/invoke.js"></script>
 </div>
 
 <footer>

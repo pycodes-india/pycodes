@@ -10,7 +10,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
     
@@ -37,147 +37,266 @@ document.addEventListener('keydown', function(e) {
 </script>
 
 <style>
-/* ---------- Tokens ---------- */
+/* ---------- 1990s Retro Design Tokens ---------- */
 :root {
-  color-scheme: light;
-  --bg: #ffffff;
-  --surface: #f5f5f7;
-  --surface-hover: #ececf1;
-  --text: #1d1d1f;
-  --text-2: #6e6e73;
-  --hairline: rgba(0, 0, 0, .1);
-  --accent: #2563eb;
-  --accent-text: #1d4ed8;
-  --nav-bg: rgba(255, 255, 255, .8);
+  --win-gray: #c0c0c0;
+  --win-dark-gray: #808080;
+  --win-navy: #000080;
+  --win-teal: #008080;
+  --neon-yellow: #ffff00;
+  --neon-green: #00ff66;
+  --neon-cyan: #00ffff;
+  --neon-magenta: #ff00ff;
+  --link-blue: #0000ee;
+  --font-retro: 'VT323', monospace;
+  --font-system: 'Courier Prime', 'Courier New', monospace;
 
-  /* Tool colours (carried over from your current site) */
-  --blue:   #3b82f6;
-  --violet: #8b5cf6;
-  --slate:  #64748b;
-  --pink:   #ec4899;
-  --green:  #2fb344;
-  --red:    #dc2626;
-
-  --radius-lg: 22px;
-  --ease: cubic-bezier(.2, .8, .2, 1);
-  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
-          "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  /* Classic 3D Bevel Borders */
+  --border-raised: 3px solid #ffffff 3px solid #404040 3px solid #404040 3px solid #ffffff;
 }
 
-/* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-
-html {
-  -webkit-text-size-adjust: 100%;
-  scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px));
-}
 
 body {
   margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
-  color: var(--text);
-  font: 400 1.0625rem/1.47 var(--font);   /* 17px body */
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  background-color: var(--win-teal);
+  background-image: 
+    radial-gradient(#004040 15%, transparent 16%),
+    radial-gradient(#004040 15%, transparent 16%);
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+  color: #000000;
+  font-family: var(--font-system);
+  font-size: 15px;
+  line-height: 1.4;
+  overflow-x: hidden;
+  position: relative;
 }
 
-a { color: inherit; text-decoration: none; }
-
-:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 8px;
+/* CRT Scanline Overlay Effect */
+body::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
+  background-size: 100% 4px;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
+/* ---------- Keyframe Animations ---------- */
+@keyframes blinkText {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes bannerPulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--neon-yellow)); }
+  50% { transform: scale(1.02); filter: drop-shadow(0 0 8px var(--neon-magenta)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--neon-yellow)); }
+}
+
+@keyframes marqueeSlide {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes tileWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+.blink {
+  animation: blinkText 1s infinite steps(1);
+  color: #ff0000;
+  font-weight: bold;
+}
+
+/* ---------- Layout Wrapper ---------- */
 .wrap {
   width: 100%;
-  max-width: 1080px;
+  max-width: 980px;
   margin-inline: auto;
-  padding-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px));
+  padding: 0 14px;
 }
 
-.skip {
-  position: absolute;
-  left: 16px;
-  top: -80px;
-  z-index: 100;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: var(--text);
-  color: var(--bg);
+/* ---------- Top Retro Marquee Ticker ---------- */
+.retro-ticker {
+  background: #000000;
+  color: var(--neon-green);
+  font-family: var(--font-retro);
+  font-size: 1.25rem;
+  border-bottom: 2px solid #ffffff;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 4px 0;
 }
-.skip:focus { top: calc(12px + env(safe-area-inset-top, 0px)); }
+.ticker-content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marqueeSlide 18s linear infinite;
+}
 
-/* ---------- Navigation ---------- */
+/* ---------- Windows 95 Navigation ---------- */
 .nav {
   position: sticky;
   top: 0;
-  z-index: 50;
-  padding-top: env(safe-area-inset-top, 0px);
-  background: white;
-  border-bottom: 1px solid var(--hairline);
+  z-index: 100;
+  background: var(--win-gray);
+  border-top: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #404040;
+  border-bottom: 3px solid #404040;
+  margin: 8px auto;
+  max-width: 980px;
+  box-shadow: 2px 2px 0px #000000;
 }
+
 .nav .wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 56px;
+  min-height: 48px;
+  padding: 4px 10px;
 }
+
 .brand {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  gap: 8px;
+  text-decoration: none;
 }
-.brand img { display: block; height: 36px; width: auto; }
+.brand img {
+  display: block;
+  height: 32px;
+  width: auto;
+  image-rendering: pixelated;
+}
 
 .nav ul {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.nav ul a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 12px;
-  border-radius: 999px;
-  font-size: .9375rem;
-  color: var(--text-2);
-  transition: color .2s var(--ease);
-}
-.nav ul a:hover { color: var(--text); }
-.nav ul a[aria-current="page"] { color: var(--text); font-weight: 500; }
 
-/* ---------- Hero ---------- */
+.nav ul a {
+  display: inline-block;
+  padding: 5px 12px;
+  font-family: var(--font-system);
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000000;
+  background: var(--win-gray);
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  cursor: pointer;
+  transition: all 0.08s ease;
+}
+
+/* Beveled button pressed effect */
+.nav ul a:hover {
+  background: #d6d6d6;
+  border-color: #ffffff #000000 #000000 #ffffff;
+}
+
+.nav ul a:active,
+.nav ul a[aria-current="page"] {
+  border-top: 2px solid #404040;
+  border-left: 2px solid #404040;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  background: #a8a8a8;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* ---------- Retro Window Containers ---------- */
+.win-window {
+  background: var(--win-gray);
+  border-top: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #000000;
+  border-bottom: 3px solid #000000;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
+  margin-bottom: 24px;
+}
+
+.win-titlebar {
+  background: linear-gradient(90deg, var(--win-navy), #1084d0);
+  color: #ffffff;
+  font-family: var(--font-system);
+  font-weight: 700;
+  padding: 4px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.win-titlebar-buttons {
+  display: flex;
+  gap: 3px;
+}
+
+.win-btn-tiny {
+  width: 18px;
+  height: 18px;
+  background: var(--win-gray);
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  color: #000000;
+  font-weight: bold;
+  user-select: none;
+}
+
+.win-btn-tiny:hover { background: #e0e0e0; }
+
+/* ---------- Hero Section ---------- */
 .hero {
   text-align: center;
-  padding: clamp(56px, 10vw, 112px) 0 clamp(32px, 6vw, 56px);
-}
-.hero h1 {
-  margin: 0 auto;
-  max-width: 15ch;
-  font-size: clamp(2.5rem, 1.6rem + 4.6vw, 4.25rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -.035em;
-  text-wrap: balance;
-}
-.hero p {
-  margin: 20px auto 0;
-  max-width: 34rem;
-  font-size: clamp(1.0625rem, 1rem + .5vw, 1.3125rem);
-  line-height: 1.4;
-  color: var(--text-2);
-  text-wrap: balance;
+  padding: 24px 16px;
+  background: #ffffff;
+  margin: 6px;
+  border: 2px inset #808080;
 }
 
-/* ---------- Tools ---------- */
-main { flex: 1 0 auto; padding-bottom: 72px; }
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-retro);
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  color: #000080;
+  letter-spacing: 1px;
+  animation: bannerPulse 4s infinite alternate;
+}
+
+.hero p {
+  margin: 12px auto 0;
+  max-width: 650px;
+  font-size: 1.05rem;
+  color: #1a1a1a;
+  background: #ffffcc;
+  padding: 8px;
+  border: 1px dashed #808000;
+}
+
+/* ---------- Retro Tool Grid ---------- */
+main { flex: 1 0 auto; padding-bottom: 30px; }
 
 .grid {
   display: grid;
@@ -191,149 +310,284 @@ main { flex: 1 0 auto; padding-bottom: 72px; }
 .card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  background: var(--win-gray);
+  border-top: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #000000;
+  border-bottom: 3px solid #000000;
+  text-decoration: none;
+  color: #000000;
   height: 100%;
-  min-height: 208px;
-  padding: 24px;
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  transition: background-color .2s var(--ease), transform .15s var(--ease);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  overflow: hidden;
 }
-@media (hover: hover) { .card:hover { background: var(--surface-hover); } }
-.card:active { transform: scale(.98); }
+
+.card-inner {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 90s Button Hover Effects */
+.card:hover {
+  background: #e4e4e4;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.7);
+}
+
+.card:hover .tile {
+  animation: tileWiggle 0.4s ease-in-out infinite alternate;
+}
+
+.card:active {
+  transform: translate(2px, 2px);
+  border-top: 3px solid #000000;
+  border-left: 3px solid #000000;
+  border-right: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+  box-shadow: inset 2px 2px 3px rgba(0,0,0,0.6);
+}
 
 .tile {
   display: grid;
   place-items: center;
   width: 48px;
   height: 48px;
-  margin-bottom: 14px;
-  border-radius: 12px;
-  background: var(--tint);
-  color: #fff;
+  margin-bottom: 12px;
+  background: var(--tint, #333333);
+  color: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #ffffff;
 }
+
 .tile svg {
   width: 26px;
   height: 26px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.75;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  stroke-width: 2.2;
 }
 
 .card strong {
-  font-size: 1.3125rem;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -.02em;
+  font-family: var(--font-retro);
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+  color: #000080;
+  margin-bottom: 4px;
 }
+
 .card .desc {
-  font-size: 1rem;
-  line-height: 1.4;
-  color: var(--text-2);
+  font-size: 0.95rem;
+  color: #222222;
+  margin-bottom: 14px;
+  flex-grow: 1;
 }
+
+/* 90s Classic Button Styling */
 .card .open {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--win-gray);
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #000080;
   margin-top: auto;
-  padding-top: 16px;
-  font-size: .9375rem;
-  font-weight: 500;
-  color: var(--accent-text);
+  align-self: flex-start;
 }
+
+.card:hover .open {
+  background: var(--neon-yellow);
+  color: #000000;
+  border-color: #000000;
+}
+
+.card:active .open {
+  border-top: 2px solid #000000;
+  border-left: 2px solid #000000;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
 .card .open svg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform .2s var(--ease);
+  width: 14px;
+  height: 14px;
+  stroke-width: 3;
 }
-@media (hover: hover) { .card:hover .open svg { transform: translateX(3px); } }
 
-.t-blue   { --tint: var(--blue); }
-.t-violet { --tint: var(--violet); }
-.t-slate  { --tint: var(--slate); }
-.t-pink   { --tint: var(--pink); }
-.t-green  { --tint: var(--green); }
-.t-red    { --tint: var(--red); }
+/* Vintage 90s Windows-like palette colors */
+.t-blue   { --tint: #0000aa; }
+.t-violet { --tint: #7000aa; }
+.t-slate  { --tint: #555555; }
+.t-pink   { --tint: #aa0055; }
+.t-green  { --tint: #008000; }
+.t-red    { --tint: #aa0000; }
 
-/* ---------- Footer ---------- */
+/* ---------- Ad & Counter Container ---------- */
+.ad-section {
+  background: var(--win-gray);
+  border-top: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #000000;
+  border-bottom: 3px solid #000000;
+  box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+  padding: 10px;
+  max-width: 980px;
+  margin: 16px auto;
+  overflow-x: auto;
+}
+
+.web-counter {
+  text-align: center;
+  margin: 12px 0;
+  font-family: var(--font-retro);
+  font-size: 1.3rem;
+  color: #ffffff;
+}
+
+.counter-box {
+  display: inline-block;
+  background: #000000;
+  color: var(--neon-green);
+  padding: 3px 8px;
+  border: 2px inset #ffffff;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+/* ---------- 90s Footer / Taskbar ---------- */
 footer {
-  border-top: 1px solid var(--hairline);
-  padding: 24px 0 calc(24px + env(safe-area-inset-bottom, 0px));
-  font-size: .875rem;
-  color: var(--text-2);
+  background: var(--win-gray);
+  border-top: 3px solid #ffffff;
+  border-bottom: 3px solid #000000;
+  box-shadow: 0 -2px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  font-size: 0.85rem;
 }
+
 footer .wrap {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 4px 24px;
+  gap: 12px;
 }
-footer p { margin: 0; }
-footer nav { display: flex; gap: 20px; }
-footer a { display: inline-flex; align-items: center; min-height: 44px; }
-footer a:hover { color: var(--text); text-decoration: underline; }
 
-/* ---------- Responsive ---------- */
+footer nav {
+  display: flex;
+  gap: 10px;
+}
 
-/* Tablet: 2 columns */
-@media (max-width: 900px) {
+footer a {
+  color: var(--link-blue);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+footer a:hover {
+  color: #ff0000;
+  background: #ffff00;
+}
+
+.skip {
+  position: absolute;
+  left: 10px;
+  top: -80px;
+  background: #ffff00;
+  color: #000000;
+  padding: 8px 12px;
+  font-weight: bold;
+  border: 2px solid #000000;
+  z-index: 9999;
+}
+.skip:focus { top: 10px; }
+
+/* ---------- Responsive Rules ---------- */
+
+/* Tablet (2 columns) */
+@media (max-width: 860px) {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .card { min-height: 190px; }
 }
 
-/* Phone: 1 column, compact horizontal rows */
-@media (max-width: 560px) {
-  .grid { grid-template-columns: 1fr; gap: 12px; }
+/* Mobile Screens */
+@media (max-width: 580px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 
-  .card {
+  .card-inner {
     display: grid;
-    grid-template-columns: 48px 1fr;
-    grid-template-rows: auto auto;
-    align-content: center;
-    column-gap: 16px;
-    row-gap: 2px;
-    min-height: 88px;
-    padding: 16px;
-    border-radius: 18px;
+    grid-template-columns: 50px 1fr;
+    column-gap: 14px;
+    row-gap: 4px;
+    padding: 12px;
   }
-  .tile { grid-row: 1 / span 2; margin: 0; align-self: center; }
-  .card strong { font-size: 1.125rem; align-self: end; }
-  .card .desc { font-size: .9375rem; align-self: start; }
-  .card .open { display: none; }   /* whole card is tappable */
 
-  .hero h1 { max-width: 12ch; }
-  footer .wrap { flex-direction: column; align-items: flex-start; }
+  .tile {
+    grid-row: 1 / span 3;
+    margin: 0;
+    align-self: center;
+  }
+
+  .card strong {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+
+  .card .desc {
+    margin: 0;
+    font-size: 0.88rem;
+  }
+
+  .card .open {
+    margin-top: 6px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+
+  .hero h1 {
+    font-size: 2.1rem;
+  }
+
+  .nav ul a {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  footer .wrap {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
 
-/* Small phones: logo is the Home link, so hide the duplicate */
-@media (max-width: 480px) {
-  .nav ul a { padding: 0 10px; }
-  .nav li.home { display: none; }
-  .brand img { height: 32px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    transition-duration: .01ms !important;
-    animation-duration: .01ms !important;
-    scroll-behavior: auto !important;
+@media (max-width: 420px) {
+  .nav .wrap {
+    flex-direction: column;
+    gap: 8px;
   }
-  .card:active { transform: none; }
-  .card:hover .open svg { transform: none; }
 }
 </style>
 </head>
 
 <body>
 <a class="skip" href="#tools">Skip to tools</a>
+
+<!-- 90s Scrolling Marquee Ticker -->
+<div class="retro-ticker" aria-hidden="true">
+  <div class="ticker-content">
+    *** WELCOME TO PYCODES.IN *** BEST FREE DEVELOPER & UTILITY WEB TOOLS *** NO SIGNUP REQUIRED *** BEST VIEWED IN 800x600 RESOLUTION ***
+  </div>
+</div>
 
 <header class="nav">
   <div class="wrap">
@@ -342,101 +596,166 @@ footer a:hover { color: var(--text); text-decoration: underline; }
     </a>
     <nav aria-label="Primary">
       <ul>
-        <li class="home"><a href="https://www.pycodes.in" aria-current="page">Home</a></li>
-        <li><a href="https://www.pycodes.in/tutorials">Tutorials</a></li>
-        <li><a href="https://www.pycodes.in/about.html">About us</a></li>
+        <li class="home"><a href="https://www.pycodes.in" aria-current="page">[Home]</a></li>
+        <li><a href="https://www.pycodes.in/tutorials">[Tutorials]</a></li>
+        <li><a href="https://www.pycodes.in/about.html">[About us]</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
 <main id="tools" class="wrap">
-  <section class="hero" aria-labelledby="page-title">
-    <h1 id="page-title">Free tools for coding and everyday tasks</h1>
-    <p>Online compilers, free software downloads, a QR generator, and more. No signup needed.</p>
-  </section>
+  <!-- Windows 95 Styled Hero Dialog -->
+  <div class="win-window">
+    <div class="win-titlebar">
+      <span>💾 PyCodes_Launcher_v1.0.exe</span>
+      <div class="win-titlebar-buttons">
+        <div class="win-btn-tiny">_</div>
+        <div class="win-btn-tiny">□</div>
+        <div class="win-btn-tiny">✕</div>
+      </div>
+    </div>
+    
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title">★ Free Tools Hub ★</h1>
+      <p><span class="blink">▶ HOT:</span> Online compilers, free software downloads, a QR generator, and more. No signup needed.</p>
+    </section>
+  </div>
 
   <ul class="grid" aria-label="Tools">
 
     <li>
-      <a class="card t-blue" href="https://www.pycodes.in/online-compilers">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <strong>Online compilers</strong>
-        <span class="desc">Write and run code in your browser.</span>
-        <span class="open">Open
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
-      </a>
+      <div class="win-window" style="margin-bottom:0; height:100%;">
+        <div class="win-titlebar">
+          <span>compiler.exe</span>
+          <div class="win-btn-tiny">✕</div>
+        </div>
+        <a class="card t-blue" href="https://www.pycodes.in/online-compilers">
+          <div class="card-inner">
+            <span class="tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </span>
+            <strong>Online compilers</strong>
+            <span class="desc">Write and run code in your browser.</span>
+            <span class="open">> RUN
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
     </li>
 
     <li>
-      <a class="card t-violet" href="https://www.pycodes.in/softbox">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 20h20"/><path d="M12 7v5M9.5 10l2.5 2.5 2.5-2.5"/></svg>
-        </span>
-        <strong>SoftBox</strong>
-        <span class="desc">Download free software for your PC from one place.</span>
-        <span class="open">Open
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
-      </a>
+      <div class="win-window" style="margin-bottom:0; height:100%;">
+        <div class="win-titlebar">
+          <span>softbox.bin</span>
+          <div class="win-btn-tiny">✕</div>
+        </div>
+        <a class="card t-violet" href="https://www.pycodes.in/softbox">
+          <div class="card-inner">
+            <span class="tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 20h20"/><path d="M12 7v5M9.5 10l2.5 2.5 2.5-2.5"/></svg>
+            </span>
+            <strong>SoftBox</strong>
+            <span class="desc">Download free software for your PC from one place.</span>
+            <span class="open">> OPEN
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
     </li>
 
     <li>
-      <a class="card t-slate" href="https://www.pycodes.in/qr-generator">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h4v-4"/></svg>
-        </span>
-        <strong>QR generator</strong>
-        <span class="desc">Turn a link or text into a QR code.</span>
-        <span class="open">Open
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
-      </a>
+      <div class="win-window" style="margin-bottom:0; height:100%;">
+        <div class="win-titlebar">
+          <span>qr_maker.app</span>
+          <div class="win-btn-tiny">✕</div>
+        </div>
+        <a class="card t-slate" href="https://www.pycodes.in/qr-generator">
+          <div class="card-inner">
+            <span class="tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h4v-4"/></svg>
+            </span>
+            <strong>QR generator</strong>
+            <span class="desc">Turn a link or text into a QR code.</span>
+            <span class="open">> CREATE
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
     </li>
 
     <li>
-      <a class="card t-pink" href="https://www.pycodes.in/pics-gallery">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg>
-        </span>
-        <strong>Pics gallery</strong>
-        <span class="desc">Browse the PyCodes picture gallery.</span>
-        <span class="open">Open
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
-      </a>
+      <div class="win-window" style="margin-bottom:0; height:100%;">
+        <div class="win-titlebar">
+          <span>gallery.bmp</span>
+          <div class="win-btn-tiny">✕</div>
+        </div>
+        <a class="card t-pink" href="https://www.pycodes.in/pics-gallery">
+          <div class="card-inner">
+            <span class="tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg>
+            </span>
+            <strong>Pics gallery</strong>
+            <span class="desc">Browse the PyCodes picture gallery.</span>
+            <span class="open">> VIEW
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
     </li>
 
     <li>
-      <a class="card t-green" href="https://www.pycodes.in/typing-test">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
-        </span>
-        <strong>Typing test</strong>
-        <span class="desc">Check your typing speed in words per minute.</span>
-        <span class="open">Open
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
-      </a>
+      <div class="win-window" style="margin-bottom:0; height:100%;">
+        <div class="win-titlebar">
+          <span>typing_speed.com</span>
+          <div class="win-btn-tiny">✕</div>
+        </div>
+        <a class="card t-green" href="https://www.pycodes.in/typing-test">
+          <div class="card-inner">
+            <span class="tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
+            </span>
+            <strong>Typing test</strong>
+            <span class="desc">Check your typing speed in words per minute.</span>
+            <span class="open">> START
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
     </li>
 
     <li>
-      <a class="card t-red" href="https://www.pycodes.in/tutorials">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M4 5h13v14a1 1 0 0 0 1 1H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v9a2 2 0 0 1-2 2"/><line x1="8" y1="9" x2="13" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg>
-        </span>
-        <strong>Tutorials</strong>
-        <span class="desc">Tech news and guides for learning to code.</span>
-        <span class="open">Open
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
-      </a>
+      <div class="win-window" style="margin-bottom:0; height:100%;">
+        <div class="win-titlebar">
+          <span>readme.txt</span>
+          <div class="win-btn-tiny">✕</div>
+        </div>
+        <a class="card t-red" href="https://www.pycodes.in/tutorials">
+          <div class="card-inner">
+            <span class="tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 5h13v14a1 1 0 0 0 1 1H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v9a2 2 0 0 1-2 2"/><line x1="8" y1="9" x2="13" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg>
+            </span>
+            <strong>Tutorials</strong>
+            <span class="desc">Tech news and guides for learning to code.</span>
+            <span class="open">> READ
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
     </li>
 
   </ul>
+
+  <!-- 90s Hit Counter Badge -->
+  <div class="web-counter">
+    VISITOR NO: <span class="counter-box">008492</span>
+  </div>
 </main>
 
 <div class="ad-section" style="text-align:center;">
@@ -454,11 +773,11 @@ footer a:hover { color: var(--text); text-decoration: underline; }
 
 <footer>
   <div class="wrap">
-    <p>&copy; <span id="year">2026</span> <a href="https://www.pycodes.in">PyCodes.in</a>. All Rights Reserved.</p>
+    <p>© <span id="year">2026</span> <a href="https://www.pycodes.in">PyCodes.in</a>. All Rights Reserved.</p>
     <nav aria-label="Footer">
-      <a href="https://www.pycodes.in">Home</a>
-      <a href="https://www.pycodes.in/tutorials">Tutorials</a>
-      <a href="https://www.pycodes.in/about.html">About us</a>
+      <a href="https://www.pycodes.in">[Home]</a>
+      <a href="https://www.pycodes.in/tutorials">[Tutorials]</a>
+      <a href="https://www.pycodes.in/about.html">[About us]</a>
     </nav>
   </div>
 </footer>

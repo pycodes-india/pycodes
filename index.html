@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
-    <!-- Anti-Cache Headers -->
+    <!-- Anti-Cache Headers (Force fresh page load) -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="icon" type="image/png" href="favicon.png?v=4.0">
+    <link rel="icon" type="image/png" href="favicon.png?v=5.0">
     
 <style>
     /* Text select na kar paaye */
@@ -55,7 +55,7 @@ document.addEventListener('keydown', function(e) {
   --bg-deep-blue: #0b142e;
   --bg-darker: #070d1f;
 
-  /* 3D Candy Color Palettes */
+  /* 3D Candy Color Palettes (Top color, extruded base color, shadow glow) */
   --c-blue-top: #3ea2ff;
   --c-blue-base: #1d6ed8;
   --c-blue-shadow: rgba(29, 110, 216, 0.45);
@@ -87,6 +87,11 @@ document.addEventListener('keydown', function(e) {
   padding: 0;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden; /* Screen se bahar horizontal scroll ko permanent band rakhta hai */
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
@@ -105,7 +110,6 @@ body {
   font-family: var(--font-main);
   font-size: 15px;
   line-height: 1.5;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -344,7 +348,7 @@ body {
 }
 
 /* ==========================================================================
-   RESPONSIVE 3D BENTO GRID (Laptop / Tablet / Mobile)
+   3D BENTO GRID SYSTEM
    ========================================================================== */
 main { 
   flex: 1 0 auto; 
@@ -359,7 +363,7 @@ main {
   margin-top: clamp(24px, 4vw, 36px);
 }
 
-/* PC / Laptop Spans (12-column Bento) */
+/* Desktop Spans */
 .bento-grid li:nth-child(1) { grid-column: span 7; }
 .bento-grid li:nth-child(2) { grid-column: span 5; }
 .bento-grid li:nth-child(3) { grid-column: span 4; }
@@ -367,7 +371,7 @@ main {
 .bento-grid li:nth-child(5) { grid-column: span 4; }
 .bento-grid li:nth-child(6) { grid-column: span 12; }
 
-/* 3D Clay Card Architecture */
+/* 3D Clay Card */
 .card {
   position: relative;
   display: flex;
@@ -399,7 +403,6 @@ main {
   pointer-events: none;
 }
 
-/* Hover only on non-touch screens */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
     transform: translateY(-4px);
@@ -507,7 +510,7 @@ main {
   white-space: nowrap;
 }
 
-/* 3D Action Buttons */
+/* 3D Action Buttons (Open) */
 .card .btn-3d {
   display: inline-flex;
   align-items: center;
@@ -619,35 +622,27 @@ main {
 }
 
 /* ==========================================================================
-   RESPONSIVE AD SECTION (Horizontal Scroll Protection)
+   3D CLAY AD SECTION WITH AUTO-SCALE (Zero Horizontal Scroll on Mobile)
    ========================================================================== */
 .ad-section {
   position: relative;
   background: #14244f;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: clamp(20px, 3vw, 28px);
-  padding: clamp(14px, 2.5vw, 20px);
+  border-radius: clamp(18px, 3vw, 28px);
+  padding: 16px 12px;
   max-width: 1200px;
   margin: clamp(20px, 3vw, 30px) auto clamp(24px, 4vw, 40px);
   box-shadow: 
-    0 8px 0 #09132e,
+    0 8px 0 #09132e, 
     0 16px 24px rgba(0, 0, 0, 0.45);
   text-align: center;
   overflow: hidden;
-}
-
-.ad-wrapper {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .ad-badge {
   display: inline-block;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   font-family: var(--font-code);
   font-size: 0.7rem;
   font-weight: 700;
@@ -658,6 +653,38 @@ main {
   padding: 2px 10px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ad-viewport {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 90px;
+}
+
+.ad-scaler {
+  width: 728px;
+  height: 90px;
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+
+/* Scaling Rules for Different Devices */
+@media (max-width: 768px) {
+  .ad-viewport { height: 70px; }
+  .ad-scaler { transform: scale(0.72); }
+}
+
+@media (max-width: 520px) {
+  .ad-viewport { height: 55px; }
+  .ad-scaler { transform: scale(0.52); }
+}
+
+@media (max-width: 390px) {
+  .ad-viewport { height: 46px; }
+  .ad-scaler { transform: scale(0.42); }
 }
 
 /* ---------- Footer ---------- */
@@ -691,7 +718,7 @@ footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
    BREAKPOINTS: LAPTOP, TABLET & MOBILE MEDIA QUERIES
    ========================================================================== */
 
-/* 1. Laptops & Small Desktops (992px to 1180px) */
+/* Laptops & Small Desktops */
 @media (max-width: 1180px) {
   .bento-grid li:nth-child(1) { grid-column: span 7; }
   .bento-grid li:nth-child(2) { grid-column: span 5; }
@@ -700,7 +727,7 @@ footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
   .bento-grid li:nth-child(5) { grid-column: span 4; }
 }
 
-/* 2. Tablets & iPads (768px to 992px) */
+/* Tablets & iPads */
 @media (max-width: 992px) {
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -717,7 +744,7 @@ footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
   }
 }
 
-/* 3. Phablets & Large Mobiles (540px to 768px) */
+/* Phablets & Large Mobiles */
 @media (max-width: 768px) {
   .bento-grid {
     grid-template-columns: 1fr;
@@ -727,7 +754,6 @@ footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
     grid-column: span 1 !important;
   }
 
-  /* Transform Item 6 from horizontal to vertical card on smaller screens */
   .bento-grid li:nth-child(6) .card {
     flex-direction: column;
     align-items: flex-start;
@@ -745,9 +771,7 @@ footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
     border-top: 2px solid rgba(255, 255, 255, 0.2);
   }
 
-  .nav .wrap {
-    padding-inline: 12px;
-  }
+  .nav .wrap { padding-inline: 12px; }
 
   footer .wrap {
     flex-direction: column;
@@ -757,7 +781,7 @@ footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
   }
 }
 
-/* 4. Standard & Small Mobiles (Below 540px) */
+/* Standard & Small Mobiles */
 @media (max-width: 540px) {
   .nav {
     top: 6px;
@@ -773,47 +797,33 @@ footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
     padding: 16px;
   }
 
-  .card-top {
-    margin-bottom: 12px;
-  }
-
+  .card-top { margin-bottom: 12px; }
   .card-foot {
     margin-top: 14px;
     padding-top: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
-  /* Touch-friendly full-width action button on small devices */
   .card .btn-3d {
     width: 100%;
     padding: 10px 16px;
     justify-content: center;
   }
 
-  .card-foot {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
+  .card .category-label { align-self: flex-start; }
 
-  .card .category-label {
-    align-self: flex-start;
-  }
-
-  .category-chips {
-    gap: 6px;
-  }
-
+  .category-chips { gap: 6px; }
   .chip-btn {
     padding: 6px 12px;
     font-size: 0.72rem;
   }
 }
 
-/* 5. Ultra-small Mobiles (360px and below) */
+/* Ultra-small Mobiles */
 @media (max-width: 380px) {
-  .brand-text {
-    font-size: 1.2rem;
-  }
+  .brand-text { font-size: 1.2rem; }
   .nav ul a {
     padding: 5px 8px;
     font-size: 0.7rem;
@@ -1002,20 +1012,22 @@ footer nav { display: flex; gap: clamp(12px, 2vw, 20px); }
   </ul>
 </main>
 
-<!-- Responsive 3D Ad Section with Scroll Shield -->
+<!-- Auto-Scaling Responsive 3D Ad Section -->
 <div class="ad-section">
- 
-  <div class="ad-wrapper">
-    <script>
-      atOptions = {
-        'key' : '106debe0cf308ecf70013bfb995d1c64',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://www.highrevenueformat.com/106debe0cf308ecf70013bfb995d1c64/invoke.js"></script>
+  <div class="ad-badge">Sponsored</div>
+  <div class="ad-viewport">
+    <div class="ad-scaler">
+      <script>
+        atOptions = {
+          'key' : '106debe0cf308ecf70013bfb995d1c64',
+          'format' : 'iframe',
+          'height' : 90,
+          'width' : 728,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highrevenueformat.com/106debe0cf308ecf70013bfb995d1c64/invoke.js"></script>
+    </div>
   </div>
 </div>
 

@@ -10,7 +10,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
     
@@ -37,22 +37,32 @@ document.addEventListener('keydown', function(e) {
 </script>
 
 <style>
-/* ---------- 1990s Retro Design Tokens ---------- */
+/* ---------- 2018 Vibrant Gradient & Elevation Tokens ---------- */
 :root {
-  --win-gray: #c0c0c0;
-  --win-dark-gray: #808080;
-  --win-navy: #000080;
-  --win-teal: #008080;
-  --neon-yellow: #ffff00;
-  --neon-green: #00ff66;
-  --neon-cyan: #00ffff;
-  --neon-magenta: #ff00ff;
-  --link-blue: #0000ee;
-  --font-retro: 'VT323', monospace;
-  --font-system: 'Courier Prime', 'Courier New', monospace;
+  --font-heading: 'Poppins', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  
+  --bg-main: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-sub: #64748b;
+  
+  /* 2018 Trending Gradients */
+  --grad-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-blue: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --grad-violet: linear-gradient(135deg, #b224ef 0%, #7579ff 100%);
+  --grad-slate: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-pink: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --grad-green: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+  --grad-red: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
 
-  /* Classic 3D Bevel Borders */
-  --border-raised: 3px solid #ffffff 3px solid #404040 3px solid #404040 3px solid #ffffff;
+  /* Multi-colored drop shadows (Signature 2018 style) */
+  --shadow-blue: 0 10px 25px -5px rgba(0, 242, 254, 0.4);
+  --shadow-violet: 0 10px 25px -5px rgba(117, 121, 255, 0.4);
+  --shadow-slate: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+  --shadow-pink: 0 10px 25px -5px rgba(250, 112, 154, 0.4);
+  --shadow-green: 0 10px 25px -5px rgba(11, 163, 96, 0.4);
+  --shadow-red: 0 10px 25px -5px rgba(255, 8, 68, 0.4);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -62,304 +72,263 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--win-teal);
-  background-image: 
-    radial-gradient(#004040 15%, transparent 16%),
-    radial-gradient(#004040 15%, transparent 16%);
-  background-size: 8px 8px;
-  background-position: 0 0, 4px 4px;
-  color: #000000;
-  font-family: var(--font-system);
-  font-size: 15px;
-  line-height: 1.4;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
   overflow-x: hidden;
   position: relative;
 }
 
-/* CRT Scanline Overlay Effect */
-body::before {
-  content: " ";
-  display: block;
+/* ---------- Animated Floating Gradient Background Orbs ---------- */
+.bg-blobs {
   position: fixed;
   inset: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
-  background-size: 100% 4px;
-  z-index: 999;
   pointer-events: none;
-  opacity: 0.6;
+  z-index: -1;
+  overflow: hidden;
+}
+.blob {
+  position: absolute;
+  filter: blur(80px);
+  border-radius: 50%;
+  opacity: 0.35;
+  animation: floatOrb 12s infinite alternate ease-in-out;
+}
+.blob-1 {
+  width: 450px;
+  height: 450px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  top: -100px;
+  left: -80px;
+}
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #fa709a, #fee140);
+  top: 35%;
+  right: -120px;
+  animation-duration: 16s;
+  animation-delay: -3s;
+}
+.blob-3 {
+  width: 420px;
+  height: 420px;
+  background: linear-gradient(135deg, #7579ff, #b224ef);
+  bottom: -60px;
+  left: 20%;
+  animation-duration: 14s;
+  animation-delay: -6s;
 }
 
-/* ---------- Keyframe Animations ---------- */
-@keyframes blinkText {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+@keyframes floatOrb {
+  0% { transform: translateY(0px) rotate(0deg) scale(1); }
+  50% { transform: translateY(40px) translateX(25px) rotate(180deg) scale(1.08); }
+  100% { transform: translateY(-30px) translateX(-20px) rotate(360deg) scale(0.95); }
 }
 
-@keyframes bannerPulse {
-  0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--neon-yellow)); }
-  50% { transform: scale(1.02); filter: drop-shadow(0 0 8px var(--neon-magenta)); }
-  100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--neon-yellow)); }
+/* ---------- Keyframes for Shine & Wave ---------- */
+@keyframes textGradientWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-@keyframes marqueeSlide {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+@keyframes buttonShimmer {
+  0% { transform: translateX(-150%) skewX(-25deg); }
+  100% { transform: translateX(250%) skewX(-25deg); }
 }
 
-@keyframes tileWiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-5deg); }
-  75% { transform: rotate(5deg); }
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
-.blink {
-  animation: blinkText 1s infinite steps(1);
-  color: #ff0000;
-  font-weight: bold;
-}
-
-/* ---------- Layout Wrapper ---------- */
 .wrap {
   width: 100%;
-  max-width: 980px;
+  max-width: 1100px;
   margin-inline: auto;
-  padding: 0 14px;
+  padding: 0 24px;
 }
 
-/* ---------- Top Retro Marquee Ticker ---------- */
-.retro-ticker {
-  background: #000000;
-  color: var(--neon-green);
-  font-family: var(--font-retro);
-  font-size: 1.25rem;
-  border-bottom: 2px solid #ffffff;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 4px 0;
-}
-.ticker-content {
-  display: inline-block;
-  padding-left: 100%;
-  animation: marqueeSlide 18s linear infinite;
-}
-
-/* ---------- Windows 95 Navigation ---------- */
+/* ---------- 2018 Frosted Glass Header ---------- */
 .nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--win-gray);
-  border-top: 3px solid #ffffff;
-  border-left: 3px solid #ffffff;
-  border-right: 3px solid #404040;
-  border-bottom: 3px solid #404040;
-  margin: 8px auto;
-  max-width: 980px;
-  box-shadow: 2px 2px 0px #000000;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
 }
 
 .nav .wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 48px;
-  padding: 4px 10px;
+  min-height: 64px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   text-decoration: none;
+  transition: transform 0.25s ease;
 }
-.brand img {
-  display: block;
-  height: 32px;
-  width: auto;
-  image-rendering: pixelated;
-}
+.brand:hover { transform: scale(1.04); }
+.brand img { display: block; height: 38px; width: auto; }
 
 .nav ul {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .nav ul a {
-  display: inline-block;
-  padding: 5px 12px;
-  font-family: var(--font-system);
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: #000000;
-  background: var(--win-gray);
-  border-top: 2px solid #ffffff;
-  border-left: 2px solid #ffffff;
-  border-right: 2px solid #404040;
-  border-bottom: 2px solid #404040;
-  cursor: pointer;
-  transition: all 0.08s ease;
-}
-
-/* Beveled button pressed effect */
-.nav ul a:hover {
-  background: #d6d6d6;
-  border-color: #ffffff #000000 #000000 #ffffff;
-}
-
-.nav ul a:active,
-.nav ul a[aria-current="page"] {
-  border-top: 2px solid #404040;
-  border-left: 2px solid #404040;
-  border-right: 2px solid #ffffff;
-  border-bottom: 2px solid #ffffff;
-  background: #a8a8a8;
-  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
-}
-
-/* ---------- Retro Window Containers ---------- */
-.win-window {
-  background: var(--win-gray);
-  border-top: 3px solid #ffffff;
-  border-left: 3px solid #ffffff;
-  border-right: 3px solid #000000;
-  border-bottom: 3px solid #000000;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
-  margin-bottom: 24px;
-}
-
-.win-titlebar {
-  background: linear-gradient(90deg, var(--win-navy), #1084d0);
-  color: #ffffff;
-  font-family: var(--font-system);
-  font-weight: 700;
-  padding: 4px 6px;
-  display: flex;
-  justify-content: space-between;
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
+  padding: 8px 18px;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #475569;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.win-titlebar-buttons {
-  display: flex;
-  gap: 3px;
+.nav ul a:hover {
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
 }
 
-.win-btn-tiny {
-  width: 18px;
-  height: 18px;
-  background: var(--win-gray);
-  border-top: 1px solid #ffffff;
-  border-left: 1px solid #ffffff;
-  border-right: 1px solid #000000;
-  border-bottom: 1px solid #000000;
-  font-size: 10px;
-  line-height: 14px;
-  text-align: center;
-  color: #000000;
-  font-weight: bold;
-  user-select: none;
+.nav ul a[aria-current="page"] {
+  color: #ffffff;
+  background: var(--grad-hero);
+  box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
 }
 
-.win-btn-tiny:hover { background: #e0e0e0; }
-
-/* ---------- Hero Section ---------- */
+/* ---------- Hero Section (2018 Colorful Headline) ---------- */
 .hero {
   text-align: center;
-  padding: 24px 16px;
+  padding: clamp(48px, 9vw, 90px) 0 clamp(32px, 5vw, 56px);
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 50px;
   background: #ffffff;
-  margin: 6px;
-  border: 2px inset #808080;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6366f1;
+  margin-bottom: 20px;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  animation: floatBadge 3s ease-in-out infinite;
 }
 
 .hero h1 {
-  margin: 0;
-  font-family: var(--font-retro);
-  font-size: clamp(2.4rem, 6vw, 3.8rem);
-  color: #000080;
-  letter-spacing: 1px;
-  animation: bannerPulse 4s infinite alternate;
+  margin: 0 auto;
+  max-width: 18ch;
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 2rem + 3vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #1e293b 20%, #4f46e5 50%, #ec4899 90%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradientWave 8s ease infinite;
 }
 
 .hero p {
-  margin: 12px auto 0;
-  max-width: 650px;
-  font-size: 1.05rem;
-  color: #1a1a1a;
-  background: #ffffcc;
-  padding: 8px;
-  border: 1px dashed #808000;
+  margin: 18px auto 0;
+  max-width: 580px;
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+  color: var(--text-sub);
+  font-weight: 400;
 }
 
-/* ---------- Retro Tool Grid ---------- */
-main { flex: 1 0 auto; padding-bottom: 30px; }
+/* ---------- 2018 Interactive Tool Cards ---------- */
+main { flex: 1 0 auto; padding-bottom: 60px; }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 24px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--win-gray);
-  border-top: 3px solid #ffffff;
-  border-left: 3px solid #ffffff;
-  border-right: 3px solid #000000;
-  border-bottom: 3px solid #000000;
-  text-decoration: none;
-  color: #000000;
   height: 100%;
-  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  min-height: 240px;
+  padding: 28px 24px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
 }
 
-.card-inner {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* 90s Button Hover Effects */
+/* Floating Elevation on Card Hover */
 .card:hover {
-  background: #e4e4e4;
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.7);
-}
-
-.card:hover .tile {
-  animation: tileWiggle 0.4s ease-in-out infinite alternate;
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+  border-color: rgba(99, 102, 241, 0.25);
 }
 
 .card:active {
-  transform: translate(2px, 2px);
-  border-top: 3px solid #000000;
-  border-left: 3px solid #000000;
-  border-right: 3px solid #ffffff;
-  border-bottom: 3px solid #ffffff;
-  box-shadow: inset 2px 2px 3px rgba(0,0,0,0.6);
+  transform: translateY(-2px) scale(0.99);
 }
 
+/* Ambient Card Gradient Top-Line */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--card-grad);
+  border-radius: 20px 20px 0 0;
+  opacity: 0.85;
+  transition: height 0.25s ease;
+}
+.card:hover::before { height: 7px; }
+
+/* Vibrant Icon Container */
 .tile {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  margin-bottom: 12px;
-  background: var(--tint, #333333);
+  width: 54px;
+  height: 54px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: var(--card-grad);
   color: #ffffff;
-  border: 2px solid #000000;
-  box-shadow: 2px 2px 0px #ffffff;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card:hover .tile {
+  transform: rotate(6deg) scale(1.12);
 }
 
 .tile svg {
@@ -371,106 +340,100 @@ main { flex: 1 0 auto; padding-bottom: 30px; }
 }
 
 .card strong {
-  font-family: var(--font-retro);
-  font-size: 1.6rem;
-  letter-spacing: 0.5px;
-  color: #000080;
-  margin-bottom: 4px;
+  font-family: var(--font-heading);
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
 }
 
 .card .desc {
   font-size: 0.95rem;
-  color: #222222;
-  margin-bottom: 14px;
-  flex-grow: 1;
+  line-height: 1.5;
+  color: var(--text-sub);
+  margin-bottom: 20px;
 }
 
-/* 90s Classic Button Styling */
+/* ---------- 2018 Special Gradient CTA Buttons ---------- */
 .card .open {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: var(--win-gray);
-  border-top: 2px solid #ffffff;
-  border-left: 2px solid #ffffff;
-  border-right: 2px solid #000000;
-  border-bottom: 2px solid #000000;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #000080;
+  gap: 8px;
   margin-top: auto;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--card-grad);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
   align-self: flex-start;
+  transition: all 0.3s ease;
+}
+
+/* Shimmer Light Reflection Sweep */
+.card .open::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: translateX(-150%) skewX(-25deg);
+}
+
+.card:hover .open::after {
+  animation: buttonShimmer 1.1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover .open {
-  background: var(--neon-yellow);
-  color: #000000;
-  border-color: #000000;
-}
-
-.card:active .open {
-  border-top: 2px solid #000000;
-  border-left: 2px solid #000000;
-  border-right: 2px solid #ffffff;
-  border-bottom: 2px solid #ffffff;
+  padding-right: 24px;
 }
 
 .card .open svg {
-  width: 14px;
-  height: 14px;
-  stroke-width: 3;
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.5;
+  transition: transform 0.25s ease;
 }
 
-/* Vintage 90s Windows-like palette colors */
-.t-blue   { --tint: #0000aa; }
-.t-violet { --tint: #7000aa; }
-.t-slate  { --tint: #555555; }
-.t-pink   { --tint: #aa0055; }
-.t-green  { --tint: #008000; }
-.t-red    { --tint: #aa0000; }
+.card:hover .open svg {
+  transform: translateX(4px);
+}
 
-/* ---------- Ad & Counter Container ---------- */
+/* Specific Card Themes */
+.t-blue   { --card-grad: var(--grad-blue);   --card-shadow: var(--shadow-blue); }
+.t-violet { --card-grad: var(--grad-violet); --card-shadow: var(--shadow-violet); }
+.t-slate  { --card-grad: var(--grad-slate);  --card-shadow: var(--shadow-slate); }
+.t-pink   { --card-grad: var(--grad-pink);   --card-shadow: var(--shadow-pink); }
+.t-green  { --card-grad: var(--grad-green);  --card-shadow: var(--shadow-green); }
+.t-red    { --card-grad: var(--grad-red);    --card-shadow: var(--shadow-red); }
+
+/* ---------- Ad Container Card ---------- */
 .ad-section {
-  background: var(--win-gray);
-  border-top: 3px solid #ffffff;
-  border-left: 3px solid #ffffff;
-  border-right: 3px solid #000000;
-  border-bottom: 3px solid #000000;
-  box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
-  padding: 10px;
-  max-width: 980px;
-  margin: 16px auto;
-  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: 16px;
+  max-width: 1100px;
+  margin: 20px auto 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
 }
 
-.web-counter {
-  text-align: center;
-  margin: 12px 0;
-  font-family: var(--font-retro);
-  font-size: 1.3rem;
-  color: #ffffff;
-}
-
-.counter-box {
-  display: inline-block;
-  background: #000000;
-  color: var(--neon-green);
-  padding: 3px 8px;
-  border: 2px inset #ffffff;
-  letter-spacing: 3px;
-  font-weight: bold;
-}
-
-/* ---------- 90s Footer / Taskbar ---------- */
+/* ---------- 2018 Clean Elevated Footer ---------- */
 footer {
-  background: var(--win-gray);
-  border-top: 3px solid #ffffff;
-  border-bottom: 3px solid #000000;
-  box-shadow: 0 -2px 0px rgba(0, 0, 0, 0.2);
-  padding: 10px 0;
-  font-size: 0.85rem;
+  background: #ffffff;
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  padding: 28px 0;
+  font-size: 0.92rem;
+  color: var(--text-sub);
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.02);
 }
 
 footer .wrap {
@@ -478,79 +441,95 @@ footer .wrap {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
 }
 
-footer nav {
-  display: flex;
-  gap: 10px;
-}
-
+footer p { margin: 0; }
 footer a {
-  color: var(--link-blue);
-  text-decoration: underline;
-  font-weight: bold;
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
+footer a:hover { color: #ec4899; }
 
-footer a:hover {
-  color: #ff0000;
-  background: #ffff00;
+footer nav { display: flex; gap: 20px; }
+footer nav a {
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+footer nav a:hover {
+  background: rgba(79, 70, 229, 0.08);
 }
 
 .skip {
   position: absolute;
-  left: 10px;
+  left: 20px;
   top: -80px;
-  background: #ffff00;
-  color: #000000;
-  padding: 8px 12px;
-  font-weight: bold;
-  border: 2px solid #000000;
-  z-index: 9999;
+  z-index: 200;
+  padding: 10px 18px;
+  border-radius: 50px;
+  background: #1e293b;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
 }
-.skip:focus { top: 10px; }
+.skip:focus { top: 15px; }
 
-/* ---------- Responsive Rules ---------- */
-
-/* Tablet (2 columns) */
-@media (max-width: 860px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* ---------- Responsive Layout ---------- */
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
 }
 
-/* Mobile Screens */
-@media (max-width: 580px) {
+@media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 16px;
+  }
+  
+  .card {
+    min-height: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: 16px;
+    row-gap: 4px;
+    align-items: start;
   }
 
-  .card-inner {
-    display: grid;
-    grid-template-columns: 50px 1fr;
-    column-gap: 14px;
-    row-gap: 4px;
-    padding: 12px;
+  .card::before {
+    top: 0; bottom: 0; left: 0;
+    width: 5px; height: 100%;
+    border-radius: 20px 0 0 20px;
   }
 
   .tile {
     grid-row: 1 / span 3;
-    margin: 0;
+    margin-bottom: 0;
     align-self: center;
+    width: 48px;
+    height: 48px;
   }
 
   .card strong {
-    font-size: 1.4rem;
+    font-size: 1.15rem;
     margin: 0;
   }
 
   .card .desc {
     margin: 0;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
   }
 
   .card .open {
-    margin-top: 6px;
-    padding: 4px 10px;
+    margin-top: 8px;
+    padding: 6px 16px;
     font-size: 0.8rem;
   }
 
@@ -558,22 +537,14 @@ footer a:hover {
     font-size: 2.1rem;
   }
 
-  .nav ul a {
-    padding: 4px 8px;
-    font-size: 0.8rem;
+  .hero p {
+    font-size: 0.98rem;
   }
 
   footer .wrap {
     flex-direction: column;
-    align-items: center;
     text-align: center;
-  }
-}
-
-@media (max-width: 420px) {
-  .nav .wrap {
-    flex-direction: column;
-    gap: 8px;
+    justify-content: center;
   }
 }
 </style>
@@ -582,11 +553,11 @@ footer a:hover {
 <body>
 <a class="skip" href="#tools">Skip to tools</a>
 
-<!-- 90s Scrolling Marquee Ticker -->
-<div class="retro-ticker" aria-hidden="true">
-  <div class="ticker-content">
-    *** WELCOME TO PYCODES.IN *** BEST FREE DEVELOPER & UTILITY WEB TOOLS *** NO SIGNUP REQUIRED *** BEST VIEWED IN 800x600 RESOLUTION ***
-  </div>
+<!-- 2018 Animated Floating Background Orbs -->
+<div class="bg-blobs" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
 </div>
 
 <header class="nav">
@@ -596,166 +567,104 @@ footer a:hover {
     </a>
     <nav aria-label="Primary">
       <ul>
-        <li class="home"><a href="https://www.pycodes.in" aria-current="page">[Home]</a></li>
-        <li><a href="https://www.pycodes.in/tutorials">[Tutorials]</a></li>
-        <li><a href="https://www.pycodes.in/about.html">[About us]</a></li>
+        <li class="home"><a href="https://www.pycodes.in" aria-current="page">Home</a></li>
+        <li><a href="https://www.pycodes.in/tutorials">Tutorials</a></li>
+        <li><a href="https://www.pycodes.in/about.html">About us</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
 <main id="tools" class="wrap">
-  <!-- Windows 95 Styled Hero Dialog -->
-  <div class="win-window">
-    <div class="win-titlebar">
-      <span>💾 PyCodes_Launcher_v1.0.exe</span>
-      <div class="win-titlebar-buttons">
-        <div class="win-btn-tiny">_</div>
-        <div class="win-btn-tiny">□</div>
-        <div class="win-btn-tiny">✕</div>
-      </div>
+  <section class="hero" aria-labelledby="page-title">
+    <div class="hero-pill">
+      <span>✨ 100% Free Developer Toolkit</span>
     </div>
-    
-    <section class="hero" aria-labelledby="page-title">
-      <h1 id="page-title">★ Free Tools Hub ★</h1>
-      <p><span class="blink">▶ HOT:</span> Online compilers, free software downloads, a QR generator, and more. No signup needed.</p>
-    </section>
-  </div>
+    <h1 id="page-title">Free tools for coding and everyday tasks</h1>
+    <p>Online compilers, free software downloads, a QR generator, and more. No signup needed.</p>
+  </section>
 
   <ul class="grid" aria-label="Tools">
 
     <li>
-      <div class="win-window" style="margin-bottom:0; height:100%;">
-        <div class="win-titlebar">
-          <span>compiler.exe</span>
-          <div class="win-btn-tiny">✕</div>
-        </div>
-        <a class="card t-blue" href="https://www.pycodes.in/online-compilers">
-          <div class="card-inner">
-            <span class="tile" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            </span>
-            <strong>Online compilers</strong>
-            <span class="desc">Write and run code in your browser.</span>
-            <span class="open">> RUN
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-            </span>
-          </div>
-        </a>
-      </div>
+      <a class="card t-blue" href="https://www.pycodes.in/online-compilers">
+        <span class="tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </span>
+        <strong>Online compilers</strong>
+        <span class="desc">Write and run code in your browser.</span>
+        <span class="open">Open Tool
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </a>
     </li>
 
     <li>
-      <div class="win-window" style="margin-bottom:0; height:100%;">
-        <div class="win-titlebar">
-          <span>softbox.bin</span>
-          <div class="win-btn-tiny">✕</div>
-        </div>
-        <a class="card t-violet" href="https://www.pycodes.in/softbox">
-          <div class="card-inner">
-            <span class="tile" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 20h20"/><path d="M12 7v5M9.5 10l2.5 2.5 2.5-2.5"/></svg>
-            </span>
-            <strong>SoftBox</strong>
-            <span class="desc">Download free software for your PC from one place.</span>
-            <span class="open">> OPEN
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-            </span>
-          </div>
-        </a>
-      </div>
+      <a class="card t-violet" href="https://www.pycodes.in/softbox">
+        <span class="tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 20h20"/><path d="M12 7v5M9.5 10l2.5 2.5 2.5-2.5"/></svg>
+        </span>
+        <strong>SoftBox</strong>
+        <span class="desc">Download free software for your PC from one place.</span>
+        <span class="open">Open Tool
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </a>
     </li>
 
     <li>
-      <div class="win-window" style="margin-bottom:0; height:100%;">
-        <div class="win-titlebar">
-          <span>qr_maker.app</span>
-          <div class="win-btn-tiny">✕</div>
-        </div>
-        <a class="card t-slate" href="https://www.pycodes.in/qr-generator">
-          <div class="card-inner">
-            <span class="tile" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h4v-4"/></svg>
-            </span>
-            <strong>QR generator</strong>
-            <span class="desc">Turn a link or text into a QR code.</span>
-            <span class="open">> CREATE
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-            </span>
-          </div>
-        </a>
-      </div>
+      <a class="card t-slate" href="https://www.pycodes.in/qr-generator">
+        <span class="tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h4v-4"/></svg>
+        </span>
+        <strong>QR generator</strong>
+        <span class="desc">Turn a link or text into a QR code.</span>
+        <span class="open">Open Tool
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </a>
     </li>
 
     <li>
-      <div class="win-window" style="margin-bottom:0; height:100%;">
-        <div class="win-titlebar">
-          <span>gallery.bmp</span>
-          <div class="win-btn-tiny">✕</div>
-        </div>
-        <a class="card t-pink" href="https://www.pycodes.in/pics-gallery">
-          <div class="card-inner">
-            <span class="tile" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg>
-            </span>
-            <strong>Pics gallery</strong>
-            <span class="desc">Browse the PyCodes picture gallery.</span>
-            <span class="open">> VIEW
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-            </span>
-          </div>
-        </a>
-      </div>
+      <a class="card t-pink" href="https://www.pycodes.in/pics-gallery">
+        <span class="tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg>
+        </span>
+        <strong>Pics gallery</strong>
+        <span class="desc">Browse the PyCodes picture gallery.</span>
+        <span class="open">Open Tool
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </a>
     </li>
 
     <li>
-      <div class="win-window" style="margin-bottom:0; height:100%;">
-        <div class="win-titlebar">
-          <span>typing_speed.com</span>
-          <div class="win-btn-tiny">✕</div>
-        </div>
-        <a class="card t-green" href="https://www.pycodes.in/typing-test">
-          <div class="card-inner">
-            <span class="tile" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
-            </span>
-            <strong>Typing test</strong>
-            <span class="desc">Check your typing speed in words per minute.</span>
-            <span class="open">> START
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-            </span>
-          </div>
-        </a>
-      </div>
+      <a class="card t-green" href="https://www.pycodes.in/typing-test">
+        <span class="tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
+        </span>
+        <strong>Typing test</strong>
+        <span class="desc">Check your typing speed in words per minute.</span>
+        <span class="open">Open Tool
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </a>
     </li>
 
     <li>
-      <div class="win-window" style="margin-bottom:0; height:100%;">
-        <div class="win-titlebar">
-          <span>readme.txt</span>
-          <div class="win-btn-tiny">✕</div>
-        </div>
-        <a class="card t-red" href="https://www.pycodes.in/tutorials">
-          <div class="card-inner">
-            <span class="tile" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 5h13v14a1 1 0 0 0 1 1H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v9a2 2 0 0 1-2 2"/><line x1="8" y1="9" x2="13" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg>
-            </span>
-            <strong>Tutorials</strong>
-            <span class="desc">Tech news and guides for learning to code.</span>
-            <span class="open">> READ
-              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-            </span>
-          </div>
-        </a>
-      </div>
+      <a class="card t-red" href="https://www.pycodes.in/tutorials">
+        <span class="tile" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 5h13v14a1 1 0 0 0 1 1H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v9a2 2 0 0 1-2 2"/><line x1="8" y1="9" x2="13" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg>
+        </span>
+        <strong>Tutorials</strong>
+        <span class="desc">Tech news and guides for learning to code.</span>
+        <span class="open">Open Tool
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </a>
     </li>
 
   </ul>
-
-  <!-- 90s Hit Counter Badge -->
-  <div class="web-counter">
-    VISITOR NO: <span class="counter-box">008492</span>
-  </div>
 </main>
 
 <div class="ad-section" style="text-align:center;">
@@ -775,14 +684,28 @@ footer a:hover {
   <div class="wrap">
     <p>© <span id="year">2026</span> <a href="https://www.pycodes.in">PyCodes.in</a>. All Rights Reserved.</p>
     <nav aria-label="Footer">
-      <a href="https://www.pycodes.in">[Home]</a>
-      <a href="https://www.pycodes.in/tutorials">[Tutorials]</a>
-      <a href="https://www.pycodes.in/about.html">[About us]</a>
+      <a href="https://www.pycodes.in">Home</a>
+      <a href="https://www.pycodes.in/tutorials">Tutorials</a>
+      <a href="https://www.pycodes.in/about.html">About us</a>
     </nav>
   </div>
 </footer>
 
 <script>
+  // Dynamic 3D tilt mouse movement on cards (Popular in 2018 designs)
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      card.style.transform = `perspective(800px) rotateX(${-y / 25}deg) rotateY(${x / 25}deg) translateY(-8px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
   // Keep the footer year current.
   (function () {
     var el = document.getElementById("year");

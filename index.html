@@ -10,7 +10,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
     
@@ -38,42 +38,34 @@ document.addEventListener('keydown', function(e) {
 
 <style>
 /* ==========================================================================
-   DESIGN SYSTEM FUSION:
-   - Netflix Dark Canvas (#141414 / #0b0c10)
-   - Apple Typography, Blur & Precision Micro-borders
-   - Microsoft Fluent Acrylic Depth & Light Leak Gradients
-   - Google Material 3 Pill Radii & Elevation
-   - Amazon High-Conversion CTA Sheen
-   - Meta Interactive Feedback States
+   PURE WHITE STUDIO / BENTO GRID ARCHITECTURE
    ========================================================================== */
 :root {
-  --bg-canvas: #090a0f;
-  --surface-mica: rgba(22, 27, 38, 0.72);
-  --surface-card: rgba(18, 22, 32, 0.75);
-  --surface-hover: rgba(28, 35, 51, 0.95);
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
   
-  --text-primary: #f5f5f7;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --bg-body: #fafbfc;
+  --surface-card: #ffffff;
+  --text-heading: #0f172a;
+  --text-body: #475569;
+  --text-muted: #94a3b8;
+  
+  --border-subtle: #edf2f7;
+  --border-focus: #cbd5e1;
+  --ring-focus: rgba(37, 99, 235, 0.12);
+  
+  --primary: #0f172a;
+  --accent-blue: #2563eb;
+  --accent-cyan: #06b6d4;
+  --accent-violet: #7c3aed;
+  --accent-emerald: #059669;
+  --accent-rose: #e11d48;
+  --accent-amber: #d97706;
 
-  /* Fluent & Apple Optical Borders */
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(255, 255, 255, 0.22);
-
-  /* Brand Accents */
-  --apple-cyan: #2997ff;
-  --google-blue: #4285f4;
-  --google-green: #34a853;
-  --google-yellow: #fbbc05;
-  --google-red: #ea4335;
-  --netflix-red: #e50914;
-  --amazon-amber: #f59e0b;
-  --amazon-amber-hover: #d97706;
-  --meta-blue: #0064e0;
-
-  /* Spring Physics Easings */
-  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.02);
+  --shadow-hover: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -88,393 +80,439 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-canvas);
-  color: var(--text-primary);
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 16px;
-  line-height: 1.55;
-  overflow-x: hidden;
+  background-color: var(--bg-body);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
   position: relative;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---------- Netflix-style Ambient Vignette + Microsoft Mesh Spotlight ---------- */
-.ambient-scene {
+/* Subtle architectural dot grid */
+body::before {
+  content: "";
   position: fixed;
   inset: 0;
-  pointer-events: none;
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.6;
   z-index: -1;
-  overflow: hidden;
+  pointer-events: none;
 }
-
-.ambient-scene::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(66, 133, 244, 0.18) 0%, rgba(229, 9, 20, 0.12) 40%, transparent 75%);
-  filter: blur(90px);
-  animation: pulseAura 10s ease-in-out infinite alternate;
-}
-
-.ambient-scene::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 400px;
-  background: radial-gradient(ellipse at bottom, rgba(0, 100, 224, 0.12) 0%, transparent 70%);
-  filter: blur(80px);
-}
-
-@keyframes pulseAura {
-  0% { transform: translateX(-50%) scale(0.95); opacity: 0.8; }
-  50% { transform: translateX(-48%) scale(1.08); opacity: 1; }
-  100% { transform: translateX(-52%) scale(1); opacity: 0.85; }
-}
-
-/* ---------- Skip link ---------- */
-.skip {
-  position: absolute;
-  left: 20px;
-  top: -80px;
-  z-index: 1000;
-  padding: 10px 20px;
-  border-radius: 9999px;
-  background: var(--apple-cyan);
-  color: #000;
-  font-weight: 700;
-  transition: top 0.2s var(--ease-apple);
-}
-.skip:focus { top: 20px; }
 
 .wrap {
   width: 100%;
-  max-width: 1140px;
+  max-width: 1180px;
   margin-inline: auto;
   padding-inline: 24px;
 }
 
-/* ---------- Header: Apple Frosted Glass + Meta Ergonomics ---------- */
+.skip {
+  position: absolute;
+  left: 20px;
+  top: -80px;
+  z-index: 999;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--text-heading);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip:focus { top: 20px; }
+
+/* ---------- Floating Clean Header ---------- */
 .nav {
   position: sticky;
-  top: 0;
-  z-index: 200;
-  background: rgba(9, 10, 15, 0.75);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--border-subtle);
-  transition: border-color 0.3s ease;
+  top: 16px;
+  z-index: 100;
+  margin-bottom: 24px;
 }
 
 .nav .wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 64px;
+  min-height: 60px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  padding: 6px 14px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  transition: transform 0.25s var(--ease-apple);
+  gap: 8px;
+  padding-left: 8px;
+  text-decoration: none;
 }
-.brand:hover { transform: scale(1.02); }
 .brand img {
   display: block;
-  height: 34px;
+  height: 32px;
   width: auto;
-  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
 }
 
 .nav ul {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   margin: 0;
-  padding: 4px;
+  padding: 0;
   list-style: none;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 9999px;
-  border: 1px solid var(--border-subtle);
 }
 
 .nav ul a {
   display: inline-flex;
   align-items: center;
-  padding: 8px 18px;
-  border-radius: 9999px;
+  padding: 7px 16px;
+  border-radius: 999px;
   font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  transition: color 0.2s ease, background 0.2s ease;
+  font-weight: 600;
+  color: var(--text-body);
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
 .nav ul a:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-heading);
+  background: #f1f5f9;
 }
 
 .nav ul a[aria-current="page"] {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  background: var(--text-heading);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
 }
 
-/* ---------- Hero: Apple Scale Typography + Google Chips ---------- */
+/* ---------- Hero & Search Command Center ---------- */
 .hero {
+  padding: 40px 0 28px;
   text-align: center;
-  padding: clamp(64px, 12vw, 110px) 0 clamp(36px, 6vw, 64px);
-  position: relative;
 }
 
-.chip-tag {
+.hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: 0.02em;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-}
-
-.chip-tag .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--google-green);
-  box-shadow: 0 0 10px var(--google-green);
-  animation: liveBeacon 2s infinite ease-in-out;
-}
-
-@keyframes liveBeacon {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
 }
 
 .hero h1 {
   margin: 0 auto;
-  max-width: 17ch;
-  font-size: clamp(2.5rem, 1.8rem + 3.8vw, 4.4rem);
+  max-width: 20ch;
+  font-size: clamp(2.3rem, 1.8rem + 3.2vw, 3.8rem);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.15;
   letter-spacing: -0.04em;
-  background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.65) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-heading);
 }
 
 .hero p {
-  margin: 20px auto 0;
-  max-width: 36rem;
-  font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.3rem);
-  line-height: 1.5;
-  color: var(--text-secondary);
-  font-weight: 400;
+  margin: 16px auto 0;
+  max-width: 540px;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.18rem);
+  color: var(--text-body);
 }
 
-/* ---------- Grid & Cards: Microsoft Fluent + Netflix Glow & Zoom ---------- */
-main { flex: 1 0 auto; padding-bottom: 72px; }
+/* Tool Filter & Quick Find Controls */
+.filter-toolbar {
+  max-width: 680px;
+  margin: 36px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
 
-.grid {
+.search-box {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box svg {
+  position: absolute;
+  left: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 18px 14px 48px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: var(--shadow-sm);
+  color: var(--text-heading);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 4px var(--ring-focus);
+}
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.chip-btn {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chip-btn:hover, .chip-btn.active {
+  background: var(--text-heading);
+  color: #ffffff;
+  border-color: var(--text-heading);
+}
+
+/* ---------- Bento Grid Architecture ---------- */
+main { flex: 1 0 auto; padding-bottom: 60px; }
+
+.bento-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  margin: 0;
-  padding: 0;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
   list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
 }
+
+/* Asymmetric Bento Spans */
+.bento-grid li:nth-child(1) { grid-column: span 7; } /* Online Compilers (Hero Bento) */
+.bento-grid li:nth-child(2) { grid-column: span 5; } /* Softbox */
+.bento-grid li:nth-child(3) { grid-column: span 4; } /* QR Generator */
+.bento-grid li:nth-child(4) { grid-column: span 4; } /* Pics Gallery */
+.bento-grid li:nth-child(5) { grid-column: span 4; } /* Typing Test */
+.bento-grid li:nth-child(6) { grid-column: span 12; } /* Tutorials Wide Bar */
 
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 250px;
-  padding: 30px 26px;
+  min-height: 220px;
+  padding: 28px;
   border-radius: 24px;
   background: var(--surface-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.65);
+  box-shadow: var(--shadow-sm);
   text-decoration: none;
-  color: var(--text-primary);
+  color: inherit;
   overflow: hidden;
-  transition: transform 0.35s var(--ease-apple),
-              box-shadow 0.35s var(--ease-apple),
-              border-color 0.35s ease,
-              background 0.35s ease;
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Microsoft Fluent Light Leak Highlight */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: #cbd5e1;
+}
+
+.card:active {
+  transform: translateY(-2px) scale(0.995);
+}
+
+/* Ambient Radial Hover Light */
 .card::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 24px;
-  padding: 1px;
-  background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 0%), rgba(255, 255, 255, 0.3), transparent 60%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(241, 245, 249, 0.7), transparent 60%);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-/* Netflix Elevation & Zoom Focus */
-.card:hover {
-  transform: translateY(-8px) scale(1.02);
-  background: var(--surface-hover);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 24px 60px -15px var(--hover-shadow, rgba(0, 0, 0, 0.85));
+  transition: opacity 0.3s ease;
 }
 .card:hover::before { opacity: 1; }
-.card:active { transform: translateY(-3px) scale(0.99); }
 
-/* Meta-style Icon Tile Badge */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
 .tile {
   display: grid;
   place-items: center;
-  width: 56px;
-  height: 56px;
-  margin-bottom: 20px;
-  border-radius: 18px;
-  background: var(--tile-bg);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 24px -4px var(--tile-glow);
-  transition: transform 0.4s var(--ease-bounce);
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: var(--icon-bg);
+  color: var(--icon-color);
+  box-shadow: 0 4px 12px var(--icon-shadow);
+  transition: transform 0.3s var(--ease-spring);
 }
 
 .card:hover .tile {
-  transform: scale(1.1) rotate(-3deg);
+  transform: scale(1.1) rotate(-4deg);
 }
 
 .tile svg {
-  width: 28px;
-  height: 28px;
-  fill: none;
-  stroke: currentColor;
+  width: 24px;
+  height: 24px;
   stroke-width: 2;
+  stroke: currentColor;
+  fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: var(--text-muted);
+}
+
+.card-body {
+  flex-grow: 1;
+}
+
 .card strong {
+  display: block;
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff;
-  margin-bottom: 6px;
+  color: var(--text-heading);
+  margin-bottom: 8px;
 }
 
 .card .desc {
-  font-size: 0.96rem;
+  font-size: 0.95rem;
   line-height: 1.5;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
+  color: var(--text-body);
 }
 
-/* ---------- Amazon High-Impact CTA Button ---------- */
+.card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px dashed #f1f5f9;
+}
+
+.card .category-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
 .card .open {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: auto;
-  padding: 10px 22px;
-  border-radius: 9999px;
+  gap: 6px;
   font-size: 0.88rem;
-  font-weight: 600;
-  color: #0b0c10;
-  background: var(--amazon-amber);
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
-  align-self: flex-start;
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card:hover .open {
-  background: #fbbf24;
-  transform: translateX(4px);
-  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
+  font-weight: 700;
+  color: var(--accent-blue);
+  transition: transform 0.2s ease;
 }
 
 .card .open svg {
-  width: 15px;
-  height: 15px;
-  stroke-width: 2.5;
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.2;
+  stroke: currentColor;
+  fill: none;
   transition: transform 0.2s ease;
 }
 
 .card:hover .open svg {
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
-/* Ecosystem Palette Tuning */
-.t-blue {
-  --tile-bg: linear-gradient(135deg, #2563eb, #38bdf8);
-  --tile-glow: rgba(56, 189, 248, 0.45);
-  --hover-shadow: rgba(37, 99, 235, 0.35);
-}
-.t-violet {
-  --tile-bg: linear-gradient(135deg, #7c3aed, #c084fc);
-  --tile-glow: rgba(192, 132, 252, 0.45);
-  --hover-shadow: rgba(124, 58, 237, 0.35);
-}
-.t-slate {
-  --tile-bg: linear-gradient(135deg, #0ea5e9, #6366f1);
-  --tile-glow: rgba(99, 102, 241, 0.45);
-  --hover-shadow: rgba(14, 165, 233, 0.35);
-}
-.t-pink {
-  --tile-bg: linear-gradient(135deg, #db2777, #f43f5e);
-  --tile-glow: rgba(244, 63, 94, 0.45);
-  --hover-shadow: rgba(219, 39, 119, 0.35);
-}
-.t-green {
-  --tile-bg: linear-gradient(135deg, #059669, #34d399);
-  --tile-glow: rgba(52, 211, 153, 0.45);
-  --hover-shadow: rgba(5, 150, 105, 0.35);
-}
-.t-red {
-  --tile-bg: linear-gradient(135deg, #dc2626, #f87171);
-  --tile-glow: rgba(248, 113, 113, 0.45);
-  --hover-shadow: rgba(220, 38, 38, 0.35);
+/* Bento Item #6 (Tutorials Horizon Bar) Custom View */
+.bento-grid li:nth-child(6) .card {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 120px;
+  padding: 24px 32px;
 }
 
-/* ---------- Ads Shell ---------- */
+.bento-grid li:nth-child(6) .card-header-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.bento-grid li:nth-child(6) .card-top { margin: 0; }
+.bento-grid li:nth-child(6) .card-foot {
+  margin: 0;
+  padding: 0;
+  border: none;
+  gap: 16px;
+}
+
+/* Category Accent Palette */
+.t-blue   { --icon-bg: #eff6ff; --icon-color: #2563eb; --icon-shadow: rgba(37, 99, 235, 0.15); }
+.t-violet { --icon-bg: #f5f3ff; --icon-color: #7c3aed; --icon-shadow: rgba(124, 58, 237, 0.15); }
+.t-slate  { --icon-bg: #f8fafc; --icon-color: #0f172a; --icon-shadow: rgba(15, 23, 42, 0.15); }
+.t-pink   { --icon-bg: #fdf2f8; --icon-color: #db2777; --icon-shadow: rgba(219, 39, 119, 0.15); }
+.t-green  { --icon-bg: #ecfdf5; --icon-color: #059669; --icon-shadow: rgba(5, 150, 105, 0.15); }
+.t-red    { --icon-bg: #fef2f2; --icon-color: #dc2626; --icon-shadow: rgba(220, 38, 38, 0.15); }
+
+/* ---------- Ad Container Card ---------- */
 .ad-section {
-  background: rgba(18, 22, 32, 0.6);
-  border: 1px solid var(--border-subtle);
+  background: #ffffff;
   border-radius: 20px;
+  border: 1px solid var(--border-subtle);
   padding: 16px;
-  max-width: 1140px;
-  margin: 20px auto 48px;
-  backdrop-filter: blur(14px);
+  max-width: 1180px;
+  margin: 24px auto 48px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  overflow-x: auto;
 }
 
-/* ---------- Footer: Clean Meta/Apple Bar ---------- */
+/* ---------- Clean Minimal Footer ---------- */
 footer {
   border-top: 1px solid var(--border-subtle);
-  background: rgba(9, 10, 15, 0.95);
-  padding: 32px 0 calc(32px + env(safe-area-inset-bottom, 0px));
+  background: #ffffff;
+  padding: 32px 0;
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: var(--text-body);
 }
 
 footer .wrap {
@@ -487,55 +525,64 @@ footer .wrap {
 
 footer p { margin: 0; }
 footer a {
-  color: var(--text-secondary);
+  color: var(--text-heading);
   text-decoration: none;
+  font-weight: 500;
   transition: color 0.2s ease;
 }
-footer a:hover { color: #ffffff; }
+footer a:hover { color: var(--accent-blue); }
 
-footer nav { display: flex; gap: 24px; }
-footer nav a:hover { text-decoration: underline; }
+footer nav { display: flex; gap: 20px; }
 
-/* ---------- Responsive Layouts ---------- */
-@media (max-width: 980px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+/* ---------- Responsive Adjustments ---------- */
+@media (max-width: 992px) {
+  .bento-grid li:nth-child(1),
+  .bento-grid li:nth-child(2),
+  .bento-grid li:nth-child(3),
+  .bento-grid li:nth-child(4),
+  .bento-grid li:nth-child(5),
+  .bento-grid li:nth-child(6) {
+    grid-column: span 6;
+  }
+  .bento-grid li:nth-child(6) { grid-column: span 12; }
 }
 
-@media (max-width: 620px) {
-  .grid { grid-template-columns: 1fr; gap: 16px; }
-
-  .card {
-    min-height: auto;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    grid-template-rows: auto auto auto;
-    column-gap: 16px;
-    row-gap: 4px;
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
-  .tile {
-    grid-row: 1 / span 3;
-    margin: 0;
-    align-self: center;
-    width: 50px;
-    height: 50px;
+  .bento-grid li:nth-child(n) {
+    grid-column: span 1;
   }
 
-  .card strong { font-size: 1.2rem; margin: 0; }
-  .card .desc { font-size: 0.92rem; margin: 0; }
-  .card .open {
-    margin-top: 8px;
-    padding: 7px 16px;
-    font-size: 0.82rem;
+  .bento-grid li:nth-child(6) .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bento-grid li:nth-child(6) .card-header-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .bento-grid li:nth-child(6) .card-foot {
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px dashed #f1f5f9;
   }
 
   .hero h1 { font-size: 2.2rem; }
-  .hero p { font-size: 1rem; }
-
+  .nav { top: 8px; }
+  .nav .wrap { border-radius: 20px; }
+  
   footer .wrap {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 }
 </style>
@@ -543,9 +590,6 @@ footer nav a:hover { text-decoration: underline; }
 
 <body>
 <a class="skip" href="#tools">Skip to tools</a>
-
-<!-- Ambient Visual Dynamics -->
-<div class="ambient-scene" aria-hidden="true"></div>
 
 <header class="nav">
   <div class="wrap">
@@ -563,99 +607,169 @@ footer nav a:hover { text-decoration: underline; }
 </header>
 
 <main id="tools" class="wrap">
+  <!-- Interactive Modern Hero -->
   <section class="hero" aria-labelledby="page-title">
-    <div class="chip-tag">
-      <span class="dot"></span>
-      <span>Engineered for Developers & Creators</span>
+    <div class="hero-badge">
+      <span>● Fast & Client-Side Hub</span>
     </div>
     <h1 id="page-title">Free tools for coding and everyday tasks</h1>
     <p>Online compilers, free software downloads, a QR generator, and more. No signup needed.</p>
+
+    <!-- Quick Search & Category Filter Toolbar -->
+    <div class="filter-toolbar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="toolSearch" class="search-input" placeholder="Search any tool (e.g. compiler, qr, typing)..." aria-label="Search tools">
+      </div>
+      <div class="category-chips">
+        <button type="button" class="chip-btn active" data-filter="all">All Tools</button>
+        <button type="button" class="chip-btn" data-filter="dev">Development</button>
+        <button type="button" class="chip-btn" data-filter="utility">Utilities</button>
+        <button type="button" class="chip-btn" data-filter="media">Media & Learning</button>
+      </div>
+    </div>
   </section>
 
-  <ul class="grid" aria-label="Tools">
+  <!-- Modern Bento Structure -->
+  <ul class="bento-grid" id="toolsList" aria-label="Tools">
 
-    <li>
+    <!-- Item 1: Wide Development Hero Card -->
+    <li data-category="dev" data-name="online compilers code python run browser">
       <a class="card t-blue" href="https://www.pycodes.in/online-compilers">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </span>
-        <strong>Online compilers</strong>
-        <span class="desc">Write and run code in your browser.</span>
-        <span class="open">Launch
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
+        <div class="card-top">
+          <span class="tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </span>
+          <span class="badge">Cloud 0.1s</span>
+        </div>
+        <div class="card-body">
+          <strong>Online compilers</strong>
+          <span class="desc">Write, test, and instantly run code across multiple languages directly in your browser.</span>
+        </div>
+        <div class="card-foot">
+          <span class="category-label">Development</span>
+          <span class="open">Run Code
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+          </span>
+        </div>
       </a>
     </li>
 
-    <li>
+    <!-- Item 2: SoftBox -->
+    <li data-category="utility" data-name="softbox software pc download utilities apps">
       <a class="card t-violet" href="https://www.pycodes.in/softbox">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 20h20"/><path d="M12 7v5M9.5 10l2.5 2.5 2.5-2.5"/></svg>
-        </span>
-        <strong>SoftBox</strong>
-        <span class="desc">Download free software for your PC from one place.</span>
-        <span class="open">Explore
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
+        <div class="card-top">
+          <span class="tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 20h20"/><path d="M12 7v5M9.5 10l2.5 2.5 2.5-2.5"/></svg>
+          </span>
+          <span class="badge">Direct Repo</span>
+        </div>
+        <div class="card-body">
+          <strong>SoftBox</strong>
+          <span class="desc">Download verified free software packages for your PC from a unified directory.</span>
+        </div>
+        <div class="card-foot">
+          <span class="category-label">Software Hub</span>
+          <span class="open">Download
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+          </span>
+        </div>
       </a>
     </li>
 
-    <li>
+    <!-- Item 3: QR Generator -->
+    <li data-category="utility" data-name="qr generator code link text scanner bar">
       <a class="card t-slate" href="https://www.pycodes.in/qr-generator">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h4v-4"/></svg>
-        </span>
-        <strong>QR generator</strong>
-        <span class="desc">Turn a link or text into a QR code.</span>
-        <span class="open">Generate
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
+        <div class="card-top">
+          <span class="tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h.01M17 21h4v-4"/></svg>
+          </span>
+          <span class="badge">Instant SVG</span>
+        </div>
+        <div class="card-body">
+          <strong>QR generator</strong>
+          <span class="desc">Turn any URL, text, or phone number into high-res customizable QR codes.</span>
+        </div>
+        <div class="card-foot">
+          <span class="category-label">Generator</span>
+          <span class="open">Create
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+          </span>
+        </div>
       </a>
     </li>
 
-    <li>
+    <!-- Item 4: Pics Gallery -->
+    <li data-category="media" data-name="pics gallery photos wallpapers images pycodes">
       <a class="card t-pink" href="https://www.pycodes.in/pics-gallery">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg>
-        </span>
-        <strong>Pics gallery</strong>
-        <span class="desc">Browse the PyCodes picture gallery.</span>
-        <span class="open">Browse
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
+        <div class="card-top">
+          <span class="tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/></svg>
+          </span>
+          <span class="badge">HD Visuals</span>
+        </div>
+        <div class="card-body">
+          <strong>Pics gallery</strong>
+          <span class="desc">Browse and inspect PyCodes curated photo collection and resources.</span>
+        </div>
+        <div class="card-foot">
+          <span class="category-label">Media</span>
+          <span class="open">Explore
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+          </span>
+        </div>
       </a>
     </li>
 
-    <li>
+    <!-- Item 5: Typing Test -->
+    <li data-category="utility" data-name="typing test wpm speed test accuracy words">
       <a class="card t-green" href="https://www.pycodes.in/typing-test">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
-        </span>
-        <strong>Typing test</strong>
-        <span class="desc">Check your typing speed in words per minute.</span>
-        <span class="open">Start Test
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
+        <div class="card-top">
+          <span class="tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
+          </span>
+          <span class="badge">Live WPM</span>
+        </div>
+        <div class="card-body">
+          <strong>Typing test</strong>
+          <span class="desc">Measure your typing speed, accuracy, and keystrokes per minute in real time.</span>
+        </div>
+        <div class="card-foot">
+          <span class="category-label">Assessment</span>
+          <span class="open">Start
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+          </span>
+        </div>
       </a>
     </li>
 
-    <li>
+    <!-- Item 6: Horizontal Learning Banner Card -->
+    <li data-category="media" data-name="tutorials learn programming coding guides articles">
       <a class="card t-red" href="https://www.pycodes.in/tutorials">
-        <span class="tile" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M4 5h13v14a1 1 0 0 0 1 1H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v9a2 2 0 0 1-2 2"/><line x1="8" y1="9" x2="13" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg>
-        </span>
-        <strong>Tutorials</strong>
-        <span class="desc">Tech news and guides for learning to code.</span>
-        <span class="open">Read Guides
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
-        </span>
+        <div class="card-header-group">
+          <div class="card-top">
+            <span class="tile" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 5h13v14a1 1 0 0 0 1 1H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v9a2 2 0 0 1-2 2"/><line x1="8" y1="9" x2="13" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg>
+            </span>
+          </div>
+          <div class="card-body">
+            <strong>Tutorials & Guides</strong>
+            <span class="desc">Deep-dive technical articles, step-by-step guides, and industry news for learning to code.</span>
+          </div>
+        </div>
+        <div class="card-foot">
+          <span class="badge">Articles & Docs</span>
+          <span class="open">Browse Tutorials
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+          </span>
+        </div>
       </a>
     </li>
 
   </ul>
 </main>
 
-<div class="ad-section" style="text-align:center;">
+<div class="ad-section">
 <script>
   atOptions = {
     'key' : '106debe0cf308ecf70013bfb995d1c64',
@@ -680,14 +794,48 @@ footer nav a:hover { text-decoration: underline; }
 </footer>
 
 <script>
-  // Microsoft Fluent Mouse Follower (Dynamic light sheen across cards)
+  // Dynamic card ambient light tracker
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+      card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+    });
+  });
+
+  // Client-side instant filter and search
+  const searchInput = document.getElementById('toolSearch');
+  const chipButtons = document.querySelectorAll('.chip-btn');
+  const toolCards = document.querySelectorAll('#toolsList li');
+
+  function filterCards() {
+    const query = searchInput.value.toLowerCase().trim();
+    const activeChip = document.querySelector('.chip-btn.active').dataset.filter;
+
+    toolCards.forEach(item => {
+      const name = item.dataset.name.toLowerCase();
+      const category = item.dataset.category;
+      
+      const matchesSearch = name.includes(query);
+      const matchesCategory = activeChip === 'all' || category === activeChip;
+
+      if (matchesSearch && matchesCategory) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', filterCards);
+  }
+
+  chipButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      chipButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterCards();
     });
   });
 

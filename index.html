@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
-    <!-- Anti-Cache Headers (Force fresh page load) -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -26,10 +25,8 @@
     input { -webkit-user-select: text; user-select: text; }
 </style>
 <script>
-    // 1. Right-click disable karein
     document.addEventListener('contextmenu', event => event.preventDefault());
 
-    // 2. Keyboard shortcuts disable karein
     document.addEventListener('keydown', function(e) {
         if (e.keyCode == 123) return false;
         if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
@@ -40,25 +37,21 @@
 </script>
 
 <style>
-/* ==========================================================================
-   THEME: Chrome "What's new" — white canvas, grey panels, Google blue,
-   pastel tiles, pill buttons
-   ========================================================================== */
+
 :root {
   --font-main: "Google Sans", "Google Sans Text", Roboto, "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
 
   --white: #ffffff;
-  --panel: #eff2f3;          /* grey rounded panel / footer */
+  --panel: #eff2f3;
   --text: #1f1f1f;
   --muted: #444746;
   --line: #dadce0;
 
-  --blue: #0b57d0;           /* primary button */
+  --blue: #0b57d0;
   --blue-hover: #0a4cb8;
-  --blue-soft: #d3e3fd;      /* light pill */
-  --blue-ring: #4285f4;      /* selected-card outline */
+  --blue-soft: #d3e3fd;
+  --blue-ring: #4285f4;
 
-  /* Pastel tiles (carousel colours) */
   --t-blue:   #b9d2fb;
   --t-yellow: #fcefc3;
   --t-green:  #cde9d6;
@@ -112,7 +105,6 @@ a { color: inherit; }
 }
 .skip:focus { top: 12px; }
 
-/* ---------- Top bar ---------- */
 .nav {
   position: sticky;
   top: 0;
@@ -192,7 +184,6 @@ a { color: inherit; }
 .nav ul a:hover { background: #eef3fc; }
 .nav ul a[aria-current="page"] { background: var(--blue-soft); }
 
-/* ---------- Hero ---------- */
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
@@ -257,7 +248,6 @@ a { color: inherit; }
 .btn-outline { background: #fff; color: var(--blue); border: 1px solid var(--blue-ring); }
 .btn-outline:hover { background: #f3f7fe; }
 
-/* ---------- Grey panel: search + filters ---------- */
 .panel {
   background: var(--panel);
   border-radius: clamp(22px, 3vw, 32px);
@@ -317,7 +307,6 @@ a { color: inherit; }
 .chip-btn:hover { background: #e3e8ee; }
 .chip-btn.active { background: var(--blue-soft); color: #041e49; border-color: var(--blue-ring); }
 
-/* ---------- Tool tiles ---------- */
 main { flex: 1 0 auto; padding-bottom: clamp(28px, 5vw, 56px); }
 
 .section-head {
@@ -409,7 +398,6 @@ main { flex: 1 0 auto; padding-bottom: clamp(28px, 5vw, 56px); }
 }
 .card .open svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 
-/* Wide card (Tutorials) */
 .tool-grid li.wide .card {
   flex-direction: row;
   align-items: center;
@@ -438,7 +426,6 @@ main { flex: 1 0 auto; padding-bottom: clamp(28px, 5vw, 56px); }
   color: var(--muted);
 }
 
-/* ---------- Ad section ---------- */
 .ad-section {
   background: var(--panel);
   border-radius: clamp(20px, 3vw, 28px);
@@ -465,7 +452,6 @@ main { flex: 1 0 auto; padding-bottom: clamp(28px, 5vw, 56px); }
   .ad-scaler { transform: scale(.42); }
 }
 
-/* ---------- Footer ---------- */
 footer { background: var(--panel); color: var(--muted); }
 .foot-row {
   display: flex;
@@ -491,9 +477,6 @@ footer nav a:hover { color: var(--blue); text-decoration: underline; }
 footer p { font-size: .9rem; }
 footer p a { text-decoration: none; font-weight: 500; }
 
-/* ==========================================================================
-   BREAKPOINTS
-   ========================================================================== */
 @media (max-width: 1024px) {
   .hero { grid-template-columns: 1fr; }
   .hero h1 { max-width: 20ch; }
@@ -594,7 +577,6 @@ footer p a { text-decoration: none; font-weight: 500; }
 
   <ul class="tool-grid" id="toolsList" aria-label="Tools">
 
-    <!-- Card 1: Compilers -->
     <li data-category="dev" data-name="online compilers code python run browser">
       <a class="card theme-blue" href="https://www.pycodes.in/online-compilers">
         <div class="card-top">
@@ -616,7 +598,6 @@ footer p a { text-decoration: none; font-weight: 500; }
       </a>
     </li>
 
-    <!-- Card 2: SoftBox -->
     <li data-category="utility" data-name="softbox software pc download utilities apps">
       <a class="card theme-purple" href="https://www.pycodes.in/softbox">
         <div class="card-top">
@@ -638,7 +619,6 @@ footer p a { text-decoration: none; font-weight: 500; }
       </a>
     </li>
 
-    <!-- Card 3: QR Generator -->
     <li data-category="utility" data-name="qr generator code link text scanner bar">
       <a class="card theme-orange" href="https://www.pycodes.in/qr-generator">
         <div class="card-top">
@@ -660,7 +640,6 @@ footer p a { text-decoration: none; font-weight: 500; }
       </a>
     </li>
 
-    <!-- Card 4: Pics Gallery -->
     <li data-category="media" data-name="pics gallery photos wallpapers images pycodes">
       <a class="card theme-pink" href="https://www.pycodes.in/pics-gallery">
         <div class="card-top">
@@ -682,7 +661,6 @@ footer p a { text-decoration: none; font-weight: 500; }
       </a>
     </li>
 
-    <!-- Card 5: Typing Test -->
     <li data-category="utility" data-name="typing test wpm speed test accuracy words">
       <a class="card theme-green" href="https://www.pycodes.in/typing-test">
         <div class="card-top">
@@ -704,7 +682,6 @@ footer p a { text-decoration: none; font-weight: 500; }
       </a>
     </li>
 
-    <!-- Card 6: Tutorials -->
     <li class="wide" data-category="media" data-name="tutorials learn programming coding guides articles">
       <a class="card theme-cyan" href="https://www.pycodes.in/tutorials">
         <div class="card-header-group">
@@ -732,7 +709,6 @@ footer p a { text-decoration: none; font-weight: 500; }
   <div class="empty" id="emptyState">No tools match your search. Try a different word or choose All tools.</div>
 </main>
 
-<!-- Auto-scaling responsive ad section -->
 <div class="ad-section">
   <div class="ad-viewport">
     <div class="ad-scaler">
@@ -769,7 +745,6 @@ footer p a { text-decoration: none; font-weight: 500; }
 </footer>
 
 <script>
-  // 1. Service Worker unregister to clear stale offline versions
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
       for (let registration of registrations) {
@@ -778,7 +753,6 @@ footer p a { text-decoration: none; font-weight: 500; }
     });
   }
 
-  // 2. Real-time Search & Filter Script
   const searchInput = document.getElementById('toolSearch');
   const chipButtons = document.querySelectorAll('.chip-btn');
   const toolCards = document.querySelectorAll('#toolsList li');
@@ -812,7 +786,6 @@ footer p a { text-decoration: none; font-weight: 500; }
     });
   });
 
-  // 3. Keep Year Updated
   (function () {
     var el = document.getElementById("year");
     if (el) el.textContent = new Date().getFullYear();
